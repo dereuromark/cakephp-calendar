@@ -12,7 +12,7 @@ A plugin to render simple calendars.
 ## Features
 - Simple and robust
 - No JS needed, more responsive than solutions like fullcalendar
-- Persistent `year/month` URL pieces (copy and paste friendly)
+- Persistent `year/month` URL pieces (copy-paste and link/redirect friendly)
 
 ## Setup
 ```

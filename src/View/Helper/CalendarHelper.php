@@ -167,11 +167,53 @@ class CalendarHelper extends Helper {
 	}
 
 	/**
-	 * @param string $date
+	 * @param \DateTimeInterface $date
 	 * @return int
 	 */
-	public function retrieveDayFromDate($date) {
+	public function retrieveDayFromDate(DateTimeInterface $date) {
 		return (int)$date->format('d');
+	}
+
+	/**
+	 * @param \DateTimeInterface $date
+	 * @return int
+	 */
+	public function retrieveMonthFromDate(DateTimeInterface $date) {
+		return (int)$date->format('n');
+	}
+
+	/**
+	 * @param \DateTimeInterface $date
+	 * @return int
+	 */
+	public function retrieveYearFromDate(DateTimeInterface $date) {
+		return (int)$date->format('Y');
+	}
+
+	/**
+	 * Generates a link back to the calendar from any view page.
+	 *
+	 * Specify action and if necessary controller, plugin, and prefix.
+	 *
+	 * @param array $url
+	 * @param \DateTimeInterface $dateTime
+	 * @return array
+	 */
+	public function calendarUrlArray(array $url, DateTimeInterface $dateTime) {
+		$year = $this->retrieveYearFromDate($dateTime);
+		$month = $this->retrieveMonthFromDate($dateTime);
+
+		$currentYear = (int)date('Y');
+		$currentMonth = (int)date('n');
+
+		if ($year === (int)$currentYear && $month === (int)$currentMonth) {
+			return $url;
+		}
+
+		$url[] = $year;
+		$url[] = $this->formatMonth($month);
+
+		return $url;
 	}
 
 	/**
