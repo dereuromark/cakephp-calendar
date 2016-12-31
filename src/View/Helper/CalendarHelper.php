@@ -248,6 +248,11 @@ class CalendarHelper extends Helper {
 			$prevYear = $year - 1;
 		}
 
+		$span = $this->_View->viewVars['_calendar']['span'];
+		if ($prevYear < $currentYear - $span) {
+			return '';
+		}
+
 		if ($prevYear === (int)$currentYear && $prevMonth === (int)$currentMonth) {
 			$prevMonth = $prevYear = null;
 		}
@@ -285,6 +290,11 @@ class CalendarHelper extends Helper {
 		if ($nextMonth === 13) {
 			$nextMonth = 1;
 			$nextYear = $year + 1;
+		}
+
+		$span = $this->_View->viewVars['_calendar']['span'];
+		if ($nextYear > $currentYear + $span) {
+			return '';
 		}
 
 		if ($nextYear === $currentYear && $nextMonth === $currentMonth) {

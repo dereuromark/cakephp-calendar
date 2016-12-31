@@ -47,22 +47,62 @@ Your action:
 	public function calendar($year = null, $month = null) {
 		$this->Calendar->init($year, $month);
 
-        // Fetch calendar items (like events, birthdays, ...)
+		// Fetch calendar items (like events, birthdays, ...)
+		$options = [
+			'year' => $this->Calendar->year(),
+			'month' => $this->Calendar->month(),
+		];
+		$events = $this->Events->find('calendar', $options);
+		
+		$this->set(compact('events'));
 	}
 ```
 
-In your view:
+In your index template:
 ```php
 <?php
-	foreach ($calendarItems as $item) {
-		$content = $this->Html->link($item['title'], ['action' => 'view', $item['id']]);
-		$this->Calendar->addRow($item['date'], $content, ['class' => 'event']);
+	foreach ($events as $event) {
+		$content = $this->Html->link($event->title, ['action' => 'view', $event->id]);
+		$this->Calendar->addRow($event->date, $content, ['class' => 'event']);
 	}
 
 	echo $this->Calendar->render();
 ?>
 
 <?php if (!$this->Calendar->isCurrentMonth()) { ?>
-    <?php echo $this->Html->link(__('Jump to the current month') . '...', ['action' => 'index'])?>
+	<?php echo $this->Html->link(__('Jump to the current month') . '...', ['action' => 'index'])?>
 <?php } ?>
 ```
+
+And in your view template you can have a backlink as easy as:
+```php
+<?php echo $this->Html->link(
+	__('List {0}', __('Events')), 
+	$this->Calendar->calendarUrlArray(['action' => 'index'], $event->date)
+); ?>
+```
+
+It will redirect back to the current year and month this calendar item has been linked from.
+So you have a persistent calendar - even with some clicking around, the user will still be able to navigate very easily through the calendar items.
+
+
+### Configuration
+
+#### Integrity
+The component validates both year and month input and throws 404 exception for invalid ones.
+
+The component has a max limit in each direction, defined by init() call:
+```php
+$this->Calendar->init($year, $month, 5);
+```
+This will allow the calendar to work 5 years in both directions. Out of bounds are 404 exceptions.
+The helper knows not to generate links for over the limit dates.
+
+#### Presentation
+You can configure the URL elements to contain the month either as number (default) or text.
+```
+/controller/action/2017/08
+/controller/action/2017/august
+```
+When loading the helper, pass `'monthAsString' => true` for the textual option.
+

@@ -90,7 +90,7 @@ class CalendarComponent extends Component {
 			throw new NotFoundException('Invalid date');
 		}
 
-		$this->Controller->set('_calendar', ['year' => $this->year, 'month' => $this->month]);
+		$this->Controller->set('_calendar', ['year' => $this->year, 'month' => $this->month, 'span' => $span]);
 	}
 
 	/**
