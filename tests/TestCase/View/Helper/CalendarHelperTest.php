@@ -1,7 +1,7 @@
 <?php
 namespace Calendar\Test\TestCase\View\Helper;
 
-use Cake\Core\Configure;
+use Cake\I18n\Time;
 use Cake\Network\Request;
 use Cake\Routing\Router;
 use Cake\TestSuite\TestCase;
@@ -77,7 +77,7 @@ class CalendarHelperTest extends TestCase {
 			'month' => 12,
 		];
 
-		$this->Calendar->addRow(new \Cake\I18n\Time('2010-12-02 11:12:13'), 'Foo Bar', ['class' => 'event']);
+		$this->Calendar->addRow(new Time('2010-12-02 11:12:13'), 'Foo Bar', ['class' => 'event']);
 
 		$result = $this->Calendar->render();
 

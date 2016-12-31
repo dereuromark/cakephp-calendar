@@ -13,10 +13,10 @@ use RuntimeException;
  * Redistributions of files must retain the above copyright notice.
  *
  * @author John Elliott
+ * @author Mark Scherer
  * @copyright 2008 John Elliott
  * @link http://www.flipflops.org More Information
  * @license http://www.opensource.org/licenses/mit-license.php The MIT License
- * @modified Mark Scherer
  *
  * @property \Cake\View\Helper\HtmlHelper $Html;
  */
@@ -99,7 +99,7 @@ class CalendarHelper extends Helper {
 			$today = (int)date('j');
 		}
 
-		$daysInMonth = date("t", mktime(0, 0, 0, $month, 1, $year));
+		$daysInMonth = date('t', mktime(0, 0, 0, $month, 1, $year));
 
 		$firstDayInMonth = date('D', mktime(0, 0, 0, $month, 1, $year));
 		$firstDayInMonth = strtolower($firstDayInMonth);
@@ -133,7 +133,7 @@ class CalendarHelper extends Helper {
 		while ($day <= $daysInMonth) {
 			$str .= '<tr>';
 
-			for ($i = 0; $i < 7; $i ++) {
+			for ($i = 0; $i < 7; $i++) {
 				$cell = '&nbsp;';
 
 				if (isset($data[$day])) {
@@ -228,7 +228,7 @@ class CalendarHelper extends Helper {
 			$year = $currentYear;
 			$month = $currentMonth;
 		}
-		if ($month > 0 && $month < 13 && intval($year) != 0) {
+		if ($month > 0 && $month < 13 && (int)$year != 0) {
 			$flag = 1;
 			//$monthNum = $i + 1;
 		}

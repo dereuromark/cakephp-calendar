@@ -2,8 +2,6 @@
 
 namespace Calendar\Test\TestCase\Controller\Component;
 
-use Cake\Core\Configure;
-use Cake\Event\Event;
 use Cake\Network\Request;
 use Cake\TestSuite\TestCase;
 use TestApp\Controller\CalendarComponentTestController;
@@ -64,6 +62,5 @@ class CalendarComponentTest extends TestCase {
 	public function testInitInvalid() {
 		$this->Controller->Calendar->init('2016', '');
 	}
-
 
 }
