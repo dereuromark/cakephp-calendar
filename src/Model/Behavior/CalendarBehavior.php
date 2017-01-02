@@ -82,7 +82,16 @@ class CalendarBehavior extends Behavior {
 		];
 		if ($this->config('endField')) {
 			$endField = $this->config('endField');
-			//TODO
+
+			$conditions = [
+				'OR' => [
+					[
+						$field . ' <=' => $to,
+						$endField . ' >' => $from,
+					],
+					$conditions
+				]
+			];
 		}
 
 		$query->where($conditions);

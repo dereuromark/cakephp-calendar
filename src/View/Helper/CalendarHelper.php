@@ -1,8 +1,8 @@
 <?php
 namespace Calendar\View\Helper;
 
+use Cake\Chronos\ChronosInterface;
 use Cake\View\Helper;
-use DateTimeInterface;
 use RuntimeException;
 
 /**
@@ -41,7 +41,8 @@ class CalendarHelper extends Helper {
 	 * @var array
 	 */
 	protected $_defaultConfig = [
-		'monthAsString' => false
+		'monthAsString' => false,
+		'multiLabelSuffix' => ' (Day {0})',
 	];
 
 	/**
@@ -59,17 +60,53 @@ class CalendarHelper extends Helper {
 	}
 
 	/**
-	 * @param \Cake\I18n\Time|\Cake\I18n\FrozenTime $date
+	 * @param \Cake\Chronos\ChronosInterface $date
 	 * @param string $content
 	 * @param array $options
 	 * @return void
 	 */
-	public function addRow(DateTimeInterface $date, $content, $options = []) {
-		if (!$date || !$content) {
+	public function addRow(ChronosInterface $date, $content, $options = []) {
+		if (!$content) {
 			return;
 		}
 		$day = $this->retrieveDayFromDate($date);
 		$this->dataContainer[$day][] = $this->Html->tag('li', $content, $options);
+	}
+
+	/**
+	 * @param \Cake\I18n\Time|\Cake\I18n\FrozenTime|\Cake\Chronos\ChronosInterface $from
+	 * @param \Cake\I18n\Time|\Cake\I18n\FrozenTime|\Cake\Chronos\ChronosInterface $to
+	 * @param string $content
+	 * @param array $options
+	 * @return void
+	 */
+	public function addRowFromTo(ChronosInterface $from, ChronosInterface $to, $content, $options = []) {
+		if (!$content) {
+			return;
+		}
+
+		$from = clone $from;
+		$month = $this->_View->viewVars['_calendar']['month'];
+
+		$days = [
+		];
+		$count = 0;
+		while ($from < $to) {
+			if ($from->month === $month) {
+				$days[$count] = $this->retrieveDayFromDate($from);
+			}
+			$from->addDay();
+			$count++;
+		}
+
+		$suffix = '';
+		if ($count > 1) {
+			$suffix = $this->config('multiLabelSuffix');
+		}
+		foreach ($days as $i => $day) {
+			$suffixTranslated = __($suffix, $i + 1);
+			$this->dataContainer[$day][] = $this->Html->tag('li', $content . $suffixTranslated, $options);
+		}
 	}
 
 	/**
@@ -167,26 +204,26 @@ class CalendarHelper extends Helper {
 	}
 
 	/**
-	 * @param \DateTimeInterface $date
+	 * @param \Cake\Chronos\ChronosInterface $date
 	 * @return int
 	 */
-	public function retrieveDayFromDate(DateTimeInterface $date) {
+	public function retrieveDayFromDate(ChronosInterface $date) {
 		return (int)$date->format('d');
 	}
 
 	/**
-	 * @param \DateTimeInterface $date
+	 * @param \Cake\Chronos\ChronosInterface $date
 	 * @return int
 	 */
-	public function retrieveMonthFromDate(DateTimeInterface $date) {
+	public function retrieveMonthFromDate(ChronosInterface $date) {
 		return (int)$date->format('n');
 	}
 
 	/**
-	 * @param \DateTimeInterface $date
+	 * @param \Cake\Chronos\ChronosInterface $date
 	 * @return int
 	 */
-	public function retrieveYearFromDate(DateTimeInterface $date) {
+	public function retrieveYearFromDate(ChronosInterface $date) {
 		return (int)$date->format('Y');
 	}
 
@@ -196,10 +233,10 @@ class CalendarHelper extends Helper {
 	 * Specify action and if necessary controller, plugin, and prefix.
 	 *
 	 * @param array $url
-	 * @param \DateTimeInterface $dateTime
+	 * @param \Cake\Chronos\ChronosInterface $dateTime
 	 * @return array
 	 */
-	public function calendarUrlArray(array $url, DateTimeInterface $dateTime) {
+	public function calendarUrlArray(array $url, ChronosInterface $dateTime) {
 		$year = $this->retrieveYearFromDate($dateTime);
 		$month = $this->retrieveMonthFromDate($dateTime);
 
