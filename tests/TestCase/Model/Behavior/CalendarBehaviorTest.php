@@ -88,8 +88,7 @@ class CalendarBehaviorTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	protected function _addFixtureData()
-	{
+	protected function _addFixtureData() {
 		$data = [
 			[
 				'title' => 'Wrong',
