@@ -85,6 +85,19 @@ And in your view template you can have a backlink as easy as:
 It will redirect back to the current year and month this calendar item has been linked from.
 So you have a persistent calendar - even with some clicking around, the user will still be able to navigate very easily through the calendar items.
 
+#### Multi-day events
+In case you have a beginning and end for dates, and those can span over multiple days, use:
+```php
+<?php
+	foreach ($events as $event) {
+		$content = ...;
+		$attr = [...];
+		$this->Calendar->addRowFromTo($event->beginning, $event->end, $content, $attr);
+	}
+
+	echo $this->Calendar->render();
+?>
+```
 
 ### Configuration
 
