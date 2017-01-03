@@ -60,6 +60,7 @@ class CalendarHelperTest extends TestCase {
 	 */
 	public function testRenderEmpty() {
 		$this->View->viewVars['_calendar'] = [
+			'span' => 3,
 			'year' => 2010,
 			'month' => 12,
 		];
@@ -73,16 +74,56 @@ class CalendarHelperTest extends TestCase {
 	 */
 	public function testRender() {
 		$this->View->viewVars['_calendar'] = [
-			'year' => 2010,
+			'span' => 3,
+			'year' => date('Y'),
 			'month' => 12,
 		];
 
-		$this->Calendar->addRow(new Time('2010-12-02 11:12:13'), 'Foo Bar', ['class' => 'event']);
+		$this->Calendar->addRow(new Time(date('Y') . '-12-02 11:12:13'), 'Foo Bar', ['class' => 'event']);
 
 		$result = $this->Calendar->render();
 
-		$expected = '<td ><div class="cell-number">2</div><div class="cell-data"><ul><li class="event">Foo Bar</li></ul></div></td>';
+		$expected = '<div class="cell-number">2</div><div class="cell-data"><ul><li class="event">Foo Bar</li></ul></div>';
 		$this->assertContains($expected, $result);
+
+		$this->assertContains('<th class="cell-prev"><a', $result);
+		$this->assertContains('<th class="cell-next"><a', $result);
+	}
+
+	/**
+	 * @return void
+	 */
+	public function testRenderNoPref() {
+		$this->View->viewVars['_calendar'] = [
+			'span' => 3,
+			'year' => date('Y') - 4,
+			'month' => 12,
+		];
+
+		$result = $this->Calendar->render();
+
+		$expected = '><th class="cell-prev"></th>';
+		$this->assertContains($expected, $result);
+
+		$this->assertContains('<th class="cell-next"><a', $result);
+	}
+
+	/**
+	 * @return void
+	 */
+	public function testRenderNoNext() {
+		$this->View->viewVars['_calendar'] = [
+			'span' => 3,
+			'year' => date('Y') + 4,
+			'month' => 12,
+		];
+
+		$result = $this->Calendar->render();
+
+		$expected = '><th class="cell-next"></th>';
+		$this->assertContains($expected, $result);
+
+		$this->assertContains('<th class="cell-prev"><a', $result);
 	}
 
 }
