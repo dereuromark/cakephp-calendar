@@ -149,7 +149,7 @@ class CalendarHelper extends Helper {
 
 		$str .= $this->previousLink();
 
-		$str .= '</th><th colspan="5">' . __(ucfirst($this->monthName($month))) . ' ' . $year . '</th><th class="cell-next">';
+		$str .= '</th><th colspan="5" class="cell-month">' . __(ucfirst($this->monthName($month))) . ' ' . $year . '</th><th class="cell-next">';
 
 		$str .= $this->nextLink();
 
