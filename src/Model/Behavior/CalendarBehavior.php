@@ -33,7 +33,8 @@ class CalendarBehavior extends Behavior {
 		'endField' => null,
 		'implementedFinders' => [
 			'calendar' => 'findCalendar',
-		]
+		],
+		'scope' => [],
 	];
 
 	/**
@@ -95,6 +96,9 @@ class CalendarBehavior extends Behavior {
 		}
 
 		$query->where($conditions);
+		if ($this->config('scope')) {
+			$query->andWhere($this->config('scope'));
+		}
 
 		return $query;
 	}
