@@ -22,6 +22,9 @@
 		"php": ">=5.5",
 		"cakephp/cakephp": "^3.3"
 	},
+	"require-dev": {
+		"fig-r/psr2r-sniffer": "dev-master"
+	},
 	"autoload": {
 		"psr-4": {
 			"Calendar\\": "src"
@@ -37,11 +40,8 @@
 	"support": {
 		"source": "https://github.com/dereuromark/cakephp-calendar"
 	},
-	"require-dev": {
-		"fig-r/psr2r-sniffer": "dev-master"
-	},
 	"scripts": {
-		"cs-check": "vendor/bin/phpcs --standard=vendor/fig-r/psr2r-sniffer/PSR2R/ruleset.xml --ignore=cakephp-calendar/vendor/,tmp/,logs/,tests/test_files/ --extensions=php -p ./",
-		"cs-fix": "vendor/bin/phpcbf --standard=vendor/fig-r/psr2r-sniffer/PSR2R/ruleset.xml --ignore=cakephp-calendar/vendor/,tmp/,logs/,tests/test_files/ --extensions=php -v -f ./"
+		"cs-check": "phpcs -v --standard=vendor/fig-r/psr2r-sniffer/PSR2R/ruleset.xml --ignore=cakephp-calendar/vendor/,tmp/,logs/,tests/test_files/ --extensions=php -p ./",
+		"cs-fix": "phpcbf --standard=vendor/fig-r/psr2r-sniffer/PSR2R/ruleset.xml --ignore=cakephp-calendar/vendor/,tmp/,logs/,tests/test_files/ --extensions=php -v ./"
 	}
 }
