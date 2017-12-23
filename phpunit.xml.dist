@@ -13,8 +13,8 @@
 
 	<!-- Add any additional test suites you want to run here -->
 	<testsuites>
-		<testsuite name="Calendar Test Suite">
-			<directory>./tests/TestCase</directory>
+		<testsuite name="calendar">
+			<directory>./tests/TestCase/</directory>
 		</testsuite>
 		<!-- Add plugin test suites here. -->
 	</testsuites>
@@ -32,7 +32,7 @@
 
 	<filter>
 		<whitelist>
-			<directory suffix=".php">./src</directory>
+			<directory suffix=".php">./src/</directory>
 		</whitelist>
 	</filter>
 
