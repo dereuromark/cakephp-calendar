@@ -60,22 +60,6 @@ class CalendarComponent extends Component {
 	}
 
 	/**
-	 * @param \Cake\Event\Event $event
-	 * @return void
-	 */
-	public function beforeRender(Event $event) {
-		if ($this->month !== null || $this->year !== null) {
-			return;
-		}
-
-		// Auto load from reques data
-		$parts = (array)$this->request->param('pass');
-		$year = !empty($parts[0]) ? $parts[0] : $this->request->query('year');
-		$month = !empty($parts[1]) ? $parts[1] : $this->request->query('month');
-		$this->init($year, $month);
-	}
-
-	/**
 	 * @param string $year Year
 	 * @param string $month Month
 	 * @param int $span Years in both directions
