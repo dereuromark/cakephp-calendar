@@ -21,9 +21,13 @@ See the demo [Calendar example](http://sandbox.dereuromark.de/sandbox/calendar) 
 ```
 composer require dereuromark/cakephp-calendar
 ```
-and
+Then make sure the plugin is loaded in bootstrap:
 ```
 bin/cake plugin load Calendar
+```
+You can also just manually put this in:
+```
+Plugin::load('Calendar');
 ```
 
 ## Usage
