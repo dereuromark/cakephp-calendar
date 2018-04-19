@@ -9,6 +9,8 @@
 
 A plugin to render simple calendars.
 
+This branch is for CakePHP 3.5+.
+
 ## Features
 - Simple and robust
 - No JS needed, more responsive than solutions like fullcalendar
