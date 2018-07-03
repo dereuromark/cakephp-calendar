@@ -74,8 +74,8 @@ class CalendarHelper extends Helper {
 	}
 
 	/**
-	 * @param \Cake\I18n\Time|\Cake\I18n\FrozenTime|\Cake\Chronos\ChronosInterface $from
-	 * @param \Cake\I18n\Time|\Cake\I18n\FrozenTime|\Cake\Chronos\ChronosInterface $to
+	 * @param \Cake\I18n\Time|\Cake\I18n\FrozenTime $from
+	 * @param \Cake\I18n\Time|\Cake\I18n\FrozenTime $to
 	 * @param string $content
 	 * @param array $options
 	 * @return void
@@ -101,7 +101,7 @@ class CalendarHelper extends Helper {
 
 		$suffix = '';
 		if ($count > 1) {
-			$suffix = $this->config('multiLabelSuffix');
+			$suffix = $this->getConfig('multiLabelSuffix');
 		}
 		foreach ($days as $i => $day) {
 			$suffixTranslated = __($suffix, $i + 1);

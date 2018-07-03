@@ -3,7 +3,7 @@ namespace Calendar\Controller\Component;
 
 use Cake\Controller\Component;
 use Cake\Event\Event;
-use Cake\Network\Exception\NotFoundException;
+use Cake\Http\Exception\NotFoundException;
 
 /**
  * Calendar Component
@@ -64,6 +64,7 @@ class CalendarComponent extends Component {
 	 * @param string $month Month
 	 * @param int $span Years in both directions
 	 * @return void
+	 * @throws \Cake\Http\Exception\NotFoundException
 	 */
 	public function init($year, $month, $span = 10) {
 		if (!is_numeric($month)) {
@@ -77,7 +78,7 @@ class CalendarComponent extends Component {
 			$month = (int)date('n');
 		}
 
-		$current = date('Y');
+		$current = (int)date('Y');
 
 		if (!$month || $year < $current - $span || $year > $current + $span) {
 			throw new NotFoundException('Invalid date');

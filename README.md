@@ -33,6 +33,17 @@ Plugin::load('Calendar');
 ```
 
 ## Usage
+Make sure your calendar items table (e.g. EventsTable) has added the Calendar behavior in `initialize()` method:
+```php
+// If needed, also provide your config
+$this->addBehavior('Calendar.Calendar', [
+	'field' => 'beginning',
+	'endField' => 'end',
+	'scope' => ['invisible' => false],
+]);
+```
+Now the `find('calendar')` custom finder is available on this table class.
+
 Load the component in your controller:
 ```php
 $this->loadComponent('Calendar.Calendar');
