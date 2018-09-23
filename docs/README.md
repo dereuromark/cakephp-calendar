@@ -132,7 +132,7 @@ Inside this template just use any Ical library of your choice to output this eve
 ```php
 <?php
 /**
- * @var \Calendar\View\IcalView $this
+ * @var \Calendar\View\IcalView|\App\View\AppView $this !
  * @var \App\Model\Entity\Event $event
  */
 
@@ -140,7 +140,10 @@ $vcalendar = new \Sabre\VObject\Component\VCalendar([
 	'VEVENT' => [
 		'SUMMARY' => $event->name,
 		'DTSTART' => $event->beginning,
-		'DTEND'   => $event->end,
+		'DTEND' => $event->end,
+		'DESCRIPTION' => $event->description,		
+		'GEO' => $event->lat . ';' . $event->lng,
+		'URL => $event->url,
 	],
 ]);
 echo $vcalendar->serialize();
