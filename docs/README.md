@@ -137,10 +137,10 @@ Inside this one just use any Ical library of your choice to output this event:
 
 $vcalendar = new \Sabre\VObject\Component\VCalendar([
 	'VEVENT' => [
-		'SUMMARY' => 'Birthday party!',
-		'DTSTART' => new \DateTime('2018-07-04 21:00:00'),
-		'DTEND'   => new \DateTime('2018-07-05 03:00:00')
-	]
+		'SUMMARY' => $event->name,
+		'DTSTART' => $event->beginning,
+		'DTEND'   => $event->end,
+	],
 ]);
 echo $vcalendar->serialize();
 ```
@@ -148,9 +148,9 @@ This uses the [sabre-io/vobject](https://github.com/sabre-io/vobject) library (t
 
 You could also make your own helper and use that instead:
 ```php
-$event = $this->Ical->newEvent();
-$event->set...();
-$this->Ical->addEvent($event);
+$calendarEvent = $this->Ical->newEvent();
+$calendarEvent->set...();
+$this->Ical->addEvent($calendarEvent);
 
 echo $this->Ical->render();
 ```
