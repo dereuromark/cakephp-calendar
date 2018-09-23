@@ -18,7 +18,7 @@ use RuntimeException;
  * @link http://www.flipflops.org More Information
  * @license http://www.opensource.org/licenses/mit-license.php The MIT License
  *
- * @property \Cake\View\Helper\HtmlHelper $Html;
+ * @property \Cake\View\Helper\HtmlHelper $Html
  */
 class CalendarHelper extends Helper {
 
