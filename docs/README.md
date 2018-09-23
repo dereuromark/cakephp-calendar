@@ -127,7 +127,7 @@ Then inside your controller just set a custom view class for this extension:
 
 Let's say we want to render `/events/view/1.ics` now.
 Now it will look inside a subfolder for a PHP file here: `Template/Events/ics/view.php`.
-Inside this one just use any Ical library of your choice to output this event:
+Inside this template just use any Ical library of your choice to output this event:
 
 ```php
 <?php
