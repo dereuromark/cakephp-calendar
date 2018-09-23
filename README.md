@@ -1,6 +1,7 @@
 # CakePHP Calendar plugin
 
 [![Build Status](https://api.travis-ci.org/dereuromark/cakephp-calendar.png?branch=master)](https://travis-ci.org/dereuromark/cakephp-calendar)
+[![Coverage Status](https://codecov.io/gh/dereuromark/cakephp-calendar/branch/master/graph/badge.svg)](https://codecov.io/gh/dereuromark/cakephp-calendar)
 [![Latest Stable Version](https://poser.pugx.org/dereuromark/cakephp-calendar/v/stable.svg)](https://packagist.org/packages/dereuromark/cakephp-calendar)
 [![Minimum PHP Version](http://img.shields.io/badge/php-%3E%3D%205.6-8892BF.svg)](https://php.net/)
 [![License](https://poser.pugx.org/dereuromark/cakephp-calendar/license.png)](https://packagist.org/packages/dereuromark/cakephp-calendar)
