@@ -133,6 +133,7 @@ Inside this one just use any Ical library of your choice to output this event:
 <?php
 /**
  * @var \Calendar\View\IcalView $this
+ * @var \App\Model\Entity\Event $event
  */
 
 $vcalendar = new \Sabre\VObject\Component\VCalendar([
