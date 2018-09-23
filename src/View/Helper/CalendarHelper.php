@@ -360,7 +360,7 @@ class CalendarHelper extends Helper {
 			return null;
 		}
 
-		if ($this->config('monthAsString')) {
+		if ($this->getConfig('monthAsString')) {
 			return $this->monthName($month);
 		}
 

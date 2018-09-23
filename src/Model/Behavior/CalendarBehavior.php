@@ -67,7 +67,7 @@ class CalendarBehavior extends Behavior {
 	 * @return \Cake\ORM\Query
 	 */
 	public function findCalendar(Query $query, array $options) {
-		$field = $this->config('field');
+		$field = $this->getConfig('field');
 
 		$year = $options[static::YEAR];
 		$month = $options[static::MONTH];
@@ -81,8 +81,8 @@ class CalendarBehavior extends Behavior {
 			$field . ' >=' => $from,
 			$field . ' <=' => $to
 		];
-		if ($this->config('endField')) {
-			$endField = $this->config('endField');
+		if ($this->getConfig('endField')) {
+			$endField = $this->getConfig('endField');
 
 			$conditions = [
 				'OR' => [
@@ -96,8 +96,8 @@ class CalendarBehavior extends Behavior {
 		}
 
 		$query->where($conditions);
-		if ($this->config('scope')) {
-			$query->andWhere($this->config('scope'));
+		if ($this->getConfig('scope')) {
+			$query->andWhere($this->getConfig('scope'));
 		}
 
 		return $query;
