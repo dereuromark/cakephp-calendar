@@ -2,7 +2,6 @@
 namespace Calendar\Test\TestCase\View\Helper;
 
 use Cake\Http\Response;
-use Cake\I18n\Time;
 use Cake\Http\ServerRequest;
 use Cake\Routing\Router;
 use Cake\TestSuite\TestCase;
@@ -16,12 +15,12 @@ class IcalViewTest extends TestCase {
 	public $icalView;
 
 	/**
-	 * @var ServerRequest
+	 * @var \Cake\Http\ServerRequest
 	 */
 	public $request;
 
 	/**
-	 * @var Response
+	 * @var \Cake\Http\Response
 	 */
 	public $response;
 

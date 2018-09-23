@@ -13,7 +13,7 @@ use Cake\View\View;
 class IcalView extends View {
 
 	/**
-	 * @var string|false
+	 * @var string|false|bool
 	 */
 	public $layout = false;
 
@@ -45,5 +45,5 @@ class IcalView extends View {
 
 		parent::__construct($request, $response, $eventManager, $viewOptions);
 	}
-	
+
 }
