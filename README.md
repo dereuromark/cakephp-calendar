@@ -31,10 +31,5 @@ Then make sure the plugin is loaded in bootstrap:
 bin/cake plugin load Calendar
 ```
 
-You can also just manually put this in your bootstrap file:
-```
-Plugin::load('Calendar');
-```
-
 ## Usage
 See [Documentation](/docs).
