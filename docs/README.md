@@ -143,7 +143,7 @@ $vcalendar = new \Sabre\VObject\Component\VCalendar([
 		'DTEND' => $event->end,
 		'DESCRIPTION' => $event->description,		
 		'GEO' => $event->lat . ';' . $event->lng,
-		'URL => $event->url,
+		'URL' => $event->url,
 	],
 ]);
 echo $vcalendar->serialize();
