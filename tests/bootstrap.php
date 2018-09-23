@@ -53,6 +53,10 @@ if (file_exists(CONFIG . 'app_local.php')) {
 	\Cake\Core\Configure::load('app_local', 'default');
 }
 
+Cake\Core\Configure::write('App.paths', [
+	'templates' => dirname(__FILE__) . DS . 'TestApp' . DS . 'Template' . DS
+]);
+
 // Ensure default test connection is defined
 if (!getenv('db_class')) {
 	putenv('db_class=Cake\Database\Driver\Sqlite');
