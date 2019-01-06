@@ -32,10 +32,6 @@ before_script:
 
   - if [[ $DB == 'mysql' ]]; then mysql -u root -e 'CREATE DATABASE cakephp_test;' ; fi
 
-  - phpenv rehash
-  - set +H
-  - cp phpunit.xml.dist phpunit.xml
-
 script:
   - if [[ $DEFAULT == 1 ]]; then vendor/bin/phpunit ; fi
 
