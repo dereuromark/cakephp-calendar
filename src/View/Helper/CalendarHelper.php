@@ -95,7 +95,7 @@ class CalendarHelper extends Helper {
 			if ($from->month === $month) {
 				$days[$count] = $this->retrieveDayFromDate($from);
 			}
-			$from->addDay();
+			$from = $from->addDay();
 			$count++;
 		}
 
