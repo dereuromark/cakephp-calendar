@@ -27,6 +27,9 @@ matrix:
 
   fast_finish: true
 
+before_install:
+  - phpenv config-rm xdebug.ini
+
 before_script:
   - if [[ $PREFER_LOWEST != 1 ]]; then composer install --prefer-source --no-interaction ; fi
   - if [[ $PREFER_LOWEST == 1 ]]; then composer update --prefer-lowest --prefer-stable --prefer-dist --no-interaction ; fi
@@ -45,6 +48,10 @@ script:
   - if [[ $CODECOVERAGE == 1 ]]; then vendor/bin/phpunit --coverage-clover=clover.xml || true; fi
   - if [[ $CODECOVERAGE == 1 ]]; then wget -O codecov.sh https://codecov.io/bash; fi
   - if [[ $CODECOVERAGE == 1 ]]; then bash codecov.sh; fi
+
+cache:
+  directories:
+    - $HOME/.composer/cache
 
 notifications:
   email: false

@@ -369,7 +369,7 @@ class CalendarHelper extends Helper {
 
 	/**
 	 * @param int $month
-	 * @return null|string
+	 * @return string|null
 	 */
 	public function monthName($month) {
 		if (!isset($this->monthList[$month - 1])) {

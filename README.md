@@ -10,7 +10,7 @@
 
 A plugin to render simple calendars.
 
-This branch is for CakePHP 3.6+.
+This branch is for **CakePHP 3.6+**.
 
 ## Features
 - Simple and robust
