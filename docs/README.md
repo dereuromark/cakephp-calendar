@@ -5,9 +5,9 @@ Make sure your calendar items table (e.g. EventsTable) has added the Calendar be
 ```php
 // If needed, also provide your config
 $this->addBehavior('Calendar.Calendar', [
-	'field' => 'beginning',
-	'endField' => 'end',
-	'scope' => ['invisible' => false],
+    'field' => 'beginning',
+    'endField' => 'end',
+    'scope' => ['invisible' => false],
 ]);
 ```
 Now the `find('calendar')` custom finder is available on this table class.
@@ -24,46 +24,46 @@ $this->loadHelper('Calendar.Calendar');
 
 Your action:
 ```php
-	/**
-	 * @param string|null $year
-	 * @param string|null $month
-	 * @return void
-	 */
-	public function calendar($year = null, $month = null) {
-		$this->Calendar->init($year, $month);
+    /**
+     * @param string|null $year
+     * @param string|null $month
+     * @return void
+     */
+    public function calendar($year = null, $month = null) {
+        $this->Calendar->init($year, $month);
 
-		// Fetch calendar items (like events, birthdays, ...)
-		$options = [
-			'year' => $this->Calendar->year(),
-			'month' => $this->Calendar->month(),
-		];
-		$events = $this->Events->find('calendar', $options);
-		
-		$this->set(compact('events'));
-	}
+        // Fetch calendar items (like events, birthdays, ...)
+        $options = [
+            'year' => $this->Calendar->year(),
+            'month' => $this->Calendar->month(),
+        ];
+        $events = $this->Events->find('calendar', $options);
+        
+        $this->set(compact('events'));
+    }
 ```
 
 In your index template:
 ```php
 <?php
-	foreach ($events as $event) {
-		$content = $this->Html->link($event->title, ['action' => 'view', $event->id]);
-		$this->Calendar->addRow($event->date, $content, ['class' => 'event']);
-	}
+    foreach ($events as $event) {
+        $content = $this->Html->link($event->title, ['action' => 'view', $event->id]);
+        $this->Calendar->addRow($event->date, $content, ['class' => 'event']);
+    }
 
-	echo $this->Calendar->render();
+    echo $this->Calendar->render();
 ?>
 
 <?php if (!$this->Calendar->isCurrentMonth()) { ?>
-	<?php echo $this->Html->link(__('Jump to the current month') . '...', ['action' => 'index'])?>
+    <?php echo $this->Html->link(__('Jump to the current month') . '...', ['action' => 'index'])?>
 <?php } ?>
 ```
 
 And in your view template you can have a backlink as easy as:
 ```php
 <?php echo $this->Html->link(
-	__('List {0}', __('Events')), 
-	$this->Calendar->calendarUrlArray(['action' => 'index'], $event->date)
+    __('List {0}', __('Events')), 
+    $this->Calendar->calendarUrlArray(['action' => 'index'], $event->date)
 ); ?>
 ```
 
@@ -74,13 +74,13 @@ So you have a persistent calendar - even with some clicking around, the user wil
 In case you have a beginning and end for dates, and those can span over multiple days, use:
 ```php
 <?php
-	foreach ($events as $event) {
-		$content = ...;
-		$attr = [...];
-		$this->Calendar->addRowFromTo($event->beginning, $event->end, $content, $attr);
-	}
+    foreach ($events as $event) {
+        $content = ...;
+        $attr = [...];
+        $this->Calendar->addRowFromTo($event->beginning, $event->end, $content, $attr);
+    }
 
-	echo $this->Calendar->render();
+    echo $this->Calendar->render();
 ?>
 ```
 
@@ -115,14 +115,14 @@ Router::extensions([..., 'ics']);
 
 Then inside your controller just set a custom view class for this extension:
 ```php
-	/**
-	 * @return void
-	 */
-	public function initialize() {
-		parent::initialize();
+    /**
+     * @return void
+     */
+    public function initialize() {
+        parent::initialize();
 
-		$this->RequestHandler->setConfig('viewClassMap', ['ics' => 'Calendar.Ical']);
-	}	
+        $this->RequestHandler->setConfig('viewClassMap', ['ics' => 'Calendar.Ical']);
+    }    
 ```
 
 Let's say we want to render `/events/view/1.ics` now.
@@ -137,14 +137,14 @@ Inside this template just use any Ical library of your choice to output this eve
  */
 
 $vcalendar = new \Sabre\VObject\Component\VCalendar([
-	'VEVENT' => [
-		'SUMMARY' => $event->name,
-		'DTSTART' => $event->beginning,
-		'DTEND' => $event->end,
-		'DESCRIPTION' => $event->description,		
-		'GEO' => $event->lat . ';' . $event->lng,
-		'URL' => $event->url,
-	],
+    'VEVENT' => [
+        'SUMMARY' => $event->name,
+        'DTSTART' => $event->beginning,
+        'DTEND' => $event->end,
+        'DESCRIPTION' => $event->description,        
+        'GEO' => $event->lat . ';' . $event->lng,
+        'URL' => $event->url,
+    ],
 ]);
 echo $vcalendar->serialize();
 ```

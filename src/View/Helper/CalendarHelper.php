@@ -364,7 +364,7 @@ class CalendarHelper extends Helper {
 			return $this->monthName($month);
 		}
 
-		return str_pad($month, 2, '0', STR_PAD_LEFT);
+		return str_pad((string)$month, 2, '0', STR_PAD_LEFT);
 	}
 
 	/**
