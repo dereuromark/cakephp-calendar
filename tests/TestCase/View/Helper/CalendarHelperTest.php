@@ -16,12 +16,12 @@ class CalendarHelperTest extends TestCase {
 	/**
 	 * @var \Calendar\View\Helper\CalendarHelper
 	 */
-	public $Calendar;
+	protected $Calendar;
 
 	/**
 	 * @var \Cake\View\View
 	 */
-	public $View;
+	protected $View;
 
 	/**
 	 * setUp method

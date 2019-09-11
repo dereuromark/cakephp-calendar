@@ -13,7 +13,7 @@ class CalendarComponentTest extends TestCase {
 	/**
 	 * @var \TestApp\Controller\CalendarComponentTestController
 	 */
-	public $Controller;
+	protected $Controller;
 
 	/**
 	 * @return void

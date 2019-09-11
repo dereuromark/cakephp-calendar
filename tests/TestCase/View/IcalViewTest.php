@@ -12,17 +12,17 @@ class IcalViewTest extends TestCase {
 	/**
 	 * @var \Calendar\View\IcalView
 	 */
-	public $icalView;
+	protected $icalView;
 
 	/**
 	 * @var \Cake\Http\ServerRequest
 	 */
-	public $request;
+	protected $request;
 
 	/**
 	 * @var \Cake\Http\Response
 	 */
-	public $response;
+	protected $response;
 
 	/**
 	 * setUp method

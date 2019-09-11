@@ -20,12 +20,12 @@ class CalendarBehaviorTest extends TestCase {
 	/**
 	 * @var \Cake\ORM\Table;
 	 */
-	public $Events;
+	protected $Events;
 
 	/**
 	 * @var array
 	 */
-	public $config = [
+	protected $config = [
 		'field' => 'beginning'
 	];
 
@@ -87,6 +87,7 @@ class CalendarBehaviorTest extends TestCase {
 
 	/**
 	 * @return void
+	 * @throws \Cake\Network\Exception\InternalErrorException
 	 */
 	protected function _addFixtureData() {
 		$data = [
@@ -117,14 +118,5 @@ class CalendarBehaviorTest extends TestCase {
 			}
 		}
 	}
-
-}
-
-class TestController extends Controller {
-
-	/**
-	 * @var string
-	 */
-	public $modelClass = 'Calendar.Events';
 
 }
