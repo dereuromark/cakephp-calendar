@@ -1,7 +1,6 @@
 <?php
 namespace Calendar\Test\Model\Behavior;
 
-use Cake\Controller\Controller;
 use Cake\Datasource\ConnectionManager;
 use Cake\Network\Exception\InternalErrorException;
 use Cake\ORM\Entity;
