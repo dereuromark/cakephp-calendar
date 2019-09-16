@@ -6,8 +6,6 @@ use Cake\Network\Request;
 use Cake\TestSuite\TestCase;
 use TestApp\Controller\CalendarComponentTestController;
 
-/**
- */
 class CalendarComponentTest extends TestCase {
 
 	/**

@@ -8,9 +8,6 @@ use Cake\TestSuite\TestCase;
 use Cake\View\View;
 use Calendar\View\Helper\CalendarHelper;
 
-/**
- *
- */
 class CalendarHelperTest extends TestCase {
 
 	/**
