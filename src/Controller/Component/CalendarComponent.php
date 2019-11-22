@@ -31,7 +31,7 @@ class CalendarComponent extends Component {
 	 * @var array
 	 */
 	public $dayList = [
-		'mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'
+		'mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun',
 	];
 
 	/**

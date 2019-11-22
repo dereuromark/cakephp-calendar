@@ -13,7 +13,7 @@ class CalendarBehaviorTest extends TestCase {
 	 * @var array
 	 */
 	public $fixtures = [
-		'plugin.Calendar.Events'
+		'plugin.Calendar.Events',
 	];
 
 	/**
@@ -25,7 +25,7 @@ class CalendarBehaviorTest extends TestCase {
 	 * @var array
 	 */
 	protected $config = [
-		'field' => 'beginning'
+		'field' => 'beginning',
 	];
 
 	/**

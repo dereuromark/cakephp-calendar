@@ -79,7 +79,7 @@ class CalendarBehavior extends Behavior {
 
 		$conditions = [
 			$field . ' >=' => $from,
-			$field . ' <=' => $to
+			$field . ' <=' => $to,
 		];
 		if ($this->getConfig('endField')) {
 			$endField = $this->getConfig('endField');
@@ -90,8 +90,8 @@ class CalendarBehavior extends Behavior {
 						$field . ' <=' => $to,
 						$endField . ' >' => $from,
 					],
-					$conditions
-				]
+					$conditions,
+				],
 			];
 		}
 
