@@ -1,4 +1,5 @@
 <?php
+
 namespace Calendar\Controller\Component;
 
 use Cake\Controller\Component;

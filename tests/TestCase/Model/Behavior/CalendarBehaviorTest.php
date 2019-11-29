@@ -1,4 +1,5 @@
 <?php
+
 namespace Calendar\Test\Model\Behavior;
 
 use Cake\Datasource\ConnectionManager;

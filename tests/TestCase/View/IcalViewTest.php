@@ -1,4 +1,5 @@
 <?php
+
 namespace Calendar\Test\TestCase\View\Helper;
 
 use Cake\Http\Response;

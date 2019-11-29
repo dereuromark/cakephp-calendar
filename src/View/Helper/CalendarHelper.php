@@ -1,4 +1,5 @@
 <?php
+
 namespace Calendar\View\Helper;
 
 use Cake\Chronos\ChronosInterface;

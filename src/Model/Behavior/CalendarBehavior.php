@@ -1,4 +1,5 @@
 <?php
+
 namespace Calendar\Model\Behavior;
 
 use Cake\Core\Configure;
