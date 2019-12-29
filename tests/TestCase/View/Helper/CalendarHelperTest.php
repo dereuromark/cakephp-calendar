@@ -38,8 +38,8 @@ class CalendarHelperTest extends TestCase {
 		Router::pushRequest($request);
 
 		Router::reload();
-		Router::connect('/{controller}', ['action' => 'index']);
-		Router::connect('/{controller}/{action}/*');
+		Router::connect('/:controller', ['action' => 'index']);
+		Router::connect('/:controller/:action/*');
 	}
 
 	/**
