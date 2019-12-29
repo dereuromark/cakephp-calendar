@@ -64,7 +64,7 @@ class CalendarHelperTest extends TestCase {
 		]);
 
 		$result = $this->Calendar->render();
-		$this->assertContains('<table class="calendar">', $result);
+		$this->assertStringContainsString('<table class="calendar">', $result);
 	}
 
 	/**
@@ -82,10 +82,10 @@ class CalendarHelperTest extends TestCase {
 		$result = $this->Calendar->render();
 
 		$expected = '<div class="cell-number">2</div><div class="cell-data"><ul><li class="event">Foo Bar</li></ul></div>';
-		$this->assertContains($expected, $result);
+		$this->assertStringContainsString($expected, $result);
 
-		$this->assertContains('<th class="cell-prev"><a', $result);
-		$this->assertContains('<th class="cell-next"><a', $result);
+		$this->assertStringContainsString('<th class="cell-prev"><a', $result);
+		$this->assertStringContainsString('<th class="cell-next"><a', $result);
 	}
 
 	/**
@@ -101,9 +101,9 @@ class CalendarHelperTest extends TestCase {
 		$result = $this->Calendar->render();
 
 		$expected = '><th class="cell-prev"></th>';
-		$this->assertContains($expected, $result);
+		$this->assertStringContainsString($expected, $result);
 
-		$this->assertContains('<th class="cell-next"><a', $result);
+		$this->assertStringContainsString('<th class="cell-next"><a', $result);
 	}
 
 	/**
@@ -119,9 +119,9 @@ class CalendarHelperTest extends TestCase {
 		$result = $this->Calendar->render();
 
 		$expected = '><th class="cell-next"></th>';
-		$this->assertContains($expected, $result);
+		$this->assertStringContainsString($expected, $result);
 
-		$this->assertContains('<th class="cell-prev"><a', $result);
+		$this->assertStringContainsString('<th class="cell-prev"><a', $result);
 	}
 
 }

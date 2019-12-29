@@ -2,6 +2,7 @@
 
 namespace Calendar\Test\TestCase\Controller\Component;
 
+use Cake\Http\Exception\NotFoundException;
 use Cake\Http\ServerRequest;
 use Cake\TestSuite\TestCase;
 use TestApp\Controller\CalendarComponentTestController;
@@ -54,10 +55,11 @@ class CalendarComponentTest extends TestCase {
 	}
 
 	/**
-	 * @expectedException \Cake\Http\Exception\NotFoundException
 	 * @return void
 	 */
 	public function testInitInvalid() {
+		$this->expectException(NotFoundException::class);
+
 		$this->Controller->Calendar->init('2016', '');
 	}
 
