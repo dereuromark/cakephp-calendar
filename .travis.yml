@@ -17,10 +17,10 @@ services:
 matrix:
   include:
     - php: 7.1
-      env: DB=pgsql db_dsn='postgres://postgres@127.0.0.1/cakephp_test'
+      env: DB=pgsql db_dsn='postgres://postgres@127.0.0.1/cakephp_test' CODECOVERAGE=1
 
     - php: 5.6
-      env: PREFER_LOWEST=1 CODECOVERAGE=1
+      env: PREFER_LOWEST=1
 
     - php: 7.3
       env: CHECKS=1 DEFAULT=0
