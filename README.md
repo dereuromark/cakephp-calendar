@@ -10,7 +10,7 @@
 
 A plugin to render simple calendars.
 
-This branch is for **CakePHP 3.6+**. For details see [version map](https://github.com/dereuromark/cakephp-calendar/wiki#cakephp-version-map).
+This branch is for **CakePHP 3.7+**. For details see [version map](https://github.com/dereuromark/cakephp-calendar/wiki#cakephp-version-map).
 
 ## Features
 - Simple and robust

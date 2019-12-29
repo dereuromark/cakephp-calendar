@@ -2,7 +2,7 @@
 
 namespace Calendar\Test\TestCase\Controller\Component;
 
-use Cake\Network\Request;
+use Cake\Http\ServerRequest;
 use Cake\TestSuite\TestCase;
 use TestApp\Controller\CalendarComponentTestController;
 
@@ -19,7 +19,7 @@ class CalendarComponentTest extends TestCase {
 	public function setUp() {
 		parent::setUp();
 
-		$this->Controller = new CalendarComponentTestController(new Request());
+		$this->Controller = new CalendarComponentTestController(new ServerRequest());
 		$this->Controller->startupProcess();
 	}
 
@@ -54,7 +54,7 @@ class CalendarComponentTest extends TestCase {
 	}
 
 	/**
-	 * @expectedException \Cake\Network\Exception\NotFoundException
+	 * @expectedException \Cake\Http\Exception\NotFoundException
 	 * @return void
 	 */
 	public function testInitInvalid() {

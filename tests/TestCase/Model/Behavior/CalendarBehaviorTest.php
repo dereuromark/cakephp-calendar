@@ -3,7 +3,7 @@
 namespace Calendar\Test\Model\Behavior;
 
 use Cake\Datasource\ConnectionManager;
-use Cake\Network\Exception\InternalErrorException;
+use Cake\Http\Exception\InternalErrorException;
 use Cake\ORM\Entity;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
@@ -87,7 +87,7 @@ class CalendarBehaviorTest extends TestCase {
 
 	/**
 	 * @return void
-	 * @throws \Cake\Network\Exception\InternalErrorException
+	 * @throws \Cake\Http\Exception\InternalErrorException
 	 */
 	protected function _addFixtureData() {
 		$data = [

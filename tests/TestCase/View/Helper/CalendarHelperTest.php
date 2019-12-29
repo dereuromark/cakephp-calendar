@@ -2,8 +2,8 @@
 
 namespace Calendar\Test\TestCase\View\Helper;
 
+use Cake\Http\ServerRequest;
 use Cake\I18n\Time;
-use Cake\Network\Request;
 use Cake\Routing\Router;
 use Cake\TestSuite\TestCase;
 use Cake\View\View;
@@ -29,17 +29,16 @@ class CalendarHelperTest extends TestCase {
 	public function setUp() {
 		parent::setUp();
 
-		$this->request = new Request();// $this->getMockBuilder(Request::class)->getMock();
-		$this->request->params['action'] = 'index';
-		$this->request->params['controller'] = 'Events';
+		$request = (new ServerRequest(['url' => '/events']))
+			->withParam('controller', 'Events')
+			->withParam('action', 'index');
 
-		$this->View = new View($this->request);
+		$this->View = new View($request);
 		$this->Calendar = new CalendarHelper($this->View);
 
 		Router::reload();
-
-		Router::connect('/:controller', ['action' => 'index']);
-		Router::connect('/:controller/:action/*');
+		Router::connect('/{controller}', ['action' => 'index']);
+		Router::connect('/{controller}/{action}/*');
 	}
 
 	/**
