@@ -54,8 +54,12 @@ if (file_exists(CONFIG . 'app_local.php')) {
 	Cake\Core\Configure::load('app_local', 'default');
 }
 
-Cake\Core\Configure::write('App.paths', [
-	'templates' => dirname(__FILE__) . DS . 'TestApp' . DS . 'src' . DS . 'Template' . DS,
+Cake\Core\Configure::write('App', [
+	'namespace' => 'App',
+	'encoding' => 'utf-8',
+	'paths' => [
+		'templates' => dirname(__FILE__) . DS . 'TestApp' . DS . 'templates' . DS,
+	],
 ]);
 
 // Ensure default test connection is defined
@@ -66,11 +70,8 @@ if (!getenv('db_class')) {
 
 Cake\Datasource\ConnectionManager::setConfig('test', [
 	'className' => 'Cake\Database\Connection',
-	'driver' => getenv('db_class'),
-	'dsn' => getenv('db_dsn'),
-	'database' => getenv('db_database'),
-	'username' => getenv('db_username'),
-	'password' => getenv('db_password'),
+	'driver' => getenv('db_class') ?: null,
+	'dsn' => getenv('db_dsn') ?: null,
 	'timezone' => 'UTC',
 	'quoteIdentifiers' => true,
 	'cacheMetadata' => true,

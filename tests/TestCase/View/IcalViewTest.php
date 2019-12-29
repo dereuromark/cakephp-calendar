@@ -30,15 +30,14 @@ class IcalViewTest extends TestCase {
 	 *
 	 * @return void
 	 */
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 
-		$this->request = new ServerRequest();
+		$this->request = (new ServerRequest())
+			->withParam('controller', 'Events')
+			->withParam('action', 'index')
+			->withParam('_ext', 'ics');
 		$this->response = new Response();
-
-		$this->request->params['controller'] = 'Events';
-		$this->request->params['action'] = 'index';
-		$this->request->params['_ext'] = 'ics';
 
 		$this->icalView = new IcalView($this->request, $this->response);
 
@@ -51,7 +50,7 @@ class IcalViewTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function tearDown() {
+	public function tearDown(): void {
 		parent::tearDown();
 
 		unset($this->icalView);
@@ -61,12 +60,12 @@ class IcalViewTest extends TestCase {
 	 * @return void
 	 */
 	public function testRenderEmpty() {
-		$this->icalView->viewVars[] = [];
+		//$this->icalView->setviewVars[] = [];
 
 		$result = $this->icalView->render('view');
 		$this->assertSame('', $result);
 
-		$type = $this->icalView->response->getType();
+		$type = $this->icalView->getResponse()->getType();
 		$this->assertSame('text/calendar', $type);
 	}
 

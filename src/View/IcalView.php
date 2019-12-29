@@ -13,11 +13,6 @@ use Cake\View\View;
 class IcalView extends View {
 
 	/**
-	 * @var string|false|bool
-	 */
-	public $layout = false;
-
-	/**
 	 * @var string
 	 */
 	protected $_ext = '.php';
@@ -44,6 +39,8 @@ class IcalView extends View {
 		}
 
 		parent::__construct($request, $response, $eventManager, $viewOptions);
+
+		$this->disableAutoLayout();
 	}
 
 }

@@ -12,8 +12,12 @@ use Cake\Controller\Controller;
 class CalendarComponentTestController extends Controller {
 
 	/**
-	 * @var array
+	 * @return void
 	 */
-	public $components = ['Calendar.Calendar'];
+	public function initialize(): void {
+		parent::initialize();
+
+		$this->loadComponent('Calendar.Calendar');
+	}
 
 }

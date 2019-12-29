@@ -26,7 +26,7 @@ class CalendarHelperTest extends TestCase {
 	 *
 	 * @return void
 	 */
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 
 		$request = (new ServerRequest(['url' => '/events']))
@@ -35,7 +35,7 @@ class CalendarHelperTest extends TestCase {
 
 		$this->View = new View($request);
 		$this->Calendar = new CalendarHelper($this->View);
-		Router::pushRequest($request);
+		Router::setRequest($request);
 
 		Router::reload();
 		Router::connect('/:controller', ['action' => 'index']);
@@ -47,7 +47,7 @@ class CalendarHelperTest extends TestCase {
 	 *
 	 * @return void
 	 */
-	public function tearDown() {
+	public function tearDown(): void {
 		parent::tearDown();
 
 		unset($this->Calendar);
@@ -57,11 +57,11 @@ class CalendarHelperTest extends TestCase {
 	 * @return void
 	 */
 	public function testRenderEmpty() {
-		$this->View->viewVars['_calendar'] = [
+		$this->View->set('_calendar', [
 			'span' => 3,
 			'year' => 2010,
 			'month' => 12,
-		];
+		]);
 
 		$result = $this->Calendar->render();
 		$this->assertContains('<table class="calendar">', $result);
@@ -71,11 +71,11 @@ class CalendarHelperTest extends TestCase {
 	 * @return void
 	 */
 	public function testRender() {
-		$this->View->viewVars['_calendar'] = [
+		$this->View->set('_calendar', [
 			'span' => 3,
 			'year' => date('Y'),
 			'month' => 12,
-		];
+		]);
 
 		$this->Calendar->addRow(new Time(date('Y') . '-12-02 11:12:13'), 'Foo Bar', ['class' => 'event']);
 
@@ -92,11 +92,11 @@ class CalendarHelperTest extends TestCase {
 	 * @return void
 	 */
 	public function testRenderNoPref() {
-		$this->View->viewVars['_calendar'] = [
+		$this->View->set('_calendar', [
 			'span' => 3,
 			'year' => date('Y') - 4,
 			'month' => 12,
-		];
+		]);
 
 		$result = $this->Calendar->render();
 
@@ -110,11 +110,11 @@ class CalendarHelperTest extends TestCase {
 	 * @return void
 	 */
 	public function testRenderNoNext() {
-		$this->View->viewVars['_calendar'] = [
+		$this->View->set('_calendar', [
 			'span' => 3,
 			'year' => date('Y') + 4,
 			'month' => 12,
-		];
+		]);
 
 		$result = $this->Calendar->render();
 

@@ -87,7 +87,7 @@ class CalendarHelper extends Helper {
 		}
 
 		$from = clone $from;
-		$month = $this->_View->viewVars['_calendar']['month'];
+		$month = $this->_View->get('_calendar')['month'];
 
 		$days = [
 		];
@@ -122,12 +122,12 @@ class CalendarHelper extends Helper {
 		$day = 1;
 		$today = 0;
 
-		if (empty($this->_View->viewVars['_calendar'])) {
+		if (empty($this->_View->get('_calendar'))) {
 			throw new RuntimeException('You need to load Calendar.Calendar component for this helper to work.');
 		}
 
-		$year = $this->_View->viewVars['_calendar']['year'];
-		$month = $this->_View->viewVars['_calendar']['month'];
+		$year = $this->_View->get('_calendar')['year'];
+		$month = $this->_View->get('_calendar')['month'];
 
 		$data = $this->dataContainer;
 
@@ -258,8 +258,8 @@ class CalendarHelper extends Helper {
 	 * @return string
 	 */
 	public function previousLink() {
-		$year = $this->_View->viewVars['_calendar']['year'];
-		$month = $this->_View->viewVars['_calendar']['month'];
+		$year = $this->_View->get('_calendar')['year'];
+		$month = $this->_View->get('_calendar')['month'];
 
 		$currentYear = (int)date('Y');
 		$currentMonth = (int)date('n');
@@ -286,7 +286,7 @@ class CalendarHelper extends Helper {
 			$prevYear = $year - 1;
 		}
 
-		$span = $this->_View->viewVars['_calendar']['span'];
+		$span = $this->_View->get('_calendar')['span'];
 		if ($prevYear < $currentYear - $span) {
 			return '';
 		}
@@ -302,8 +302,8 @@ class CalendarHelper extends Helper {
 	 * @return string
 	 */
 	public function nextLink() {
-		$year = $this->_View->viewVars['_calendar']['year'];
-		$month = $this->_View->viewVars['_calendar']['month'];
+		$year = $this->_View->get('_calendar')['year'];
+		$month = $this->_View->get('_calendar')['month'];
 
 		$currentYear = (int)date('Y');
 		$currentMonth = (int)date('n');
@@ -330,7 +330,7 @@ class CalendarHelper extends Helper {
 			$nextYear = $year + 1;
 		}
 
-		$span = $this->_View->viewVars['_calendar']['span'];
+		$span = $this->_View->get('_calendar')['span'];
 		if ($nextYear > $currentYear + $span) {
 			return '';
 		}
@@ -346,8 +346,8 @@ class CalendarHelper extends Helper {
 	 * @return bool
 	 */
 	public function isCurrentMonth() {
-		$year = $this->_View->viewVars['_calendar']['year'];
-		$month = $this->_View->viewVars['_calendar']['month'];
+		$year = $this->_View->get('_calendar')['year'];
+		$month = $this->_View->get('_calendar')['month'];
 
 		return $year === (int)date('Y') && $month === (int)date('n');
 	}
