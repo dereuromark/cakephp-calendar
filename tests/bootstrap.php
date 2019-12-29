@@ -58,8 +58,6 @@ Cake\Core\Configure::write('App.paths', [
 	'templates' => dirname(__FILE__) . DS . 'TestApp' . DS . 'src' . DS . 'Template' . DS,
 ]);
 
-//Cake\Core\Plugin::getCollection()->add(new Calendar\Plugin());
-
 // Ensure default test connection is defined
 if (!getenv('db_class')) {
 	putenv('db_class=Cake\Database\Driver\Sqlite');

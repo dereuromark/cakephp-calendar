@@ -35,6 +35,7 @@ class CalendarHelperTest extends TestCase {
 
 		$this->View = new View($request);
 		$this->Calendar = new CalendarHelper($this->View);
+		Router::pushRequest($request);
 
 		Router::reload();
 		Router::connect('/{controller}', ['action' => 'index']);
