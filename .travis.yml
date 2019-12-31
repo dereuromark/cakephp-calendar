@@ -16,7 +16,7 @@ services:
 
 matrix:
   include:
-    - php: 7.1
+    - php: 7.2
       env: DB=pgsql db_dsn='postgres://postgres@127.0.0.1/cakephp_test' CODECOVERAGE=1
 
     - php: 7.2
