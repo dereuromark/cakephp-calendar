@@ -28,7 +28,8 @@
 	},
 	"autoload": {
 		"psr-4": {
-			"Calendar\\": "src/"
+			"Calendar\\": "src/",
+			"Calendar\\Test\\Fixture\\": "tests/Fixture/"
 		}
 	},
 	"autoload-dev": {
