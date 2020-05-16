@@ -92,7 +92,7 @@ class CalendarHelper extends Helper {
 		$days = [
 		];
 		$count = 0;
-		while ($from < $to) {
+		while ($from <= $to) {
 			if ($from->month === $month) {
 				$days[$count] = $this->retrieveDayFromDate($from);
 			}
