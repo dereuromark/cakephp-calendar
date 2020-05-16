@@ -87,6 +87,7 @@ class CalendarHelper extends Helper {
 		}
 
 		$from = clone $from;
+		$from = $from->setTime(0, 0, 0);
 		$month = $this->_View->viewVars['_calendar']['month'];
 
 		$days = [
