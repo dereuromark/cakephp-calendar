@@ -16,7 +16,7 @@ This branch is for **CakePHP 4.0+**. For details see [version map](https://githu
 - Simple and robust
 - No JS needed, more responsive than solutions like fullcalendar
 - Persistent `year/month` URL pieces (copy-paste and link/redirect friendly)
-- IcalView class for `.ics` calender file output.
+- IcalView class for `.ics` calendar file output.
 
 ## Demo
 See the demo [Calendar example](https://sandbox.dereuromark.de/sandbox/calendar) at the sandbox.
