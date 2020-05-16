@@ -87,12 +87,13 @@ class CalendarHelper extends Helper {
 		}
 
 		$from = clone $from;
+		$from = $from->setTime(0, 0, 0);
 		$month = $this->_View->get('_calendar')['month'];
 
 		$days = [
 		];
 		$count = 0;
-		while ($from < $to) {
+		while ($from <= $to) {
 			if ($from->month === $month) {
 				$days[$count] = $this->retrieveDayFromDate($from);
 			}
