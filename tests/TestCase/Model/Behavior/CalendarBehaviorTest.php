@@ -86,8 +86,8 @@ class CalendarBehaviorTest extends TestCase {
 	}
 
 	/**
-	 * @return void
 	 * @throws \Cake\Http\Exception\InternalErrorException
+	 * @return void
 	 */
 	protected function _addFixtureData() {
 		$data = [

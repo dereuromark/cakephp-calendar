@@ -18,8 +18,8 @@ use Cake\ORM\Table;
  */
 class CalendarBehavior extends Behavior {
 
-	const YEAR = 'year';
-	const MONTH = 'month';
+	public const YEAR = 'year';
+	public const MONTH = 'month';
 
 	/**
 	 * @var \Cake\ORM\Table

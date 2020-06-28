@@ -377,6 +377,7 @@ class CalendarHelper extends Helper {
 		if (!isset($this->monthList[$month - 1])) {
 			return '';
 		}
+
 		return __(ucfirst($this->monthList[$month - 1]));
 	}
 

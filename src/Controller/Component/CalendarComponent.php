@@ -38,17 +38,17 @@ class CalendarComponent extends Component {
 	/**
 	 * @var int|null
 	 */
-	public $year = null;
+	public $year;
 
 	/**
 	 * @var int|null
 	 */
-	public $month = null;
+	public $month;
 
 	/**
 	 * @var int|null
 	 */
-	public $day = null;
+	public $day;
 
 	/**
 	 * Startup controller
@@ -64,8 +64,8 @@ class CalendarComponent extends Component {
 	 * @param string $year Year
 	 * @param string $month Month
 	 * @param int $span Years in both directions
-	 * @return void
 	 * @throws \Cake\Http\Exception\NotFoundException
+	 * @return void
 	 */
 	public function init($year, $month, $span = 10) {
 		if (!is_numeric($month)) {
@@ -130,8 +130,10 @@ class CalendarComponent extends Component {
 		$month = mb_strtolower($month);
 		if (in_array($month, $this->monthList)) {
 			$keys = array_keys($this->monthList, $month);
+
 			return $keys[0] + 1;
 		}
+
 		return 0;
 	}
 
@@ -183,6 +185,7 @@ class CalendarComponent extends Component {
 			$number = '0' . $number;
 			$count++;
 		}
+
 		return $number;
 	}
 
