@@ -68,7 +68,7 @@ class CalendarComponent extends Component {
 	 * @throws \Cake\Http\Exception\NotFoundException
 	 * @return void
 	 */
-	public function init($year, $month, $span = 10, $options = []) {
+	public function init($year, $month, $span = 10, array $options = []) {
 		if (!is_numeric($month)) {
 			$month = $this->retrieveMonth($month);
 		}
