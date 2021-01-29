@@ -93,14 +93,11 @@ class CalendarComponent extends Component {
 			throw new NotFoundException('Invalid date');
 		}
 
-		$viewVars = array_merge(
-			$options,
-			[
-				'year' => $this->year,
-				'month' => $this->month,
-				'span' => $span
-			]
-		);
+		$viewVars = $options + [
+			'year' => $this->year,
+			'month' => $this->month,
+			'span' => $span
+		];
 
 		$this->Controller->set('_calendar', $viewVars);
 	}
