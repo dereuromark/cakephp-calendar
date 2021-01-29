@@ -298,7 +298,7 @@ class CalendarHelper extends Helper {
 
 		$url = [
 			$prevYear,
-			$this->formatMonth($prevMonth)
+			$this->formatMonth($prevMonth),
 		];
 
 		$viewVars = $this->_View->get('_calendar');
@@ -352,7 +352,7 @@ class CalendarHelper extends Helper {
 
 		$url = [
 			$nextYear,
-			$this->formatMonth($nextMonth)
+			$this->formatMonth($nextMonth),
 		];
 
 		$viewVars = $this->_View->get('_calendar');
