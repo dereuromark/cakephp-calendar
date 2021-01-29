@@ -96,7 +96,7 @@ class CalendarComponent extends Component {
 		$viewVars = $options + [
 			'year' => $this->year,
 			'month' => $this->month,
-			'span' => $span
+			'span' => $span,
 		];
 
 		$this->Controller->set('_calendar', $viewVars);
