@@ -296,7 +296,17 @@ class CalendarHelper extends Helper {
 			$prevMonth = $prevYear = null;
 		}
 
-		return $this->Html->link(__('previous'), [$prevYear, $this->formatMonth($prevMonth)]);
+		$url = [
+			$prevYear,
+			$this->formatMonth($prevMonth),
+		];
+
+		$viewVars = $this->_View->get('_calendar');
+		if (!empty($viewVars['url'])) {
+			$url = array_merge($url, $viewVars['url']);
+		}
+
+		return $this->Html->link(__('previous'), $url);
 	}
 
 	/**
@@ -340,7 +350,17 @@ class CalendarHelper extends Helper {
 			$nextMonth = $nextYear = null;
 		}
 
-		return $this->Html->link(__('next'), [$nextYear, $this->formatMonth($nextMonth)]);
+		$url = [
+			$nextYear,
+			$this->formatMonth($nextMonth),
+		];
+
+		$viewVars = $this->_View->get('_calendar');
+		if (!empty($viewVars['url'])) {
+			$url = array_merge($url, $viewVars['url']);
+		}
+
+		return $this->Html->link(__('next'), $url);
 	}
 
 	/**
