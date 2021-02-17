@@ -66,53 +66,53 @@ class CalendarHelper extends Helper {
 	 * @return void
 	 */
 	public function initialize(array $config): void
-    {
-        $this->dataContainer = [];
+	{
+		$this->dataContainer = [];
 
-        $firstDayLabel = 'Monday';
-        $firstDayOfWeek = intlcal_get_first_day_of_week(intlcal_create_instance());
-        switch ($firstDayOfWeek) {
-            case IntlCalendar::DOW_SUNDAY:
-                $firstDayLabel = 'Sunday';
-                break;
+		$firstDayLabel = 'Monday';
+		$firstDayOfWeek = intlcal_get_first_day_of_week(intlcal_create_instance());
+		switch ($firstDayOfWeek) {
+			case IntlCalendar::DOW_SUNDAY:
+				$firstDayLabel = 'Sunday';
+				break;
 
-            case IntlCalendar::DOW_MONDAY:
-                $firstDayLabel = 'Monday';
-                break;
+			case IntlCalendar::DOW_MONDAY:
+				$firstDayLabel = 'Monday';
+				break;
 
-            case IntlCalendar::DOW_TUESDAY:
-                $firstDayLabel = 'Tuesday';
-                break;
+			case IntlCalendar::DOW_TUESDAY:
+				$firstDayLabel = 'Tuesday';
+				break;
 
-            case IntlCalendar::DOW_WEDNESDAY:
-                $firstDayLabel = 'Wednesday';
-                break;
+			case IntlCalendar::DOW_WEDNESDAY:
+				$firstDayLabel = 'Wednesday';
+				break;
 
-            case IntlCalendar::DOW_THURSDAY:
-                $firstDayLabel = 'Thursday';
-                break;
+			case IntlCalendar::DOW_THURSDAY:
+				$firstDayLabel = 'Thursday';
+				break;
 
-            case IntlCalendar::DOW_FRIDAY:
-                $firstDayLabel = 'Friday';
-                break;
+			case IntlCalendar::DOW_FRIDAY:
+				$firstDayLabel = 'Friday';
+				break;
 
-            case IntlCalendar::DOW_SATURDAY:
-                $firstDayLabel = 'Saturday';
-                break;
-        }
+			case IntlCalendar::DOW_SATURDAY:
+				$firstDayLabel = 'Saturday';
+				break;
+		}
 
-        $this->dayList = $this->localizedDayList = [];
-        $firstDayOfWeek = new FrozenTime($firstDayLabel);
-        foreach (range(0, 6) as $modifier) {
-            $this->dayList[] = strtolower(
-                $firstDayOfWeek
-                    ->addDays($modifier)
-                    ->i18nFormat('ccc', null, 'en-GB')
-            );
-            $this->localizedDayList[] = $firstDayOfWeek
-                ->addDays($modifier)
-                ->i18nFormat('ccc');
-        }
+		$this->dayList = $this->localizedDayList = [];
+		$firstDayOfWeek = new FrozenTime($firstDayLabel);
+		foreach (range(0, 6) as $modifier) {
+			$this->dayList[] = strtolower(
+				$firstDayOfWeek
+					->addDays($modifier)
+					->i18nFormat('ccc', null, 'en-GB')
+			);
+			$this->localizedDayList[] = $firstDayOfWeek
+				->addDays($modifier)
+				->i18nFormat('ccc');
+		}
 	}
 
 	/**
@@ -198,10 +198,10 @@ class CalendarHelper extends Helper {
 		$firstDayInMonth = date('D', mktime(0, 0, 0, $month, 1, $year));
 		$firstDayInMonth = strtolower($firstDayInMonth);
 
-        $monthObject = Time::createFromFormat(
-            'Y-m-d',
-            $year . '-' . $month . '-15' // 15th day of selected month, to avoid timezone screwyness
-        );
+		$monthObject = Time::createFromFormat(
+			'Y-m-d',
+			$year . '-' . $month . '-15' // 15th day of selected month, to avoid timezone screwyness
+		);
 
 		$str .= '<table class="calendar">';
 
@@ -211,7 +211,7 @@ class CalendarHelper extends Helper {
 
 		$str .= $this->previousLink();
 
-        $str .= '</th><th colspan="5" class="cell-month">' . $monthObject->i18nFormat('LLLL Y') . '</th><th class="cell-next">';
+		$str .= '</th><th colspan="5" class="cell-month">' . $monthObject->i18nFormat('LLLL Y') . '</th><th class="cell-next">';
 
 		$str .= $this->nextLink();
 
