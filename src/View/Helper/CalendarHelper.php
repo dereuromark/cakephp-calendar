@@ -38,6 +38,16 @@ class CalendarHelper extends Helper {
 	/**
 	 * @var array
 	 */
+	protected $dayList = [];
+
+	/**
+	 * @var array
+	 */
+	protected $localizedDayList = [];
+
+	/**
+	 * @var array
+	 */
 	protected $_defaultConfig = [
 		'monthAsString' => false,
 		'multiLabelSuffix' => ' (Day {0})',
@@ -56,6 +66,8 @@ class CalendarHelper extends Helper {
 	public function initialize(array $config): void
     {
         $this->dataContainer = [];
+
+        $firstDayLabel = 'Monday';
         $firstDayOfWeek = intlcal_get_first_day_of_week(intlcal_create_instance());
         switch ($firstDayOfWeek) {
             case \IntlCalendar::DOW_SUNDAY:
