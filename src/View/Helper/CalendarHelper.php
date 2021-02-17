@@ -3,9 +3,10 @@
 namespace Calendar\View\Helper;
 
 use Cake\Chronos\ChronosInterface;
-use Cake\I18n\Time;
 use Cake\I18n\FrozenTime;
+use Cake\I18n\Time;
 use Cake\View\Helper;
+use IntlCalendar;
 use RuntimeException;
 
 /**
@@ -61,6 +62,7 @@ class CalendarHelper extends Helper {
 	public $dataContainer = [];
 
 	/**
+	 * @param array $config
 	 * @return void
 	 */
 	public function initialize(array $config): void
@@ -70,31 +72,31 @@ class CalendarHelper extends Helper {
         $firstDayLabel = 'Monday';
         $firstDayOfWeek = intlcal_get_first_day_of_week(intlcal_create_instance());
         switch ($firstDayOfWeek) {
-            case \IntlCalendar::DOW_SUNDAY:
+            case IntlCalendar::DOW_SUNDAY:
                 $firstDayLabel = 'Sunday';
                 break;
 
-            case \IntlCalendar::DOW_MONDAY:
+            case IntlCalendar::DOW_MONDAY:
                 $firstDayLabel = 'Monday';
                 break;
 
-            case \IntlCalendar::DOW_TUESDAY:
+            case IntlCalendar::DOW_TUESDAY:
                 $firstDayLabel = 'Tuesday';
                 break;
 
-            case \IntlCalendar::DOW_WEDNESDAY:
+            case IntlCalendar::DOW_WEDNESDAY:
                 $firstDayLabel = 'Wednesday';
                 break;
 
-            case \IntlCalendar::DOW_THURSDAY:
+            case IntlCalendar::DOW_THURSDAY:
                 $firstDayLabel = 'Thursday';
                 break;
 
-            case \IntlCalendar::DOW_FRIDAY:
+            case IntlCalendar::DOW_FRIDAY:
                 $firstDayLabel = 'Friday';
                 break;
 
-            case \IntlCalendar::DOW_SATURDAY:
+            case IntlCalendar::DOW_SATURDAY:
                 $firstDayLabel = 'Saturday';
                 break;
         }
