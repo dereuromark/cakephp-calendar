@@ -65,8 +65,7 @@ class CalendarHelper extends Helper {
 	 * @param array $config
 	 * @return void
 	 */
-	public function initialize(array $config): void
-	{
+	public function initialize(array $config): void {
 		$this->dataContainer = [];
 
 		$firstDayLabel = 'Monday';
@@ -74,30 +73,31 @@ class CalendarHelper extends Helper {
 		switch ($firstDayOfWeek) {
 			case IntlCalendar::DOW_SUNDAY:
 				$firstDayLabel = 'Sunday';
-				break;
 
+				break;
 			case IntlCalendar::DOW_MONDAY:
 				$firstDayLabel = 'Monday';
-				break;
 
+				break;
 			case IntlCalendar::DOW_TUESDAY:
 				$firstDayLabel = 'Tuesday';
-				break;
 
+				break;
 			case IntlCalendar::DOW_WEDNESDAY:
 				$firstDayLabel = 'Wednesday';
-				break;
 
+				break;
 			case IntlCalendar::DOW_THURSDAY:
 				$firstDayLabel = 'Thursday';
-				break;
 
+				break;
 			case IntlCalendar::DOW_FRIDAY:
 				$firstDayLabel = 'Friday';
-				break;
 
+				break;
 			case IntlCalendar::DOW_SATURDAY:
 				$firstDayLabel = 'Saturday';
+
 				break;
 		}
 
