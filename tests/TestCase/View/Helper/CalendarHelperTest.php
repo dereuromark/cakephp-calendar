@@ -3,6 +3,7 @@
 namespace Calendar\Test\TestCase\View\Helper;
 
 use Cake\Http\ServerRequest;
+use Cake\I18n\I18n;
 use Cake\I18n\Time;
 use Cake\Routing\Router;
 use Cake\TestSuite\TestCase;
@@ -65,6 +66,40 @@ class CalendarHelperTest extends TestCase {
 
 		$result = $this->Calendar->render();
 		$this->assertStringContainsString('<table class="calendar">', $result);
+	}
+
+	/**
+	 * @return void
+	 */
+	public function testRenderEnUs() {
+		I18n::setLocale('en-us');
+		$this->View->set('_calendar', [
+			'span' => 3,
+			'year' => 2010,
+			'month' => 12,
+		]);
+
+		$result = $this->Calendar->render();
+		$this->assertStringContainsString('<th colspan="5" class="cell-month">December 2010</th>', $result);
+		// Sunday is the first day of the week
+        $this->assertStringContainsString('<tr><th class="cell-header">Sun</th>', $result);
+	}
+
+	/**
+	 * @return void
+	 */
+	public function testRenderDeDe() {
+		I18n::setLocale('de-de');
+		$this->View->set('_calendar', [
+			'span' => 3,
+			'year' => 2010,
+			'month' => 12,
+		]);
+
+		$result = $this->Calendar->render();
+		$this->assertStringContainsString('<th colspan="5" class="cell-month">Dezember 2010</th>', $result);
+		// Monday is the first day of the week
+        $this->assertStringContainsString('<tr><th class="cell-header">Mo</th>', $result);
 	}
 
 	/**
