@@ -73,6 +73,8 @@ class CalendarHelperTest extends TestCase {
 	 */
 	public function testRenderEnUs() {
 		I18n::setLocale('en-us');
+		$this->Calendar = new CalendarHelper($this->View);
+
 		$this->View->set('_calendar', [
 			'span' => 3,
 			'year' => 2010,
@@ -90,6 +92,8 @@ class CalendarHelperTest extends TestCase {
 	 */
 	public function testRenderDeDe() {
 		I18n::setLocale('de-de');
+		$this->Calendar = new CalendarHelper($this->View);
+
 		$this->View->set('_calendar', [
 			'span' => 3,
 			'year' => 2010,
