@@ -84,7 +84,7 @@ class CalendarHelperTest extends TestCase {
 		$result = $this->Calendar->render();
 		$this->assertStringContainsString('<th colspan="5" class="cell-month">December 2010</th>', $result);
 		// Sunday is the first day of the week
-        $this->assertStringContainsString('<tr><th class="cell-header">Sun</th>', $result);
+		$this->assertStringContainsString('<tr><th class="cell-header">Sun</th>', $result);
 	}
 
 	/**
@@ -103,7 +103,7 @@ class CalendarHelperTest extends TestCase {
 		$result = $this->Calendar->render();
 		$this->assertStringContainsString('<th colspan="5" class="cell-month">Dezember 2010</th>', $result);
 		// Monday is the first day of the week
-        $this->assertStringContainsString('<tr><th class="cell-header">Mo</th>', $result);
+		$this->assertStringContainsString('<tr><th class="cell-header">Mo</th>', $result);
 	}
 
 	/**
