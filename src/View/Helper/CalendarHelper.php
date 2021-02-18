@@ -3,7 +3,10 @@
 namespace Calendar\View\Helper;
 
 use Cake\Chronos\ChronosInterface;
+use Cake\I18n\FrozenTime;
+use Cake\I18n\Time;
 use Cake\View\Helper;
+use IntlCalendar;
 use RuntimeException;
 
 /**
@@ -36,7 +39,12 @@ class CalendarHelper extends Helper {
 	/**
 	 * @var array
 	 */
-	protected $dayList = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+	protected $dayList = [];
+
+	/**
+	 * @var array
+	 */
+	protected $localizedDayList = [];
 
 	/**
 	 * @var array
@@ -54,10 +62,57 @@ class CalendarHelper extends Helper {
 	public $dataContainer = [];
 
 	/**
+	 * @param array $config
 	 * @return void
 	 */
-	public function init() {
+	public function initialize(array $config): void {
 		$this->dataContainer = [];
+
+		$firstDayLabel = 'Monday';
+		$firstDayOfWeek = intlcal_get_first_day_of_week(intlcal_create_instance());
+		switch ($firstDayOfWeek) {
+			case IntlCalendar::DOW_SUNDAY:
+				$firstDayLabel = 'Sunday';
+
+				break;
+			case IntlCalendar::DOW_MONDAY:
+				$firstDayLabel = 'Monday';
+
+				break;
+			case IntlCalendar::DOW_TUESDAY:
+				$firstDayLabel = 'Tuesday';
+
+				break;
+			case IntlCalendar::DOW_WEDNESDAY:
+				$firstDayLabel = 'Wednesday';
+
+				break;
+			case IntlCalendar::DOW_THURSDAY:
+				$firstDayLabel = 'Thursday';
+
+				break;
+			case IntlCalendar::DOW_FRIDAY:
+				$firstDayLabel = 'Friday';
+
+				break;
+			case IntlCalendar::DOW_SATURDAY:
+				$firstDayLabel = 'Saturday';
+
+				break;
+		}
+
+		$this->dayList = $this->localizedDayList = [];
+		$firstDayOfWeek = new FrozenTime($firstDayLabel);
+		foreach (range(0, 6) as $modifier) {
+			$this->dayList[] = strtolower(
+				$firstDayOfWeek
+					->addDays($modifier)
+					->i18nFormat('ccc', null, 'en-GB')
+			);
+			$this->localizedDayList[] = $firstDayOfWeek
+				->addDays($modifier)
+				->i18nFormat('ccc');
+		}
 	}
 
 	/**
@@ -143,6 +198,11 @@ class CalendarHelper extends Helper {
 		$firstDayInMonth = date('D', mktime(0, 0, 0, $month, 1, $year));
 		$firstDayInMonth = strtolower($firstDayInMonth);
 
+		$monthObject = Time::createFromFormat(
+			'Y-m-d',
+			$year . '-' . $month . '-15' // 15th day of selected month, to avoid timezone screwyness
+		);
+
 		$str .= '<table class="calendar">';
 
 		$str .= '<thead>';
@@ -151,7 +211,7 @@ class CalendarHelper extends Helper {
 
 		$str .= $this->previousLink();
 
-		$str .= '</th><th colspan="5" class="cell-month">' . __(ucfirst($this->monthName($month))) . ' ' . $year . '</th><th class="cell-next">';
+		$str .= '</th><th colspan="5" class="cell-month">' . $monthObject->i18nFormat('LLLL Y') . '</th><th class="cell-next">';
 
 		$str .= $this->nextLink();
 
@@ -159,8 +219,8 @@ class CalendarHelper extends Helper {
 
 		$str .= '<tr>';
 
-		for ($i = 0; $i < 7;$i++) {
-				$str .= '<th class="cell-header">' . __(ucfirst($this->dayList[$i])) . '</th>'; //TODO: i18n!
+		for ($i = 0; $i < 7; $i++) {
+			$str .= '<th class="cell-header">' . $this->localizedDayList[$i] . '</th>';
 		}
 
 		$str .= '</tr>';
