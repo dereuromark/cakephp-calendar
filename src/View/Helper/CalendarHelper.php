@@ -39,6 +39,11 @@ class CalendarHelper extends Helper {
 	/**
 	 * @var array
 	 */
+	protected $weekendDayIndexes = [];
+
+	/**
+	 * @var array
+	 */
 	protected $dayList = [];
 
 	/**
@@ -67,9 +72,10 @@ class CalendarHelper extends Helper {
 	 */
 	public function initialize(array $config): void {
 		$this->dataContainer = [];
+		$intlCalendar = IntlCalendar::createInstance();
 
 		$firstDayLabel = 'Monday';
-		$firstDayOfWeek = intlcal_get_first_day_of_week(intlcal_create_instance());
+		$firstDayOfWeek = $intlCalendar->getFirstDayOfWeek();
 		switch ($firstDayOfWeek) {
 			case IntlCalendar::DOW_SUNDAY:
 				$firstDayLabel = 'Sunday';
@@ -77,22 +83,6 @@ class CalendarHelper extends Helper {
 				break;
 			case IntlCalendar::DOW_MONDAY:
 				$firstDayLabel = 'Monday';
-
-				break;
-			case IntlCalendar::DOW_TUESDAY:
-				$firstDayLabel = 'Tuesday';
-
-				break;
-			case IntlCalendar::DOW_WEDNESDAY:
-				$firstDayLabel = 'Wednesday';
-
-				break;
-			case IntlCalendar::DOW_THURSDAY:
-				$firstDayLabel = 'Thursday';
-
-				break;
-			case IntlCalendar::DOW_FRIDAY:
-				$firstDayLabel = 'Friday';
 
 				break;
 			case IntlCalendar::DOW_SATURDAY:
@@ -112,6 +102,13 @@ class CalendarHelper extends Helper {
 			$this->localizedDayList[] = $firstDayOfWeek
 				->addDays($modifier)
 				->i18nFormat('ccc');
+			$intlCalendarDayOfWeek = $firstDayOfWeek
+				->addDays($modifier)
+				->i18nFormat('c', null, 'en-US');
+
+			if ($intlCalendar->getDayOfWeekType($intlCalendarDayOfWeek) == IntlCalendar::DOW_TYPE_WEEKEND) {
+				$this->weekendDayIndexes[] = $modifier;
+			}
 		}
 	}
 
@@ -241,15 +238,15 @@ class CalendarHelper extends Helper {
 
 				$class = '';
 
-				if ($i > 4) {
-					$class = ' class="cell-weekend" ';
+				if (in_array($i, $this->weekendDayIndexes)) {
+					$class = ' class="cell-weekend"';
 				}
 				if ($day === $today && ($firstDayInMonth == $this->dayList[$i] || $day > 1) && ($day <= $daysInMonth)) {
-					$class = ' class="cell-today" ';
+					$class = ' class="cell-today"';
 				}
 
 				if (($firstDayInMonth == $this->dayList[$i] || $day > 1) && ($day <= $daysInMonth)) {
-					$str .= '<td ' . $class . '><div class="cell-number">' . $day . '</div><div class="cell-data">' . $cell . '</div></td>';
+					$str .= '<td' . $class . '><div class="cell-number">' . $day . '</div><div class="cell-data">' . $cell . '</div></td>';
 					$day++;
 				} else {
 					$str .= '<td class="cell-disabled">&nbsp;</td>';
