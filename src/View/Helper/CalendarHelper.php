@@ -246,7 +246,7 @@ class CalendarHelper extends Helper {
 				}
 
 				if (($firstDayInMonth == $this->dayList[$i] || $day > 1) && ($day <= $daysInMonth)) {
-					$str .= '<td ' . $class . '><div class="cell-number">' . $day . '</div><div class="cell-data">' . $cell . '</div></td>';
+					$str .= '<td' . $class . '><div class="cell-number">' . $day . '</div><div class="cell-data">' . $cell . '</div></td>';
 					$day++;
 				} else {
 					$str .= '<td class="cell-disabled">&nbsp;</td>';
