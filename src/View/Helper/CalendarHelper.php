@@ -239,10 +239,10 @@ class CalendarHelper extends Helper {
 				$class = '';
 
 				if (in_array($i, $this->weekendDayIndexes)) {
-					$class = ' class="cell-weekend" ';
+					$class = ' class="cell-weekend"';
 				}
 				if ($day === $today && ($firstDayInMonth == $this->dayList[$i] || $day > 1) && ($day <= $daysInMonth)) {
-					$class = ' class="cell-today" ';
+					$class = ' class="cell-today"';
 				}
 
 				if (($firstDayInMonth == $this->dayList[$i] || $day > 1) && ($day <= $daysInMonth)) {
