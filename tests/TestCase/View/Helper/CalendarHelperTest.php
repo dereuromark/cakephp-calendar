@@ -72,7 +72,7 @@ class CalendarHelperTest extends TestCase {
 	 * @return void
 	 */
 	public function testRenderEnUs() {
-		I18n::setLocale('en-us');
+		I18n::setLocale('en-us'); // English - United States
 		$this->Calendar = new CalendarHelper($this->View);
 
 		$this->View->set('_calendar', [
@@ -83,15 +83,20 @@ class CalendarHelperTest extends TestCase {
 
 		$result = $this->Calendar->render();
 		$this->assertStringContainsString('<th colspan="5" class="cell-month">December 2010</th>', $result);
+
 		// Sunday is the first day of the week
 		$this->assertStringContainsString('<tr><th class="cell-header">Sun</th>', $result);
+
+		// Saturday and Sunday are "weekend" days
+		$this->assertStringContainsString('<td class="cell-weekend"><div class="cell-number">4', $result);
+		$this->assertStringContainsString('<td class="cell-weekend"><div class="cell-number">5', $result);
 	}
 
 	/**
 	 * @return void
 	 */
 	public function testRenderDeDe() {
-		I18n::setLocale('de-de');
+		I18n::setLocale('de-de'); // German - Germany
 		$this->Calendar = new CalendarHelper($this->View);
 
 		$this->View->set('_calendar', [
@@ -102,8 +107,37 @@ class CalendarHelperTest extends TestCase {
 
 		$result = $this->Calendar->render();
 		$this->assertStringContainsString('<th colspan="5" class="cell-month">Dezember 2010</th>', $result);
+
 		// Monday is the first day of the week
 		$this->assertStringContainsString('<tr><th class="cell-header">Mo</th>', $result);
+
+		// Saturday and Sunday are "weekend" days
+		$this->assertStringContainsString('<td class="cell-weekend"><div class="cell-number">4', $result);
+		$this->assertStringContainsString('<td class="cell-weekend"><div class="cell-number">5', $result);
+	}
+
+	/**
+	 * @return void
+	 */
+	public function testRenderArDz() {
+		I18n::setLocale('ar-dz'); // Arabic - Algeria
+		$this->Calendar = new CalendarHelper($this->View);
+
+		$this->View->set('_calendar', [
+			'span' => 3,
+			'year' => 2010,
+			'month' => 12,
+		]);
+
+		$result = $this->Calendar->render();
+		$this->assertStringContainsString('<th colspan="5" class="cell-month">ديسمبر 2010</th>', $result);
+
+		// Saturday is the first day of the week
+		$this->assertStringContainsString('<tr><th class="cell-header">السبت</th>', $result);
+
+		// Friday and Saturday are "weekend" days
+		$this->assertStringContainsString('<td class="cell-weekend"><div class="cell-number">3', $result);
+		$this->assertStringContainsString('<td class="cell-weekend"><div class="cell-number">4', $result);
 	}
 
 	/**
