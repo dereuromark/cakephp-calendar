@@ -3,7 +3,7 @@
 namespace Calendar\Controller\Component;
 
 use Cake\Controller\Component;
-use Cake\Event\Event;
+use Cake\Event\EventInterface;
 use Cake\Http\Exception\NotFoundException;
 
 /**
@@ -23,13 +23,13 @@ class CalendarComponent extends Component {
 	public $Controller;
 
 	/**
-	 * @var array
+	 * @var string[]
 	 */
 	public $monthList = [
 		'january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];
 
 	/**
-	 * @var array
+	 * @var string[]
 	 */
 	public $dayList = [
 		'mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun',
@@ -53,10 +53,10 @@ class CalendarComponent extends Component {
 	/**
 	 * Startup controller
 	 *
-	 * @param \Cake\Event\Event $event
+	 * @param \Cake\Event\EventInterface $event
 	 * @return void
 	 */
-	public function startup(Event $event) {
+	public function startup(EventInterface $event) {
 		$this->Controller = $this->_registry->getController();
 	}
 
