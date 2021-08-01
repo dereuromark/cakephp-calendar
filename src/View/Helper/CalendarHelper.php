@@ -57,6 +57,7 @@ class CalendarHelper extends Helper {
 	protected $_defaultConfig = [
 		'monthAsString' => false,
 		'multiLabelSuffix' => ' (Day {0})',
+		'timezone' => null,
 	];
 
 	/**
@@ -183,11 +184,12 @@ class CalendarHelper extends Helper {
 		$month = $this->_View->get('_calendar')['month'];
 
 		$data = $this->dataContainer;
+		$now = new FrozenTime(null, $this->getConfig('timezone'));
 
-		$currentYear = (int)date('Y');
-		$currentMonth = (int)date('n');
+		$currentYear = (int)$now->format('Y');
+		$currentMonth = (int)$now->format('n');
 		if ($year === $currentYear && $month === $currentMonth) {
-			$today = (int)date('j');
+			$today = (int)$now->format('j');
 		}
 
 		$daysInMonth = date('t', mktime(0, 0, 0, $month, 1, $year));
