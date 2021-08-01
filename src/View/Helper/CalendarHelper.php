@@ -184,7 +184,7 @@ class CalendarHelper extends Helper {
 		$month = $this->_View->get('_calendar')['month'];
 
 		$data = $this->dataContainer;
-		$now = new FrozenTime(null, $this->getConfig('timezone', date_default_timezone_get()));
+		$now = new FrozenTime(null, $this->getConfig('timezone'));
 
 		$currentYear = (int)$now->format('Y');
 		$currentMonth = (int)$now->format('n');
