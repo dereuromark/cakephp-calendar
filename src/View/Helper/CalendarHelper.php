@@ -57,7 +57,7 @@ class CalendarHelper extends Helper {
 	protected $_defaultConfig = [
 		'monthAsString' => false,
 		'multiLabelSuffix' => ' (Day {0})',
-		'timezone' => 'Etc/UTC',
+		'timezone' => null,
 	];
 
 	/**
@@ -184,7 +184,7 @@ class CalendarHelper extends Helper {
 		$month = $this->_View->get('_calendar')['month'];
 
 		$data = $this->dataContainer;
-		$now = new FrozenTime(null, $this->getConfig('timezone'));
+		$now = new FrozenTime(null, $this->getConfig('timezone', date_default_timezone_get()));
 
 		$currentYear = (int)$now->format('Y');
 		$currentMonth = (int)$now->format('n');
