@@ -331,7 +331,6 @@ class CalendarHelper extends Helper {
 		}
 		if ($month > 0 && $month < 13) {
 			$flag = 1;
-			//$monthNum = $i + 1;
 		}
 		if ($flag === 0) {
 			$year = $currentYear;
@@ -352,7 +351,7 @@ class CalendarHelper extends Helper {
 			return '';
 		}
 
-		if ($prevYear === (int)$currentYear && $prevMonth === (int)$currentMonth) {
+		if ($prevYear === $currentYear && $prevMonth === $currentMonth) {
 			$prevMonth = $prevYear = null;
 		}
 
@@ -386,7 +385,6 @@ class CalendarHelper extends Helper {
 		}
 		if ($month > 0 && $month < 13 && (int)$year != 0) {
 			$flag = 1;
-			//$monthNum = $i + 1;
 		}
 		if ($flag === 0) {
 			$year = $currentYear;
