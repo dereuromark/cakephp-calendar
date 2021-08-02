@@ -18,11 +18,6 @@ use Cake\Http\Exception\NotFoundException;
 class CalendarComponent extends Component {
 
 	/**
-	 * @var \Cake\Controller\Controller
-	 */
-	public $Controller;
-
-	/**
 	 * @var string[]
 	 */
 	public $monthList = [
@@ -57,7 +52,6 @@ class CalendarComponent extends Component {
 	 * @return void
 	 */
 	public function startup(EventInterface $event) {
-		$this->Controller = $this->_registry->getController();
 	}
 
 	/**
@@ -99,7 +93,7 @@ class CalendarComponent extends Component {
 			'span' => $span,
 		];
 
-		$this->Controller->set('_calendar', $viewVars);
+		$this->getController()->set('_calendar', $viewVars);
 	}
 
 	/**
