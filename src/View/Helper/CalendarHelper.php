@@ -37,17 +37,17 @@ class CalendarHelper extends Helper {
 	protected $monthList = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];
 
 	/**
-	 * @var array
+	 * @var int[]
 	 */
 	protected $weekendDayIndexes = [];
 
 	/**
-	 * @var array
+	 * @var string[]
 	 */
 	protected $dayList = [];
 
 	/**
-	 * @var array
+	 * @var string[]
 	 */
 	protected $localizedDayList = [];
 
@@ -96,14 +96,14 @@ class CalendarHelper extends Helper {
 		$firstDayOfWeek = new FrozenTime($firstDayLabel);
 		foreach (range(0, 6) as $modifier) {
 			$this->dayList[] = strtolower(
-				$firstDayOfWeek
+				(string)$firstDayOfWeek
 					->addDays($modifier)
 					->i18nFormat('ccc', null, 'en-GB')
 			);
-			$this->localizedDayList[] = $firstDayOfWeek
+			$this->localizedDayList[] = (string)$firstDayOfWeek
 				->addDays($modifier)
 				->i18nFormat('ccc');
-			$intlCalendarDayOfWeek = $firstDayOfWeek
+			$intlCalendarDayOfWeek = (int)$firstDayOfWeek
 				->addDays($modifier)
 				->i18nFormat('c', null, 'en-US');
 
@@ -192,9 +192,9 @@ class CalendarHelper extends Helper {
 			$today = (int)$now->format('j');
 		}
 
-		$daysInMonth = date('t', mktime(0, 0, 0, $month, 1, $year));
+		$daysInMonth = date('t', mktime(0, 0, 0, $month, 1, $year) ?: null);
 
-		$firstDayInMonth = date('D', mktime(0, 0, 0, $month, 1, $year));
+		$firstDayInMonth = date('D', mktime(0, 0, 0, $month, 1, $year) ?: null);
 		$firstDayInMonth = strtolower($firstDayInMonth);
 
 		$monthObject = Time::createFromFormat(
@@ -339,6 +339,7 @@ class CalendarHelper extends Helper {
 		}
 
 		$prevYear = $year;
+		/** @var int|null $prevMonth */
 		$prevMonth = $month - 1;
 
 		if ($prevMonth === 0) {
@@ -393,6 +394,7 @@ class CalendarHelper extends Helper {
 		}
 
 		$nextYear = $year;
+		/** @var int|null $nextMonth */
 		$nextMonth = $month + 1;
 
 		if ($nextMonth === 13) {
@@ -433,7 +435,7 @@ class CalendarHelper extends Helper {
 	}
 
 	/**
-	 * @param int $month
+	 * @param int|null $month
 	 * @return string|null
 	 */
 	public function formatMonth($month) {

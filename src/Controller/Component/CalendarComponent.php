@@ -3,7 +3,6 @@
 namespace Calendar\Controller\Component;
 
 use Cake\Controller\Component;
-use Cake\Event\EventInterface;
 use Cake\Http\Exception\NotFoundException;
 
 /**
@@ -44,15 +43,6 @@ class CalendarComponent extends Component {
 	 * @var int|null
 	 */
 	public $day;
-
-	/**
-	 * Startup controller
-	 *
-	 * @param \Cake\Event\EventInterface $event
-	 * @return void
-	 */
-	public function startup(EventInterface $event) {
-	}
 
 	/**
 	 * @param string $year Year
@@ -100,6 +90,10 @@ class CalendarComponent extends Component {
 	 * @return int
 	 */
 	public function year() {
+		if (!$this->year) {
+			throw new \RuntimeException('Make sure to first call init().');
+		}
+
 		return $this->year;
 	}
 
@@ -107,6 +101,10 @@ class CalendarComponent extends Component {
 	 * @return int
 	 */
 	public function month() {
+		if (!$this->month) {
+			throw new \RuntimeException('Make sure to first call init().');
+		}
+
 		return $this->month;
 	}
 
@@ -114,6 +112,10 @@ class CalendarComponent extends Component {
 	 * @return string
 	 */
 	public function monthAsString() {
+		if (!$this->month) {
+			throw new \RuntimeException('Make sure to first call init().');
+		}
+
 		return $this->asString($this->month);
 	}
 
