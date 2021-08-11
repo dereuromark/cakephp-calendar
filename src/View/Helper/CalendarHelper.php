@@ -192,9 +192,9 @@ class CalendarHelper extends Helper {
 			$today = (int)$now->format('j');
 		}
 
-		$daysInMonth = date('t', mktime(0, 0, 0, $month, 1, $year) ?: null);
+		$daysInMonth = date('t', (int)mktime(0, 0, 0, $month, 1, $year) ?: null);
 
-		$firstDayInMonth = date('D', mktime(0, 0, 0, $month, 1, $year) ?: null);
+		$firstDayInMonth = date('D', (int)mktime(0, 0, 0, $month, 1, $year) ?: null);
 		$firstDayInMonth = strtolower($firstDayInMonth);
 
 		$monthObject = Time::createFromFormat(

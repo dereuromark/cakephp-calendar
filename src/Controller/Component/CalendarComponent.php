@@ -131,7 +131,7 @@ class CalendarComponent extends Component {
 			return 0;
 		}
 		$month = mb_strtolower($month);
-		if (in_array($month, $this->monthList)) {
+		if (in_array($month, $this->monthList, true)) {
 			$keys = array_keys($this->monthList, $month);
 
 			return $keys[0] + 1;
