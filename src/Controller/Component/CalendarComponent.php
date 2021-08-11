@@ -4,6 +4,7 @@ namespace Calendar\Controller\Component;
 
 use Cake\Controller\Component;
 use Cake\Http\Exception\NotFoundException;
+use RuntimeException;
 
 /**
  * Calendar Component
@@ -91,7 +92,7 @@ class CalendarComponent extends Component {
 	 */
 	public function year() {
 		if (!$this->year) {
-			throw new \RuntimeException('Make sure to first call init().');
+			throw new RuntimeException('Make sure to first call init().');
 		}
 
 		return $this->year;
@@ -102,7 +103,7 @@ class CalendarComponent extends Component {
 	 */
 	public function month() {
 		if (!$this->month) {
-			throw new \RuntimeException('Make sure to first call init().');
+			throw new RuntimeException('Make sure to first call init().');
 		}
 
 		return $this->month;
@@ -113,7 +114,7 @@ class CalendarComponent extends Component {
 	 */
 	public function monthAsString() {
 		if (!$this->month) {
-			throw new \RuntimeException('Make sure to first call init().');
+			throw new RuntimeException('Make sure to first call init().');
 		}
 
 		return $this->asString($this->month);
