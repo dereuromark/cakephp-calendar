@@ -3,7 +3,7 @@
 namespace Calendar\Model\Behavior;
 
 use Cake\Core\Configure;
-use Cake\I18n\Time;
+use Cake\I18n\FrozenTime;
 use Cake\ORM\Behavior;
 use Cake\ORM\Query;
 use Cake\ORM\Table;
@@ -73,10 +73,10 @@ class CalendarBehavior extends Behavior {
 		$year = $options[static::YEAR];
 		$month = $options[static::MONTH];
 
-		$from = new Time($year . '-' . $month . '-01');
+		$from = new FrozenTime($year . '-' . $month . '-01');
 		$lastDayOfMonth = $from->daysInMonth;
 
-		$to = new Time($year . '-' . $month . '-' . $lastDayOfMonth . ' 23:59:59');
+		$to = new FrozenTime($year . '-' . $month . '-' . $lastDayOfMonth . ' 23:59:59');
 
 		$conditions = [
 			$field . ' >=' => $from,

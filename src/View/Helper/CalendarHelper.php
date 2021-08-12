@@ -4,7 +4,6 @@ namespace Calendar\View\Helper;
 
 use Cake\Chronos\ChronosInterface;
 use Cake\I18n\FrozenTime;
-use Cake\I18n\Time;
 use Cake\View\Helper;
 use IntlCalendar;
 use RuntimeException;
@@ -197,7 +196,7 @@ class CalendarHelper extends Helper {
 		$firstDayInMonth = date('D', $now->getTimestamp());
 		$firstDayInMonth = strtolower($firstDayInMonth);
 
-		$monthObject = Time::createFromFormat(
+		$monthObject = FrozenTime::createFromFormat(
 			'Y-m-d',
 			$year . '-' . $month . '-15' // 15th day of selected month, to avoid timezone screwyness
 		);
