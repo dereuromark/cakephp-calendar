@@ -191,9 +191,9 @@ class CalendarHelper extends Helper {
 			$today = (int)$now->format('j');
 		}
 
-		$daysInMonth = date('t', $now->getTimestamp());
+		$daysInMonth = date('t', (int)mktime(0, 0, 0, $month, 1, $year));
 
-		$firstDayInMonth = date('D', $now->getTimestamp());
+		$firstDayInMonth = date('D', (int)mktime(0, 0, 0, $month, 1, $year));
 		$firstDayInMonth = strtolower($firstDayInMonth);
 
 		$monthObject = FrozenTime::createFromFormat(
@@ -303,7 +303,7 @@ class CalendarHelper extends Helper {
 		$currentYear = (int)date('Y');
 		$currentMonth = (int)date('n');
 
-		if ($year === (int)$currentYear && $month === (int)$currentMonth) {
+		if ($year === $currentYear && $month === $currentMonth) {
 			return $url;
 		}
 
