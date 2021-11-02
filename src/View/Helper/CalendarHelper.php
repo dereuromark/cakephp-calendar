@@ -36,22 +36,22 @@ class CalendarHelper extends Helper {
 	protected $monthList = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];
 
 	/**
-	 * @var int[]
+	 * @var array<int>
 	 */
 	protected $weekendDayIndexes = [];
 
 	/**
-	 * @var string[]
+	 * @var array<string>
 	 */
 	protected $dayList = [];
 
 	/**
-	 * @var string[]
+	 * @var array<string>
 	 */
 	protected $localizedDayList = [];
 
 	/**
-	 * @var array
+	 * @var array<string, mixed>
 	 */
 	protected $_defaultConfig = [
 		'monthAsString' => false,
@@ -97,7 +97,7 @@ class CalendarHelper extends Helper {
 			$this->dayList[] = strtolower(
 				(string)$firstDayOfWeek
 					->addDays($modifier)
-					->i18nFormat('ccc', null, 'en-GB')
+					->i18nFormat('ccc', null, 'en-GB'),
 			);
 			$this->localizedDayList[] = (string)$firstDayOfWeek
 				->addDays($modifier)
@@ -198,7 +198,7 @@ class CalendarHelper extends Helper {
 
 		$monthObject = FrozenTime::createFromFormat(
 			'Y-m-d',
-			$year . '-' . $month . '-15' // 15th day of selected month, to avoid timezone screwyness
+			$year . '-' . $month . '-15', // 15th day of selected month, to avoid timezone screwyness
 		);
 
 		$str .= '<table class="calendar">';

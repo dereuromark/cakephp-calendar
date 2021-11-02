@@ -18,13 +18,13 @@ use RuntimeException;
 class CalendarComponent extends Component {
 
 	/**
-	 * @var string[]
+	 * @var array<string>
 	 */
 	public $monthList = [
 		'january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];
 
 	/**
-	 * @var string[]
+	 * @var array<string>
 	 */
 	public $dayList = [
 		'mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun',

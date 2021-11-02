@@ -18,7 +18,7 @@ class IcalView extends View {
 	protected $_ext = '.php';
 
 	/**
-	 * @var string|null
+	 * @var string
 	 */
 	public $subDir = 'ics';
 

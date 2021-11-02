@@ -18,7 +18,14 @@ use Cake\ORM\Table;
  */
 class CalendarBehavior extends Behavior {
 
+	/**
+	 * @var string
+	 */
 	public const YEAR = 'year';
+
+	/**
+	 * @var string
+	 */
 	public const MONTH = 'month';
 
 	/**
@@ -27,7 +34,7 @@ class CalendarBehavior extends Behavior {
 	protected $_table;
 
 	/**
-	 * @var array
+	 * @var array<string, mixed>
 	 */
 	protected $_defaultConfig = [
 		'field' => 'date',
