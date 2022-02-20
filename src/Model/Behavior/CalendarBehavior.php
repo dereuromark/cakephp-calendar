@@ -71,7 +71,7 @@ class CalendarBehavior extends Behavior {
 	 * - month (required), best to use CalendarBehavior::MONTH constant
 	 *
 	 * @param \Cake\ORM\Query $query Query.
-	 * @param array $options Array of options as described above
+	 * @param array<string, mixed> $options Array of options as described above
 	 * @return \Cake\ORM\Query
 	 */
 	public function findCalendar(Query $query, array $options) {

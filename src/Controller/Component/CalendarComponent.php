@@ -49,7 +49,7 @@ class CalendarComponent extends Component {
 	 * @param string $year Year
 	 * @param string $month Month
 	 * @param int $span Years in both directions
-	 * @param array $options To be passed to previous and next methods
+	 * @param array<string, mixed> $options To be passed to previous and next methods
 	 * @throws \Cake\Http\Exception\NotFoundException
 	 * @return void
 	 */

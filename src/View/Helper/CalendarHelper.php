@@ -115,7 +115,7 @@ class CalendarHelper extends Helper {
 	/**
 	 * @param \Cake\Chronos\ChronosInterface $date
 	 * @param string $content
-	 * @param array $options
+	 * @param array<string, mixed> $options
 	 * @return void
 	 */
 	public function addRow(ChronosInterface $date, $content, $options = []) {
@@ -130,7 +130,7 @@ class CalendarHelper extends Helper {
 	 * @param \Cake\I18n\Time|\Cake\I18n\FrozenTime $from
 	 * @param \Cake\I18n\Time|\Cake\I18n\FrozenTime $to
 	 * @param string $content
-	 * @param array $options
+	 * @param array<string, mixed> $options
 	 * @return void
 	 */
 	public function addRowFromTo(ChronosInterface $from, ChronosInterface $to, $content, $options = []) {
