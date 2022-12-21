@@ -5,6 +5,7 @@ namespace Calendar\Test\TestCase\View\Helper;
 use Cake\Http\ServerRequest;
 use Cake\I18n\I18n;
 use Cake\I18n\Time;
+use Cake\Routing\Route\DashedRoute;
 use Cake\Routing\Router;
 use Cake\TestSuite\TestCase;
 use Cake\View\View;
@@ -36,11 +37,13 @@ class CalendarHelperTest extends TestCase {
 
 		$this->View = new View($request);
 		$this->Calendar = new CalendarHelper($this->View);
-		Router::setRequest($request);
+		$this->Calendar->getView()->setRequest($request);
 
 		Router::reload();
+		Router::defaultRouteClass(DashedRoute::class);
 		Router::connect('/:controller', ['action' => 'index']);
 		Router::connect('/:controller/:action/*');
+		Router::setRequest($this->Calendar->getView()->getRequest());
 	}
 
 	/**
