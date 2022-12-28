@@ -11,9 +11,9 @@ use Cake\TestSuite\TestCase;
 class CalendarBehaviorTest extends TestCase {
 
 	/**
-	 * @var array
+	 * @var array<string>
 	 */
-	public $fixtures = [
+	protected $fixtures = [
 		'plugin.Calendar.Events',
 	];
 
