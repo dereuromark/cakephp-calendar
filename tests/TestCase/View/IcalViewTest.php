@@ -10,20 +10,11 @@ use Calendar\View\IcalView;
 
 class IcalViewTest extends TestCase {
 
-	/**
-	 * @var \Calendar\View\IcalView
-	 */
-	protected $icalView;
+	protected IcalView $icalView;
 
-	/**
-	 * @var \Cake\Http\ServerRequest
-	 */
-	protected $request;
+	protected ServerRequest $request;
 
-	/**
-	 * @var \Cake\Http\Response
-	 */
-	protected $response;
+	protected Response $response;
 
 	/**
 	 * setUp method

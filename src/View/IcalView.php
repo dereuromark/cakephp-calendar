@@ -12,15 +12,9 @@ use Cake\View\View;
  */
 class IcalView extends View {
 
-	/**
-	 * @var string
-	 */
-	protected $_ext = '.php';
+	protected string $_ext = '.php';
 
-	/**
-	 * @var string
-	 */
-	public $subDir = 'ics';
+	public ?string $subDir = 'ics';
 
 	/**
 	 * @param \Cake\Http\ServerRequest|null $request The request object.
@@ -32,7 +26,7 @@ class IcalView extends View {
 		?ServerRequest $request = null,
 		?Response $response = null,
 		?EventManager $eventManager = null,
-		array $viewOptions = []
+		array $viewOptions = [],
 	) {
 		if ($response && $response instanceof Response) {
 			$response = $response->withType('ics');

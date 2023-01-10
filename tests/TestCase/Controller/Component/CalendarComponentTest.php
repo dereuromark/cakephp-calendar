@@ -9,10 +9,7 @@ use TestApp\Controller\CalendarComponentTestController;
 
 class CalendarComponentTest extends TestCase {
 
-	/**
-	 * @var \TestApp\Controller\CalendarComponentTestController
-	 */
-	protected $Controller;
+	protected CalendarComponentTestController $Controller;
 
 	/**
 	 * @return void

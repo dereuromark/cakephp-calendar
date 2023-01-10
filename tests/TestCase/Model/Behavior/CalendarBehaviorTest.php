@@ -5,6 +5,7 @@ namespace Calendar\Test\Model\Behavior;
 use Cake\Datasource\ConnectionManager;
 use Cake\Http\Exception\InternalErrorException;
 use Cake\ORM\Entity;
+use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 
@@ -13,19 +14,19 @@ class CalendarBehaviorTest extends TestCase {
 	/**
 	 * @var array<string>
 	 */
-	protected $fixtures = [
+	protected array $fixtures = [
 		'plugin.Calendar.Events',
 	];
 
 	/**
 	 * @var \Cake\ORM\Table;
 	 */
-	protected $Events;
+	protected Table $Events;
 
 	/**
 	 * @var array
 	 */
-	protected $config = [
+	protected array $config = [
 		'field' => 'beginning',
 	];
 
@@ -37,7 +38,7 @@ class CalendarBehaviorTest extends TestCase {
 	public function setUp(): void {
 		parent::setUp();
 
-		$this->Events = TableRegistry::get('Calendar.Events');
+		$this->Events = TableRegistry::getTableLocator()->get('Calendar.Events');
 		$this->Events->addBehavior('Calendar.Calendar', $this->config);
 
 		$this->db = ConnectionManager::get('test');

@@ -13,15 +13,9 @@ use Calendar\View\Helper\CalendarHelper;
 
 class CalendarHelperTest extends TestCase {
 
-	/**
-	 * @var \Calendar\View\Helper\CalendarHelper
-	 */
-	protected $Calendar;
+	protected CalendarHelper $Calendar;
 
-	/**
-	 * @var \Cake\View\View
-	 */
-	protected $View;
+	protected View $View;
 
 	/**
 	 * setUp method

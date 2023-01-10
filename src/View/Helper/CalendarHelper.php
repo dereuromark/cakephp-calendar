@@ -3,7 +3,7 @@
 namespace Calendar\View\Helper;
 
 use Cake\Chronos\ChronosInterface;
-use Cake\I18n\FrozenTime;
+use Cake\I18n\DateTime;
 use Cake\View\Helper;
 use IntlCalendar;
 use RuntimeException;
@@ -25,46 +25,41 @@ use RuntimeException;
  */
 class CalendarHelper extends Helper {
 
-	/**
-	 * @var array
-	 */
-	public $helpers = ['Html'];
+	public array $helpers = ['Html'];
 
 	/**
 	 * @var array
 	 */
-	protected $monthList = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];
+	protected array $monthList = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];
 
 	/**
 	 * @var array<int>
 	 */
-	protected $weekendDayIndexes = [];
+	protected array $weekendDayIndexes = [];
 
 	/**
 	 * @var array<string>
 	 */
-	protected $dayList = [];
+	protected array $dayList = [];
 
 	/**
 	 * @var array<string>
 	 */
-	protected $localizedDayList = [];
+	protected array $localizedDayList = [];
 
 	/**
 	 * @var array<string, mixed>
 	 */
-	protected $_defaultConfig = [
+	protected array $_defaultConfig = [
 		'monthAsString' => false,
 		'multiLabelSuffix' => ' (Day {0})',
 		'timezone' => null,
 	];
 
 	/**
-	 * Containing all rows
-	 *
-	 * @var array
-	 */
-	public $dataContainer = [];
+  * Containing all rows
+  */
+	public array $dataContainer = [];
 
 	/**
 	 * @param array $config
@@ -92,7 +87,7 @@ class CalendarHelper extends Helper {
 		}
 
 		$this->dayList = $this->localizedDayList = [];
-		$firstDayOfWeek = new FrozenTime($firstDayLabel);
+		$firstDayOfWeek = new DateTime($firstDayLabel);
 		foreach (range(0, 6) as $modifier) {
 			$this->dayList[] = strtolower(
 				(string)$firstDayOfWeek
@@ -127,8 +122,8 @@ class CalendarHelper extends Helper {
 	}
 
 	/**
-	 * @param \Cake\I18n\Time|\Cake\I18n\FrozenTime $from
-	 * @param \Cake\I18n\Time|\Cake\I18n\FrozenTime $to
+	 * @param \Cake\I18n\Time|\Cake\I18n\DateTime $from
+	 * @param \Cake\I18n\Time|\Cake\I18n\DateTime $to
 	 * @param string $content
 	 * @param array<string, mixed> $options
 	 * @return void
@@ -183,7 +178,7 @@ class CalendarHelper extends Helper {
 		$month = $this->_View->get('_calendar')['month'];
 
 		$data = $this->dataContainer;
-		$now = new FrozenTime(null, $this->getConfig('timezone'));
+		$now = new DateTime(null, $this->getConfig('timezone'));
 
 		$currentYear = (int)$now->format('Y');
 		$currentMonth = (int)$now->format('n');
@@ -196,7 +191,7 @@ class CalendarHelper extends Helper {
 		$firstDayInMonth = date('D', (int)mktime(0, 0, 0, $month, 1, $year));
 		$firstDayInMonth = strtolower($firstDayInMonth);
 
-		$monthObject = FrozenTime::createFromFormat(
+		$monthObject = DateTime::createFromFormat(
 			'Y-m-d',
 			$year . '-' . $month . '-15', // 15th day of selected month, to avoid timezone screwyness
 		);

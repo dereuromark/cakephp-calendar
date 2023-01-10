@@ -3,7 +3,7 @@
 namespace Calendar\Model\Behavior;
 
 use Cake\Core\Configure;
-use Cake\I18n\FrozenTime;
+use Cake\I18n\DateTime;
 use Cake\ORM\Behavior;
 use Cake\ORM\Query;
 use Cake\ORM\Table;
@@ -28,15 +28,12 @@ class CalendarBehavior extends Behavior {
 	 */
 	public const MONTH = 'month';
 
-	/**
-	 * @var \Cake\ORM\Table
-	 */
-	protected $_table;
+	protected ?Table $_table;
 
 	/**
 	 * @var array<string, mixed>
 	 */
-	protected $_defaultConfig = [
+	protected array $_defaultConfig = [
 		'field' => 'date',
 		'endField' => null,
 		'implementedFinders' => [
@@ -80,10 +77,10 @@ class CalendarBehavior extends Behavior {
 		$year = $options[static::YEAR];
 		$month = $options[static::MONTH];
 
-		$from = new FrozenTime($year . '-' . $month . '-01');
+		$from = new DateTime($year . '-' . $month . '-01');
 		$lastDayOfMonth = $from->daysInMonth;
 
-		$to = new FrozenTime($year . '-' . $month . '-' . $lastDayOfMonth . ' 23:59:59');
+		$to = new DateTime($year . '-' . $month . '-' . $lastDayOfMonth . ' 23:59:59');
 
 		$conditions = [
 			$field . ' >=' => $from,

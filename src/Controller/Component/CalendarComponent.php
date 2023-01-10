@@ -20,30 +20,21 @@ class CalendarComponent extends Component {
 	/**
 	 * @var array<string>
 	 */
-	public $monthList = [
+	public array $monthList = [
 		'january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];
 
 	/**
 	 * @var array<string>
 	 */
-	public $dayList = [
+	public array $dayList = [
 		'mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun',
 	];
 
-	/**
-	 * @var int|null
-	 */
-	public $year;
+	public ?int $year = null;
 
-	/**
-	 * @var int|null
-	 */
-	public $month;
+	public ?int $month = null;
 
-	/**
-	 * @var int|null
-	 */
-	public $day;
+	public ?int $day = null;
 
 	/**
 	 * @param string $year Year
