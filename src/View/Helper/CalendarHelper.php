@@ -2,7 +2,7 @@
 
 namespace Calendar\View\Helper;
 
-use Cake\Chronos\ChronosInterface;
+use Cake\Chronos\Chronos;
 use Cake\I18n\DateTime;
 use Cake\View\Helper;
 use IntlCalendar;
@@ -108,12 +108,12 @@ class CalendarHelper extends Helper {
 	}
 
 	/**
-	 * @param \Cake\Chronos\ChronosInterface $date
+	 * @param \Cake\Chronos\Chronos $date
 	 * @param string $content
 	 * @param array<string, mixed> $options
 	 * @return void
 	 */
-	public function addRow(ChronosInterface $date, $content, $options = []) {
+	public function addRow(Chronos $date, string $content, array $options = []): void {
 		if (!$content) {
 			return;
 		}
@@ -122,13 +122,14 @@ class CalendarHelper extends Helper {
 	}
 
 	/**
-	 * @param \Cake\I18n\Time|\Cake\I18n\DateTime $from
-	 * @param \Cake\I18n\Time|\Cake\I18n\DateTime $to
+	 * @param \Cake\Chronos\Chronos $from
+	 * @param \Cake\Chronos\Chronos $to
 	 * @param string $content
 	 * @param array<string, mixed> $options
+	 *
 	 * @return void
 	 */
-	public function addRowFromTo(ChronosInterface $from, ChronosInterface $to, $content, $options = []) {
+	public function addRowFromTo(Chronos $from, Chronos $to, string $content, array $options = []): void {
 		if (!$content) {
 			return;
 		}
@@ -164,7 +165,7 @@ class CalendarHelper extends Helper {
 	 *
 	 * @return string HTML code to display calendar in view
 	 */
-	public function render() {
+	public function render(): string {
 		$str = '';
 
 		$day = 1;
@@ -259,26 +260,26 @@ class CalendarHelper extends Helper {
 	}
 
 	/**
-	 * @param \Cake\Chronos\ChronosInterface $date
+	 * @param \Cake\Chronos\Chronos $date
 	 * @return int
 	 */
-	public function retrieveDayFromDate(ChronosInterface $date) {
+	public function retrieveDayFromDate(Chronos $date): int {
 		return (int)$date->format('d');
 	}
 
 	/**
-	 * @param \Cake\Chronos\ChronosInterface $date
+	 * @param \Cake\Chronos\Chronos $date
 	 * @return int
 	 */
-	public function retrieveMonthFromDate(ChronosInterface $date) {
+	public function retrieveMonthFromDate(Chronos $date): int {
 		return (int)$date->format('n');
 	}
 
 	/**
-	 * @param \Cake\Chronos\ChronosInterface $date
+	 * @param \Cake\Chronos\Chronos $date
 	 * @return int
 	 */
-	public function retrieveYearFromDate(ChronosInterface $date) {
+	public function retrieveYearFromDate(Chronos $date): int {
 		return (int)$date->format('Y');
 	}
 
@@ -288,10 +289,10 @@ class CalendarHelper extends Helper {
 	 * Specify action and if necessary controller, plugin, and prefix.
 	 *
 	 * @param array $url
-	 * @param \Cake\Chronos\ChronosInterface $dateTime
+	 * @param \Cake\Chronos\Chronos $dateTime
 	 * @return array
 	 */
-	public function calendarUrlArray(array $url, ChronosInterface $dateTime) {
+	public function calendarUrlArray(array $url, Chronos $dateTime): array {
 		$year = $this->retrieveYearFromDate($dateTime);
 		$month = $this->retrieveMonthFromDate($dateTime);
 
@@ -311,7 +312,7 @@ class CalendarHelper extends Helper {
 	/**
 	 * @return string
 	 */
-	public function previousLink() {
+	public function previousLink(): string {
 		$year = $this->_View->get('_calendar')['year'];
 		$month = $this->_View->get('_calendar')['month'];
 
@@ -365,7 +366,7 @@ class CalendarHelper extends Helper {
 	/**
 	 * @return string
 	 */
-	public function nextLink() {
+	public function nextLink(): string {
 		$year = $this->_View->get('_calendar')['year'];
 		$month = $this->_View->get('_calendar')['month'];
 
@@ -419,7 +420,7 @@ class CalendarHelper extends Helper {
 	/**
 	 * @return bool
 	 */
-	public function isCurrentMonth() {
+	public function isCurrentMonth(): bool {
 		$year = $this->_View->get('_calendar')['year'];
 		$month = $this->_View->get('_calendar')['month'];
 
@@ -430,7 +431,7 @@ class CalendarHelper extends Helper {
 	 * @param int|null $month
 	 * @return string|null
 	 */
-	public function formatMonth($month) {
+	public function formatMonth(?int $month): ?string {
 		if (!$month) {
 			return null;
 		}
@@ -446,9 +447,9 @@ class CalendarHelper extends Helper {
 	 * @param int $month
 	 * @return string|null
 	 */
-	public function monthName($month) {
+	public function monthName(int $month): ?string {
 		if (!isset($this->monthList[$month - 1])) {
-			return '';
+			return null;
 		}
 
 		return __(ucfirst($this->monthList[$month - 1]));

@@ -41,7 +41,7 @@ class CalendarBehaviorTest extends TestCase {
 		$this->Events = TableRegistry::getTableLocator()->get('Calendar.Events');
 		$this->Events->addBehavior('Calendar.Calendar', $this->config);
 
-		$this->db = ConnectionManager::get('test');
+		$db = ConnectionManager::get('test');
 
 		$this->_addFixtureData();
 	}
@@ -53,7 +53,7 @@ class CalendarBehaviorTest extends TestCase {
 		parent::tearDown();
 
 		unset($this->Events);
-		TableRegistry::clear();
+		TableRegistry::getTableLocator()->clear();
 	}
 
 	/**

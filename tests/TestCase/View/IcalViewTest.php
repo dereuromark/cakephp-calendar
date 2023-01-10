@@ -4,6 +4,7 @@ namespace Calendar\Test\TestCase\View\Helper;
 
 use Cake\Http\Response;
 use Cake\Http\ServerRequest;
+use Cake\Routing\Route\DashedRoute;
 use Cake\Routing\Router;
 use Cake\TestSuite\TestCase;
 use Calendar\View\IcalView;
@@ -32,10 +33,10 @@ class IcalViewTest extends TestCase {
 
 		$this->icalView = new IcalView($this->request, $this->response);
 
-		Router::reload();
-
-		Router::connect('/:controller', ['action' => 'index']);
-		Router::connect('/:controller/:action/*');
+		Router::defaultRouteClass(DashedRoute::class);
+		$builder = Router::createRouteBuilder('/');
+		$builder->fallbacks(DashedRoute::class);
+		$builder->connect('/{controller}/{action}/*');
 	}
 
 	/**

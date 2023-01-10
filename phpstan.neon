@@ -5,3 +5,4 @@ parameters:
 	bootstrapFiles:
 		- tests/bootstrap.php
 	checkMissingIterableValueType: false
+	checkGenericClassInNonGenericObjectType: false

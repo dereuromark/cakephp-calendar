@@ -37,14 +37,14 @@ class CalendarComponent extends Component {
 	public ?int $day = null;
 
 	/**
-	 * @param string $year Year
-	 * @param string $month Month
+	 * @param string|int $year Year
+	 * @param string|int $month Month
 	 * @param int $span Years in both directions
 	 * @param array<string, mixed> $options To be passed to previous and next methods
 	 * @throws \Cake\Http\Exception\NotFoundException
 	 * @return void
 	 */
-	public function init($year, $month, $span = 10, array $options = []) {
+	public function init($year, $month, int $span = 10, array $options = []): void {
 		if (!is_numeric($month)) {
 			$month = $this->retrieveMonth($month);
 		}

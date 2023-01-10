@@ -14,7 +14,7 @@ class IcalView extends View {
 
 	protected string $_ext = '.php';
 
-	public ?string $subDir = 'ics';
+	public string $subDir = 'ics';
 
 	/**
 	 * @param \Cake\Http\ServerRequest|null $request The request object.

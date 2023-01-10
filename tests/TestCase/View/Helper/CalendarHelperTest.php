@@ -3,8 +3,8 @@
 namespace Calendar\Test\TestCase\View\Helper;
 
 use Cake\Http\ServerRequest;
+use Cake\I18n\DateTime;
 use Cake\I18n\I18n;
-use Cake\I18n\Time;
 use Cake\Routing\Route\DashedRoute;
 use Cake\Routing\Router;
 use Cake\TestSuite\TestCase;
@@ -35,8 +35,9 @@ class CalendarHelperTest extends TestCase {
 
 		Router::reload();
 		Router::defaultRouteClass(DashedRoute::class);
-		Router::connect('/:controller', ['action' => 'index']);
-		Router::connect('/:controller/:action/*');
+		$builder = Router::createRouteBuilder('/');
+		$builder->fallbacks(DashedRoute::class);
+		$builder->connect('/{controller}/{action}/*');
 		Router::setRequest($this->Calendar->getView()->getRequest());
 	}
 
@@ -147,7 +148,7 @@ class CalendarHelperTest extends TestCase {
 			'month' => 12,
 		]);
 
-		$this->Calendar->addRow(new Time(date('Y') . '-12-02 11:12:13'), 'Foo Bar', ['class' => 'event']);
+		$this->Calendar->addRow(new DateTime(date('Y') . '-12-02 11:12:13'), 'Foo Bar', ['class' => 'event']);
 
 		$result = $this->Calendar->render();
 

@@ -5,7 +5,7 @@ namespace Calendar\Model\Behavior;
 use Cake\Core\Configure;
 use Cake\I18n\DateTime;
 use Cake\ORM\Behavior;
-use Cake\ORM\Query;
+use Cake\ORM\Query\SelectQuery;
 use Cake\ORM\Table;
 
 /**
@@ -28,7 +28,7 @@ class CalendarBehavior extends Behavior {
 	 */
 	public const MONTH = 'month';
 
-	protected ?Table $_table;
+	protected Table $_table;
 
 	/**
 	 * @var array<string, mixed>
@@ -67,11 +67,11 @@ class CalendarBehavior extends Behavior {
 	 * - year (required), best to use CalendarBehavior::YEAR constant
 	 * - month (required), best to use CalendarBehavior::MONTH constant
 	 *
-	 * @param \Cake\ORM\Query $query Query.
+	 * @param \Cake\ORM\Query\SelectQuery $query Query.
 	 * @param array<string, mixed> $options Array of options as described above
-	 * @return \Cake\ORM\Query
+	 * @return \Cake\ORM\Query\SelectQuery
 	 */
-	public function findCalendar(Query $query, array $options) {
+	public function findCalendar(SelectQuery $query, array $options): SelectQuery {
 		$field = $this->getConfig('field');
 
 		$year = $options[static::YEAR];
