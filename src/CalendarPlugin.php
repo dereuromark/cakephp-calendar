@@ -4,7 +4,7 @@ namespace Calendar;
 
 use Cake\Core\BasePlugin;
 
-class Plugin extends BasePlugin {
+class CalendarPlugin extends BasePlugin {
 
 	/**
 	 * @var bool

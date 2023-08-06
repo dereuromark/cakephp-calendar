@@ -24,7 +24,7 @@
 	},
 	"require-dev": {
 		"fig-r/psr2r-sniffer": "dev-next",
-		"phpunit/phpunit": "^9.5.16"
+		"phpunit/phpunit": "^10.2"
 	},
 	"autoload": {
 		"psr-4": {

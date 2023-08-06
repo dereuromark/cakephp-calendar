@@ -4,9 +4,6 @@ use Cake\Cache\Cache;
 use Cake\Core\Configure;
 use Cake\Datasource\ConnectionManager;
 
-require dirname(__DIR__) . '/vendor/cakephp/cakephp/src/basics.php';
-require dirname(__DIR__) . '/vendor/autoload.php';
-
 define('ROOT', dirname(__DIR__));
 define('APP_DIR', 'src');
 
@@ -28,6 +25,10 @@ define('CACHE', TMP . 'cache' . DS);
 define('CAKE_CORE_INCLUDE_PATH', ROOT . '/vendor/cakephp/cakephp');
 define('CORE_PATH', CAKE_CORE_INCLUDE_PATH . DS);
 define('CAKE', CORE_PATH . 'src' . DS);
+
+require dirname(__DIR__) . '/vendor/autoload.php';
+require CORE_PATH . 'config/bootstrap.php';
+require CAKE_CORE_INCLUDE_PATH . '/src/functions.php';
 
 Configure::write('debug', true);
 
