@@ -41,9 +41,20 @@ class CalendarBehaviorTest extends TestCase {
 		$this->Events = TableRegistry::getTableLocator()->get('Calendar.Events');
 		$this->Events->addBehavior('Calendar.Calendar', $this->config);
 
-		$db = ConnectionManager::get('test');
-
+		$this->truncate();
 		$this->_addFixtureData();
+	}
+
+	/**
+	 * @return void
+	 */
+	protected function truncate() {
+		/** @var \Cake\Database\Schema\SqlGeneratorInterface $schema */
+		$schema = $this->Events->getSchema();
+		$sql = $schema->truncateSql($this->Events->getConnection());
+		foreach ($sql as $snippet) {
+			$this->Events->getConnection()->execute($snippet);
+		}
 	}
 
 	/**
@@ -108,15 +119,13 @@ class CalendarBehaviorTest extends TestCase {
 			[
 				'title' => 'Over new years eve',
 				'beginning' => date('Y') . '-12-29',
-				'end' => (date('Y') + 1) . '-01-02',
+				'end' => ((int)date('Y') + 1) . '-01-02',
 			],
 		];
 
 		foreach ($data as $row) {
 			$entity = $this->_getEntity($row);
-			if (!$this->Events->save($entity)) {
-				throw new InternalErrorException(print_r($entity->errors()));
-			}
+			$this->Events->saveOrFail($entity);
 		}
 	}
 
