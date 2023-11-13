@@ -2,8 +2,6 @@
 
 namespace Calendar\Test\Model\Behavior;
 
-use Cake\Datasource\ConnectionManager;
-use Cake\Http\Exception\InternalErrorException;
 use Cake\ORM\Entity;
 use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
