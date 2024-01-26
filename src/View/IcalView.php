@@ -16,15 +16,14 @@ class IcalView extends View {
 
 	public string $subDir = 'ics';
 
-    /**
-     * Mime-type this view class renders as.
-     *
-     * @return string The JSON content type.
-     */
-    public static function contentType(): string
-    {
-        return 'text/calendar';
-    }
+	/**
+	 * Mime-type this view class renders as.
+	 *
+	 * @return string The JSON content type.
+	 */
+	public static function contentType(): string {
+		return 'text/calendar';
+	}
 
 	/**
 	 * @param \Cake\Http\ServerRequest|null $request The request object.
