@@ -38,7 +38,7 @@ Your action:
             'month' => $this->Calendar->month(),
         ];
         $events = $this->Events->find('calendar', $options);
-        
+
         $this->set(compact('events'));
     }
 ```
@@ -62,7 +62,7 @@ In your index template:
 And in your view template you can have a backlink as easy as:
 ```php
 <?php echo $this->Html->link(
-    __('List {0}', __('Events')), 
+    __('List {0}', __('Events')),
     $this->Calendar->calendarUrlArray(['action' => 'index'], $event->date)
 ); ?>
 ```
@@ -115,14 +115,18 @@ Router::extensions([..., 'ics']);
 
 Then inside your controller just set a custom view class for this extension:
 ```php
-    /**
-     * @return void
-     */
-    public function initialize() {
-        parent::initialize();
+    use Calendar\View\IcalView;
 
-        $this->RequestHandler->setConfig('viewClassMap', ['ics' => 'Calendar.Ical']);
-    }    
+    /**
+     * @return array<string>
+     */
+    public function viewClasses(): array {
+        if (!$this->request->getParam('_ext')) {
+            return [];
+        }
+
+        return [IcalView::class];
+    }
 ```
 
 Let's say we want to render `/events/view/1.ics` now.
@@ -141,7 +145,7 @@ $vcalendar = new \Sabre\VObject\Component\VCalendar([
         'SUMMARY' => $event->name,
         'DTSTART' => $event->beginning,
         'DTEND' => $event->end,
-        'DESCRIPTION' => $event->description,        
+        'DESCRIPTION' => $event->description,
         'GEO' => $event->lat . ';' . $event->lng,
         'URL' => $event->url,
     ],
