@@ -164,3 +164,6 @@ echo $this->Ical->render();
 ```
 
 I didn't want to hard-link this plugin to a specific renderer. This way you keep complete flexibility here while being able to use the view class as convenience wrapper.
+
+For a larger list of events, you can also look into e.g.
+- https://github.com/spatie/icalendar-generator
