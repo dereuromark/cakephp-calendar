@@ -1,6 +1,6 @@
 <?php
 
-namespace Calendar\Test\Model\Behavior;
+namespace Calendar\Test\TestCase\Model\Behavior;
 
 use Cake\ORM\Entity;
 use Cake\ORM\Table;

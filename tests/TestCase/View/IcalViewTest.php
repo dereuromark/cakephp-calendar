@@ -1,6 +1,6 @@
 <?php
 
-namespace Calendar\Test\TestCase\View\Helper;
+namespace Calendar\Test\TestCase\View;
 
 use Cake\Http\Response;
 use Cake\Http\ServerRequest;
