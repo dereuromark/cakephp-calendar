@@ -26,17 +26,17 @@ class GoogleCalendarHelper extends Helper {
 	];
 
 	/**
-	 * Generates a calendar link for google.
+	 * Generates a calendar URL for google.
 	 *
 	 * @see https://github.com/InteractionDesignFoundation/add-event-to-calendar-docs/blob/main/services/google.md
+	 *
 	 * @param string $title
 	 * @param array $dateFromTo
 	 * @param array<string, mixed> $details
 	 *
 	 * @return string HTML code to display calendar in view
-	 *
 	 */
-	public function link(string $title, array $dateFromTo, array $details = []): string {
+	public function url(string $title, array $dateFromTo, array $details = []): string {
 		$url = $this->getConfig('url');
 		$url .= '?action=TEMPLATE';
 
@@ -91,6 +91,19 @@ class GoogleCalendarHelper extends Helper {
 		$url .= '&' . implode('&', $query);
 
 		return $url;
+	}
+
+	/**
+	 * Generates a calendar link for google.
+	 *
+	 * @param string $title
+	 * @param array $dateFromTo
+	 * @param array<string, mixed> $details
+	 *
+	 * @return string HTML code to display calendar in view
+	 */
+	public function link(string $title, array $dateFromTo, array $details = []): string {
+		return $this->Html->link($title, $this->url($title, $dateFromTo, $details));
 	}
 
 }
