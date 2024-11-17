@@ -62,7 +62,7 @@ class CalendarHelper extends Helper {
 	public array $dataContainer = [];
 
 	/**
-	 * @param array $config
+	 * @param array<string, mixed> $config
 	 * @return void
 	 */
 	public function initialize(array $config): void {
