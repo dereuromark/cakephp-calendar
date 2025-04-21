@@ -333,8 +333,7 @@ class CalendarHelper extends Helper {
 		}
 
 		$prevYear = $year;
-		/** @var int|null $prevMonth */
-		$prevMonth = $month - 1;
+		$prevMonth = (int)($month - 1);
 
 		if ($prevMonth === 0) {
 			$prevMonth = 12;
@@ -387,8 +386,7 @@ class CalendarHelper extends Helper {
 		}
 
 		$nextYear = $year;
-		/** @var int|null $nextMonth */
-		$nextMonth = $month + 1;
+		$nextMonth = (int)($month + 1);
 
 		if ($nextMonth === 13) {
 			$nextMonth = 1;
