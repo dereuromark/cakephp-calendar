@@ -37,7 +37,7 @@ Your action:
             'year' => $this->Calendar->year(),
             'month' => $this->Calendar->month(),
         ];
-        $events = $this->Events->find('calendar', $options);
+        $events = $this->Events->find('calendar', ...$options);
 
         $this->set(compact('events'));
     }

@@ -74,7 +74,7 @@ class CalendarBehaviorTest extends TestCase {
 			'year' => (int)date('Y'),
 		];
 
-		$events = $this->Events->find('calendar', $options);
+		$events = $this->Events->find('calendar', ...$options);
 
 		$eventList = array_values($events->find('list')->toArray());
 		$expected = [
