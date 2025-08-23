@@ -64,7 +64,7 @@ Configure::write('App', [
 	'namespace' => 'App',
 	'encoding' => 'utf-8',
 	'paths' => [
-		'templates' => dirname(__FILE__) . DS . 'TestApp' . DS . 'templates' . DS,
+		'templates' => __DIR__ . DS . 'TestApp' . DS . 'templates' . DS,
 	],
 ]);
 

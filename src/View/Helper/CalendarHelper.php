@@ -138,8 +138,7 @@ class CalendarHelper extends Helper {
 		$from = $from->setTime(0, 0, 0);
 		$month = $this->_View->get('_calendar')['month'];
 
-		$days = [
-		];
+		$days = [];
 		$count = 0;
 		while ($from <= $to) {
 			if ($from->month === $month) {
