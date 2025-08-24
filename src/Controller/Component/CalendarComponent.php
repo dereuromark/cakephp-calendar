@@ -23,7 +23,6 @@ class CalendarComponent extends Component {
 	public array $monthList = [
 		'january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october',
 		'november', 'december',
-
 	];
 
 	/**
