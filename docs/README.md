@@ -19,7 +19,7 @@ $this->loadComponent('Calendar.Calendar');
 
 And also your helper in the View class:
 ```php
-$this->loadHelper('Calendar.Calendar');
+$this->addHelper('Calendar.Calendar');
 ```
 
 Your action:
