@@ -279,10 +279,10 @@ class CalendarHelper extends Helper {
 	}
 
 	/**
-	 * @param \Cake\Chronos\Chronos $date
+	 * @param \Cake\Chronos\Chronos|\Cake\I18n\Date|\Cake\I18n\DateTime $date
 	 * @return int
 	 */
-	public function retrieveYearFromDate(Chronos $date): int {
+	public function retrieveYearFromDate(Chronos|Date|DateTime $date): int {
 		return (int)$date->format('Y');
 	}
 
@@ -292,10 +292,10 @@ class CalendarHelper extends Helper {
 	 * Specify action and if necessary controller, plugin, and prefix.
 	 *
 	 * @param array $url
-	 * @param \Cake\Chronos\Chronos $dateTime
+	 * @param \Cake\Chronos\Chronos|\Cake\I18n\Date|\Cake\I18n\DateTime $dateTime
 	 * @return array
 	 */
-	public function calendarUrlArray(array $url, Chronos $dateTime): array {
+	public function calendarUrlArray(array $url, Chronos|Date|DateTime $dateTime): array {
 		$year = $this->retrieveYearFromDate($dateTime);
 		$month = $this->retrieveMonthFromDate($dateTime);
 
