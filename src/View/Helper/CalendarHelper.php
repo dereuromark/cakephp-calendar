@@ -3,6 +3,7 @@
 namespace Calendar\View\Helper;
 
 use Cake\Chronos\Chronos;
+use Cake\I18n\Date;
 use Cake\I18n\DateTime;
 use Cake\View\Helper;
 use IntlCalendar;
@@ -108,12 +109,12 @@ class CalendarHelper extends Helper {
 	}
 
 	/**
-	 * @param \Cake\Chronos\Chronos $date
+	 * @param \Cake\Chronos\Chronos|\Cake\I18n\Date|\Cake\I18n\DateTime $date
 	 * @param string $content
 	 * @param array<string, mixed> $options
 	 * @return void
 	 */
-	public function addRow(Chronos $date, string $content, array $options = []): void {
+	public function addRow(Chronos|Date|DateTime $date, string $content, array $options = []): void {
 		if (!$content) {
 			return;
 		}
@@ -122,20 +123,23 @@ class CalendarHelper extends Helper {
 	}
 
 	/**
-	 * @param \Cake\Chronos\Chronos $from
-	 * @param \Cake\Chronos\Chronos $to
+	 * @param \Cake\Chronos\Chronos|\Cake\I18n\Date|\Cake\I18n\DateTime $from
+	 * @param \Cake\Chronos\Chronos|\Cake\I18n\Date|\Cake\I18n\DateTime $to
 	 * @param string $content
 	 * @param array<string, mixed> $options
 	 *
 	 * @return void
 	 */
-	public function addRowFromTo(Chronos $from, Chronos $to, string $content, array $options = []): void {
+	public function addRowFromTo(Chronos|Date|DateTime $from, Chronos|Date|DateTime $to, string $content, array $options = []): void {
 		if (!$content) {
 			return;
 		}
 
 		$from = clone $from;
-		$from = $from->setTime(0, 0, 0);
+		// Only set time if the object has a setTime method (DateTime/Chronos but not Date)
+		if (method_exists($from, 'setTime')) {
+			$from = $from->setTime(0, 0, 0);
+		}
 		$month = $this->_View->get('_calendar')['month'];
 
 		$days = [];
@@ -259,18 +263,18 @@ class CalendarHelper extends Helper {
 	}
 
 	/**
-	 * @param \Cake\Chronos\Chronos $date
+	 * @param \Cake\Chronos\Chronos|\Cake\I18n\Date|\Cake\I18n\DateTime $date
 	 * @return int
 	 */
-	public function retrieveDayFromDate(Chronos $date): int {
+	public function retrieveDayFromDate(Chronos|Date|DateTime $date): int {
 		return (int)$date->format('d');
 	}
 
 	/**
-	 * @param \Cake\Chronos\Chronos $date
+	 * @param \Cake\Chronos\Chronos|\Cake\I18n\Date|\Cake\I18n\DateTime $date
 	 * @return int
 	 */
-	public function retrieveMonthFromDate(Chronos $date): int {
+	public function retrieveMonthFromDate(Chronos|Date|DateTime $date): int {
 		return (int)$date->format('n');
 	}
 
