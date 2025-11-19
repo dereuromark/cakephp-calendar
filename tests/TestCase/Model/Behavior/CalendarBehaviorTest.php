@@ -47,12 +47,7 @@ class CalendarBehaviorTest extends TestCase {
 	 * @return void
 	 */
 	protected function truncate() {
-		/** @var \Cake\Database\Schema\SqlGeneratorInterface $schema */
-		$schema = $this->Events->getSchema();
-		$sql = $schema->truncateSql($this->Events->getConnection());
-		foreach ($sql as $snippet) {
-			$this->Events->getConnection()->execute($snippet);
-		}
+		$this->Events->deleteAll('1 = 1');
 	}
 
 	/**
