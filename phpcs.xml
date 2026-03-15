@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
 <ruleset name="cakephp-calendar">
+	<arg name="cache" value=".phpcs.cache"/>
 
 	<arg value="nps"/>
 
