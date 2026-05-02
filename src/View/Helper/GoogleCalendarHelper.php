@@ -48,10 +48,9 @@ class GoogleCalendarHelper extends Helper {
 			/** @var \Cake\I18n\DateTime|\Cake\I18n\Date|string $from */
 			$from = $dateFromTo['from'];
 			if ($from instanceof Date) {
-				$from = $from->year . $from->month . $from->day;
+				$from = $from->format('Ymd');
 			} elseif (!is_string($from)) {
-				$from = $from->toIso8601String();
-				$from = str_replace('-', '', $from);
+				$from = $from->setTimezone('UTC')->format('Ymd\THis\Z');
 			}
 			$dates[] = $from;
 		}
@@ -59,16 +58,14 @@ class GoogleCalendarHelper extends Helper {
 			/** @var \Cake\I18n\DateTime|\Cake\I18n\Date|string $to */
 			$to = $dateFromTo['to'];
 			if ($to instanceof Date) {
-				$to = $to->year . $to->month . $to->day;
+				$to = $to->format('Ymd');
 			} elseif (!is_string($to)) {
-				$to = $to->toIso8601String();
-				$to = str_replace('-', '', $to);
+				$to = $to->setTimezone('UTC')->format('Ymd\THis\Z');
 			}
 			$dates[] = $to;
 		} elseif (!empty($dateFromTo['from']) && $dateFromTo['from'] instanceof Date) {
 			$to = $dateFromTo['from']->addDays(1);
-			$dates[] = $to->year . $to->month . $to->day;
-
+			$dates[] = $to->format('Ymd');
 		}
 
 		if (!$dates) {

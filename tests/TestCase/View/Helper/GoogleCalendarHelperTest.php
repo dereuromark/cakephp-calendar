@@ -52,7 +52,7 @@ class GoogleCalendarHelperTest extends TestCase {
 		];
 
 		$result = $this->GoogleCalendar->url('My title', $fromTo, $details);
-		$expected = 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=My+title&dates=20231202T15%3A00%3A00%2B00%3A00%2F20231202T18%3A00%3A00%2B00%3A00&details=My+details&location=My+location';
+		$expected = 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=My+title&dates=20231202T150000Z%2F20231202T180000Z&details=My+details&location=My+location';
 		$this->assertSame($expected, $result);
 	}
 
@@ -65,7 +65,7 @@ class GoogleCalendarHelperTest extends TestCase {
 		];
 
 		$result = $this->GoogleCalendar->url('My title', $fromTo);
-		$expected = 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=My+title&dates=2023122%2F2023123';
+		$expected = 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=My+title&dates=20231202%2F20231203';
 		$this->assertSame($expected, $result);
 	}
 
@@ -78,7 +78,7 @@ class GoogleCalendarHelperTest extends TestCase {
 		];
 
 		$result = $this->GoogleCalendar->link('My title', $fromTo);
-		$expected = '<a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=My+title&amp;dates=2023122%2F2023123">My title</a>';
+		$expected = '<a href="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=My+title&amp;dates=20231202%2F20231203">My title</a>';
 		$this->assertSame($expected, $result);
 	}
 
