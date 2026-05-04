@@ -157,7 +157,7 @@ class CalendarHelper extends Helper {
 			$suffix = $this->getConfig('multiLabelSuffix');
 		}
 		foreach ($days as $i => $day) {
-			$suffixTranslated = __($suffix, $i + 1);
+			$suffixTranslated = __d('calendar', $suffix, $i + 1);
 			$this->dataContainer[$day][] = $this->Html->tag('li', $content . $suffixTranslated, $options);
 		}
 	}
@@ -362,7 +362,7 @@ class CalendarHelper extends Helper {
 			$url = array_merge($url, $viewVars['url']);
 		}
 
-		return $this->Html->link(__('previous'), $url);
+		return $this->Html->link(__d('calendar', 'previous'), $url);
 	}
 
 	/**
@@ -415,7 +415,7 @@ class CalendarHelper extends Helper {
 			$url = array_merge($url, $viewVars['url']);
 		}
 
-		return $this->Html->link(__('next'), $url);
+		return $this->Html->link(__d('calendar', 'next'), $url);
 	}
 
 	/**
@@ -453,7 +453,7 @@ class CalendarHelper extends Helper {
 			return null;
 		}
 
-		return __(ucfirst($this->monthList[$month - 1]));
+		return __d('calendar', ucfirst($this->monthList[$month - 1]));
 	}
 
 }
