@@ -52,13 +52,38 @@ class IcalViewTest extends TestCase {
 	 * @return void
 	 */
 	public function testRenderEmpty() {
-		//$this->icalView->setviewVars[] = [];
+		$this->icalView->set('events', []);
 
 		$result = $this->icalView->render('view');
-		$this->assertSame('', $result);
+		$this->assertStringContainsString("BEGIN:VCALENDAR\r\n", $result);
+		$this->assertStringContainsString("END:VCALENDAR\r\n", $result);
+		$this->assertStringNotContainsString('BEGIN:VEVENT', $result);
 
 		$type = $this->icalView->getResponse()->getType();
 		$this->assertSame('text/calendar', $type);
+	}
+
+	/**
+	 * @return void
+	 */
+	public function testRenderWithEvents() {
+		$this->icalView->set('events', [
+			[
+				'uid' => 'demo-1',
+				'summary' => 'Demo event',
+				'location' => 'Room A',
+				'start' => '2026-05-12 12:00:00',
+				'end' => '2026-05-12 13:00:00',
+			],
+		]);
+
+		$result = $this->icalView->render('view');
+
+		$this->assertStringContainsString('BEGIN:VEVENT', $result);
+		$this->assertStringContainsString('UID:demo-1', $result);
+		$this->assertStringContainsString('SUMMARY:Demo event', $result);
+		$this->assertStringContainsString('LOCATION:Room A', $result);
+		$this->assertStringContainsString('END:VEVENT', $result);
 	}
 
 }

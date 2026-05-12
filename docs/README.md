@@ -130,40 +130,55 @@ Then inside your controller just set a custom view class for this extension:
 ```
 
 Let's say we want to render `/events/view/1.ics` now.
-Now it will look inside a subfolder for a PHP file here: `Template/Events/ics/view.php`.
-Inside this template just use any Ical library of your choice to output this event:
+Now it will look inside a subfolder for a PHP file here: `templates/Events/ics/view.php`.
+
+### Built-in `IcalFormatter`
+
+The plugin ships a small RFC 5545–compliant formatter so most uses don't need an external dependency. It handles UID generation, value escaping per §3.3.11 (backslash / semicolon / comma / newline), line folding at 75 octets per §3.1, the all-day vs timed event distinction (`DTSTART;VALUE=DATE:...` vs UTC `Z`-suffix), and CRLF line endings.
+
+Pass an array of associative event arrays:
 
 ```php
 <?php
 /**
- * @var \Calendar\View\IcalView|\App\View\AppView $this !
- * @var \App\Model\Entity\Event $event
+ * @var \Calendar\View\IcalView $this
+ * @var array<int, \App\Model\Entity\Event> $events
  */
 
-$vcalendar = new \Sabre\VObject\Component\VCalendar([
-    'VEVENT' => [
-        'SUMMARY' => $event->name,
-        'DTSTART' => $event->beginning,
-        'DTEND' => $event->end,
-        'DESCRIPTION' => $event->description,
-        'GEO' => $event->lat . ';' . $event->lng,
-        'URL' => $event->url,
-    ],
+use Calendar\Utility\IcalFormatter;
+
+$payload = [];
+foreach ($events as $event) {
+    $payload[] = [
+        // 'uid' is optional — auto-generated as a stable hash of
+        // (start, summary, location) when omitted, so re-emitting
+        // the same event yields the same UID (clients update
+        // instead of duplicating).
+        'uid' => 'event-' . $event->id . '@yourdomain.example',
+        'summary' => $event->name,
+        'description' => $event->description,
+        'location' => $event->location,
+        'url' => $event->url,
+        'start' => $event->beginning,
+        'end' => $event->end,
+        // 'allDay' => true,  // emits DTSTART;VALUE=DATE:YYYYMMDD
+        // 'categories' => ['Work', 'Standup'],
+    ];
+}
+
+echo IcalFormatter::formatCalendar($payload, [
+    'prodid' => '-//YourApp//Events//EN',
+    // 'method' => 'PUBLISH',
 ]);
-echo $vcalendar->serialize();
-```
-This uses the [sabre-io/vobject](https://github.com/sabre-io/vobject) library (that you need to composer install then).
-
-You could also make your own helper and use that instead:
-```php
-$calendarEvent = $this->Ical->newEvent();
-$calendarEvent->set...();
-$this->Ical->addEvent($calendarEvent);
-
-echo $this->Ical->render();
 ```
 
-I didn't want to hard-link this plugin to a specific renderer. This way you keep complete flexibility here while being able to use the view class as convenience wrapper.
+Recognized event keys: `uid`, `summary`, `description`, `location`, `url`, `start` (required), `end`, `allDay`, `created`, `modified`, `categories`. Empty / null optional keys are omitted from the output.
 
-For a larger list of events, you can also look into e.g.
-- https://github.com/spatie/icalendar-generator
+### Bring-your-own renderer
+
+For non-trivial calendars (recurrences, attendees, attachments, time-zone definitions, ...), drop in an external library:
+
+- [sabre-io/vobject](https://github.com/sabre-io/vobject)
+- [spatie/icalendar-generator](https://github.com/spatie/icalendar-generator)
+
+`IcalView` only sets the content type, so it composes with whichever renderer you choose.
