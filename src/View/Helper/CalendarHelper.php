@@ -102,7 +102,7 @@ class CalendarHelper extends Helper {
 				->addDays($modifier)
 				->i18nFormat('c', null, 'en-US');
 
-			if ($intlCalendar->getDayOfWeekType($intlCalendarDayOfWeek) == IntlCalendar::DOW_TYPE_WEEKEND) {
+			if ($intlCalendar->getDayOfWeekType($intlCalendarDayOfWeek) === IntlCalendar::DOW_TYPE_WEEKEND) {
 				$this->weekendDayIndexes[] = $modifier;
 			}
 		}
@@ -257,9 +257,7 @@ class CalendarHelper extends Helper {
 
 		$str .= '</tbody>';
 
-		$str .= '</table>';
-
-		return $str;
+		return $str . '</table>';
 	}
 
 	/**
@@ -380,7 +378,7 @@ class CalendarHelper extends Helper {
 			$year = $currentYear;
 			$month = $currentMonth;
 		}
-		if ($month > 0 && $month < 13 && (int)$year != 0) {
+		if ($month > 0 && $month < 13 && (int)$year !== 0) {
 			$flag = 1;
 		}
 		if ($flag === 0) {

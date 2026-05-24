@@ -37,7 +37,7 @@ class IcalView extends View {
 		?EventManager $eventManager = null,
 		array $viewOptions = [],
 	) {
-		if ($response !== null) {
+		if ($response instanceof Response) {
 			$response = $response->withType('ics');
 		}
 
