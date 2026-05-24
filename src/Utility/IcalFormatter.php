@@ -109,7 +109,7 @@ class IcalFormatter {
 		$lines[] = 'DTSTAMP:' . static::formatDateTime(new DateTimeImmutable('now', new DateTimeZone('UTC')));
 		$lines[] = static::formatDateTimeProperty('DTSTART', $start, $allDay);
 
-		if ($end instanceof \DateTimeImmutable) {
+		if ($end instanceof DateTimeImmutable) {
 			$lines[] = static::formatDateTimeProperty('DTEND', $end, $allDay);
 		}
 		if (isset($event['created'])) {
