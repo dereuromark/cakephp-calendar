@@ -74,13 +74,13 @@ class GoogleCalendarHelper extends Helper {
 		$query[] = 'dates=' . urlencode(implode('/', $dates));
 
 		if (!empty($details['details'])) {
-			$query[] = 'details=' . urlencode($details['details']);
+			$query[] = 'details=' . urlencode((string) $details['details']);
 		}
 		if (!empty($details['location'])) {
-			$query[] = 'location=' . urlencode($details['location']);
+			$query[] = 'location=' . urlencode((string) $details['location']);
 		}
 		if (!empty($details['ctz'])) {
-			$query[] = 'ctz=' . urlencode($details['ctz']);
+			$query[] = 'ctz=' . urlencode((string) $details['ctz']);
 		}
 
 		//TODO: sprop etc

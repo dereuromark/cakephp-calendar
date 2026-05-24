@@ -65,10 +65,10 @@ class IcalFormatter {
 			'BEGIN:VCALENDAR',
 			'VERSION:2.0',
 			'PRODID:' . static::escape((string)$options['prodid']),
-			'CALSCALE:' . (string)$options['calscale'],
+			'CALSCALE:' . $options['calscale'],
 		];
 		if ($options['method'] !== null) {
-			$lines[] = 'METHOD:' . (string)$options['method'];
+			$lines[] = 'METHOD:' . $options['method'];
 		}
 
 		foreach ($events as $event) {
@@ -109,7 +109,7 @@ class IcalFormatter {
 		$lines[] = 'DTSTAMP:' . static::formatDateTime(new DateTimeImmutable('now', new DateTimeZone('UTC')));
 		$lines[] = static::formatDateTimeProperty('DTSTART', $start, $allDay);
 
-		if ($end !== null) {
+		if ($end instanceof \DateTimeImmutable) {
 			$lines[] = static::formatDateTimeProperty('DTEND', $end, $allDay);
 		}
 		if (isset($event['created'])) {
@@ -128,7 +128,7 @@ class IcalFormatter {
 			$lines[] = 'LOCATION:' . static::escape((string)$event['location']);
 		}
 		if (isset($event['url']) && $event['url'] !== '') {
-			$lines[] = 'URL:' . (string)$event['url'];
+			$lines[] = 'URL:' . $event['url'];
 		}
 		if (isset($event['categories']) && $event['categories'] !== []) {
 			$categories = is_array($event['categories']) ? $event['categories'] : [$event['categories']];
