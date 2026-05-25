@@ -65,7 +65,7 @@ class IcalFormatter {
 			'BEGIN:VCALENDAR',
 			'VERSION:2.0',
 			'PRODID:' . static::escape((string)$options['prodid']),
-			'CALSCALE:' . $options['calscale'],
+			'CALSCALE:' . (string)$options['calscale'],
 		];
 		if ($options['method'] !== null) {
 			$lines[] = 'METHOD:' . $options['method'];
