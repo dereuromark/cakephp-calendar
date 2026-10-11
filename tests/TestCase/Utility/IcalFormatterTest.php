@@ -212,4 +212,14 @@ class IcalFormatterTest extends TestCase {
 		$this->assertStringContainsString('CATEGORIES:Work,Standup,Foo\\, Bar', $out);
 	}
 
+	public function testNativeDateTimeCanGenerateUid(): void {
+		$event = ['start' => new DateTimeImmutable('2026-05-12 09:00:00+00:00')];
+		$output = IcalFormatter::formatEvent($event);
+
+		$this->assertStringContainsString('DTSTART:20260512T090000Z', $output);
+		preg_match('/UID:([^\r\n]+)/', $output, $first);
+		preg_match('/UID:([^\r\n]+)/', IcalFormatter::formatEvent($event), $second);
+		$this->assertSame($first[1], $second[1]);
+	}
+
 }

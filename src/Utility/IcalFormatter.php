@@ -7,6 +7,7 @@ use DateTimeImmutable;
 use DateTimeInterface;
 use DateTimeZone;
 use InvalidArgumentException;
+use Stringable;
 
 /**
  * Formats event arrays into RFC 5545 (`text/calendar`) output suitable
@@ -259,7 +260,9 @@ class IcalFormatter {
 	 */
 	protected static function generateUid(array $event): string {
 		$stable = [
-			'start' => isset($event['start']) ? (string)$event['start'] : '',
+			'start' => $event['start'] instanceof DateTimeInterface && !($event['start'] instanceof Stringable)
+				? $event['start']->format('c')
+				: (string)$event['start'],
 			'summary' => (string)($event['summary'] ?? ''),
 			'location' => (string)($event['location'] ?? ''),
 		];

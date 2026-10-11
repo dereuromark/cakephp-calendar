@@ -65,16 +65,12 @@ class CalendarComponent extends Component {
 
 		$current = (int)date('Y');
 
-		if (!$month || $year < $current - $span || $year > $current + $span) {
+		if ($month < 1 || $month > 12 || $year < $current - $span || $year > $current + $span) {
 			throw new NotFoundException('Invalid date');
 		}
 
 		$this->year = $year;
 		$this->month = $month;
-
-		if ($month < 1 || $month > 12) {
-			throw new NotFoundException('Invalid date');
-		}
 
 		$viewVars = $options + [
 			'year' => $this->year,

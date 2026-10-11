@@ -59,10 +59,6 @@ class CalendarBehavior extends Behavior {
 	/**
 	 * Custom finder for Calendars field.
 	 *
-	 * Options:
-	 * - year (required), best to use CalendarBehavior::YEAR constant
-	 * - month (required), best to use CalendarBehavior::MONTH constant
-	 *
 	 * @param \Cake\ORM\Query\SelectQuery $query Query.
 	 * @param int $year Calendar year
 	 * @param int $month Calendar month (1..12)
@@ -71,11 +67,11 @@ class CalendarBehavior extends Behavior {
 	public function findCalendar(SelectQuery $query, int $year, int $month): SelectQuery {
 		$field = $this->getConfig('field');
 
-		if (!checkdate($month, 1, $year)) {
+		if ($year < 1 || $year > 9999 || !checkdate($month, 1, $year)) {
 			throw new InvalidArgumentException('Invalid calendar year or month');
 		}
 
-		$from = new DateTime($year . '-' . $month . '-01');
+		$from = new DateTime(sprintf('%04d-%02d-01', $year, $month));
 		$to = $from->addMonths(1);
 
 		$conditions = [

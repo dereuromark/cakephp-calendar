@@ -14,7 +14,7 @@ $this->addBehavior('Calendar.Calendar', [
 
 `field` defaults to `date`. `endField` defaults to `null`; `scope` defaults to an empty array. Global `Configure::read('Calendar')` values supply behavior defaults, and explicit behavior settings take precedence.
 
-Use named finder arguments with integers:
+Use named finder arguments with integers. Convert request strings to integers first, or use the validated values from the component:
 
 ```php
 $events = $this->fetchTable('Events')->find('calendar', year: 2026, month: 2);
@@ -27,6 +27,7 @@ The finder adds conditions and returns a query; it does not sort, paginate, or e
 ## Component
 
 ```php
+/** @var \Calendar\Controller\Component\CalendarComponent $calendar */
 $calendar = $this->components()->get('Calendar');
 $calendar->init($year, $month, 5, ['url' => ['action' => 'calendar']]);
 ```
@@ -47,7 +48,7 @@ $this->addHelper('Calendar.Calendar', [
 ]);
 ```
 
-`monthAsString` changes month URL segments from numbers to English names. It defaults to `false`. Headings and weekday labels use the current locale. The locale also determines the first weekday and weekend markings. The `timezone` setting controls the helper's current-date highlighting; it does not convert event dates or query boundaries.
+`monthAsString` changes month URL segments from numbers to translated month names. The component accepts English names only, so keep month translations in the `calendar` domain in English when enabling this option. It defaults to `false`. Headings and weekday labels use the current locale. The locale also determines the first weekday and weekend markings. The `timezone` setting controls the helper's current-date highlighting; it does not convert event dates or query boundaries.
 
 `addRow($date, $content, $options)` places HTML content on that day number. Pass only records from the selected month. The helper accepts CakePHP `Date`, `DateTime`, or Chronos values; raw date strings must first be converted. Escape user content with `h()` or use HTML helpers.
 
@@ -61,7 +62,7 @@ foreach ($events as $event) {
 echo $this->Calendar->render();
 ```
 
-This method includes both endpoint dates when their times permit, and filters rendered days to the selected year and month. The day suffix counts from the event's original start, including days outside the selected month. Its date loop runs across the supplied range, so avoid feeding unnecessarily long ranges. This display method's endpoint handling differs from the finder's strict overlap boundary and iCalendar's exclusive end date.
+Use matching endpoint types, such as two CakePHP `DateTime` values or two `Date` values. This method includes both endpoint dates when their times permit, and filters rendered days to the selected year and month. The day suffix counts from the event's original start, including days outside the selected month. Its date loop runs across the supplied range, so avoid feeding unnecessarily long ranges. This display method's endpoint handling differs from the finder's strict overlap boundary and iCalendar's exclusive end date.
 
 `render()` needs the component's `_calendar` view variable. It renders a table with previous/next links, hides navigation beyond the year limit, and adds event list items. Add your own CSS for `.calendar`, `.cell-today`, `.cell-weekend`, and event classes.
 

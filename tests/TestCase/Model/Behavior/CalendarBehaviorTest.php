@@ -6,6 +6,7 @@ use Cake\ORM\Entity;
 use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
+use InvalidArgumentException;
 
 class CalendarBehaviorTest extends TestCase {
 
@@ -86,8 +87,8 @@ class CalendarBehaviorTest extends TestCase {
 	}
 
 	/**
-     * @return void
-     */
+	 * @return void
+	 */
 	public function testFindIncludesFinalFractionalSecond(): void {
 		$year = (int)date('Y');
 		$connection = $this->Events->getConnection();
@@ -147,6 +148,23 @@ class CalendarBehaviorTest extends TestCase {
 			$entity = $this->_getEntity($row);
 			$this->Events->saveOrFail($entity);
 		}
+	}
+
+	public function testFindRejectsInvalidMonth(): void {
+		$this->expectException(InvalidArgumentException::class);
+		$this->Events->find('calendar', year: 2026, month: 13);
+	}
+
+	public function testFindRejectsUnsupportedYear(): void {
+		$this->expectException(InvalidArgumentException::class);
+		$this->Events->find('calendar', year: 10000, month: 1);
+	}
+
+	public function testFinderKeepsLeadingZeroYear(): void {
+		$query = $this->Events->find('calendar', year: 5, month: 2);
+		$query->sql();
+		$bindings = array_values($query->getValueBinder()->bindings());
+		$this->assertSame('0005-02-01', $bindings[0]['value']->format('Y-m-d'));
 	}
 
 }

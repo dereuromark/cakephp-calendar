@@ -4,7 +4,7 @@
 
 ## Enable an export route
 
-In your existing application route scope, enable the extension with the route builder:
+In your existing application route scope, enable the extension before connecting routes or calling `fallbacks()`:
 
 ```php
 $routes->setExtensions(['ics']);
@@ -62,6 +62,6 @@ echo \Calendar\Utility\IcalFormatter::formatCalendar($payload, [
 ]);
 ```
 
-The all-day example covers December 24 and 25: iCalendar `DTEND` is exclusive. Timed values are emitted in UTC with a `Z` suffix; all-day values use `VALUE=DATE`. The formatter escapes text, folds content lines at 75 bytes, and uses CRLF line endings. Pass only trusted values for protocol options such as `method` and `calscale`, and valid event URLs.
+The all-day example covers December 24 and 25: iCalendar `DTEND` is exclusive, as defined in [RFC 5545](https://www.rfc-editor.org/rfc/rfc5545#section-3.6.1). Timed values are emitted in UTC with a `Z` suffix; all-day values use `VALUE=DATE`. The formatter escapes text, folds content lines at 75 bytes, and uses CRLF line endings. Pass only trusted values for protocol options such as `method` and `calscale`, and valid event URLs.
 
 Options are `prodid` (default `-//cakephp-calendar//Events//EN`), `method` (default `null`, omitted), and `calscale` (default `GREGORIAN`). The formatter handles basic events rather than recurrence rules, attendees, attachments, or timezone definitions. Use another iCalendar library when those are required; its output can still be rendered by `IcalView`.

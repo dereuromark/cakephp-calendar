@@ -21,6 +21,7 @@ Add this action to `EventsController`:
 ```php
 public function calendar(?string $year = null, ?string $month = null): void
 {
+    /** @var \Calendar\Controller\Component\CalendarComponent $calendar */
     $calendar = $this->components()->get('Calendar');
     $calendar->init($year, $month);
     $events = $this->fetchTable('Events')->find(
