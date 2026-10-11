@@ -2,12 +2,14 @@
 
 namespace Calendar\Test\TestCase\Model\Behavior;
 
+use ArgumentCountError;
 use Cake\ORM\Entity;
 use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 use InvalidArgumentException;
 use TestApp\Model\Behavior\TypedCalendarBehavior;
+use TypeError;
 
 class CalendarBehaviorTest extends TestCase {
 
@@ -195,36 +197,25 @@ class CalendarBehaviorTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function testLegacyArrayDispatchRetainsCakeDeprecation(): void {
-		$this->withErrorReporting(E_ALL, function (): void {
-			$this->deprecated(function (): void {
-				$this->assertCount(3, $this->Events->find('calendar', ['year' => (string)date('Y'), 'month' => '12'])->all());
-			});
-		});
-	}
-
-	/**
-	 * @return void
-	 */
 	public function testDirectFinderRejectsMissingDate(): void {
-		$this->expectException(InvalidArgumentException::class);
-		$this->Events->getBehavior('Calendar')->findCalendar($this->Events->find(), ['year' => date('Y')]);
+		$this->expectException(ArgumentCountError::class);
+		$this->Events->getBehavior('Calendar')->findCalendar($this->Events->find(), (int)date('Y'));
 	}
 
 	/**
 	 * @return void
 	 */
 	public function testDirectFinderRejectsNonScalarDate(): void {
-		$this->expectException(InvalidArgumentException::class);
-		$this->Events->getBehavior('Calendar')->findCalendar($this->Events->find(), ['year' => [2026], 'month' => 12]);
+		$this->expectException(TypeError::class);
+		$this->Events->getBehavior('Calendar')->findCalendar($this->Events->find(), [2026], 12);
 	}
 
 	/**
 	 * @return void
 	 */
 	public function testDirectFinderRejectsNonDigitDate(): void {
-		$this->expectException(InvalidArgumentException::class);
-		$this->Events->getBehavior('Calendar')->findCalendar($this->Events->find(), ['year' => '2026junk', 'month' => 12]);
+		$this->expectException(TypeError::class);
+		$this->Events->getBehavior('Calendar')->findCalendar($this->Events->find(), '2026junk', 12);
 	}
 
 }

@@ -16,4 +16,4 @@ npm ci
 npm run docs:build
 ```
 
-Use `npm run docs:dev` for a local preview. Update examples when changing behavior, and check them against the supported CakePHP APIs. See the [CI workflow](https://github.com/dereuromark/cakephp-calendar/blob/master/.github/workflows/ci.yml) for the tested runtime matrix.
+Use `npm run docs:dev` for a local preview. Update examples when changing behavior, and check them against the supported CakePHP APIs. See the [CI workflow](https://github.com/dereuromark/cakephp-calendar/blob/cake6/.github/workflows/ci.yml) for the tested runtime matrix.

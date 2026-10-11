@@ -204,4 +204,15 @@ class CalendarHelperTest extends TestCase {
 		$this->assertCount(1, $this->Calendar->dataContainer[2]);
 	}
 
+	/**
+	 * @return void
+	 */
+	public function testCustomMonthNameRemainsTranslatable(): void {
+		$helper = new class (new View()) extends CalendarHelper {
+			protected array $monthList = ['custommonth'];
+		};
+		$this->assertSame('Custommonth', $helper->monthName(1));
+		$this->assertNull($helper->monthName(2));
+	}
+
 }

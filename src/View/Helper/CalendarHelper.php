@@ -5,6 +5,7 @@ namespace Calendar\View\Helper;
 use Cake\Chronos\Chronos;
 use Cake\I18n\Date;
 use Cake\I18n\DateTime;
+use Cake\I18n\I18n;
 use Cake\View\Helper;
 use IntlCalendar;
 use RuntimeException;
@@ -51,7 +52,7 @@ class CalendarHelper extends Helper {
 	/**
 	 * @var array<string, mixed>
 	 */
-	protected array $_defaultConfig = [
+	protected array $defaultConfig = [
 		'monthAsString' => false,
 		'multiLabelSuffix' => ' (Day {0})',
 		'timezone' => null,
@@ -140,8 +141,8 @@ class CalendarHelper extends Helper {
 		if (method_exists($from, 'setTime')) {
 			$from = $from->setTime(0, 0, 0);
 		}
-		$month = $this->_View->get('_calendar')['month'];
-		$year = $this->_View->get('_calendar')['year'];
+		$month = $this->View->get('_calendar')['month'];
+		$year = $this->View->get('_calendar')['year'];
 
 		$days = [];
 		$count = 0;
@@ -158,7 +159,9 @@ class CalendarHelper extends Helper {
 			$suffix = $this->getConfig('multiLabelSuffix');
 		}
 		foreach ($days as $i => $day) {
-			$suffixTranslated = __d('calendar', $suffix, $i + 1);
+			$suffixTranslated = $suffix === ' (Day {0})'
+				? __d('calendar', ' (Day {0})', $i + 1)
+				: ($suffix === '' ? '' : I18n::getTranslator('calendar')->translate($suffix, [$i + 1]));
 			$this->dataContainer[$day][] = $this->Html->tag('li', $content . $suffixTranslated, $options);
 		}
 	}
@@ -175,12 +178,12 @@ class CalendarHelper extends Helper {
 		$day = 1;
 		$today = 0;
 
-		if (empty($this->_View->get('_calendar'))) {
+		if (empty($this->View->get('_calendar'))) {
 			throw new RuntimeException('You need to load Calendar.Calendar component for this helper to work.');
 		}
 
-		$year = $this->_View->get('_calendar')['year'];
-		$month = $this->_View->get('_calendar')['month'];
+		$year = $this->View->get('_calendar')['year'];
+		$month = $this->View->get('_calendar')['month'];
 
 		$data = $this->dataContainer;
 		$now = new DateTime(null, $this->getConfig('timezone'));
@@ -315,8 +318,8 @@ class CalendarHelper extends Helper {
 	 * @return string
 	 */
 	public function previousLink(): string {
-		$year = $this->_View->get('_calendar')['year'];
-		$month = $this->_View->get('_calendar')['month'];
+		$year = $this->View->get('_calendar')['year'];
+		$month = $this->View->get('_calendar')['month'];
 
 		$currentYear = (int)date('Y');
 		$currentMonth = (int)date('n');
@@ -342,7 +345,7 @@ class CalendarHelper extends Helper {
 			$prevYear = $year - 1;
 		}
 
-		$span = $this->_View->get('_calendar')['span'];
+		$span = $this->View->get('_calendar')['span'];
 		if ($prevYear < $currentYear - $span) {
 			return '';
 		}
@@ -356,7 +359,7 @@ class CalendarHelper extends Helper {
 			$this->formatMonth($prevMonth),
 		];
 
-		$viewVars = $this->_View->get('_calendar');
+		$viewVars = $this->View->get('_calendar');
 		if (!empty($viewVars['url'])) {
 			$url = array_merge($url, $viewVars['url']);
 		}
@@ -368,8 +371,8 @@ class CalendarHelper extends Helper {
 	 * @return string
 	 */
 	public function nextLink(): string {
-		$year = $this->_View->get('_calendar')['year'];
-		$month = $this->_View->get('_calendar')['month'];
+		$year = $this->View->get('_calendar')['year'];
+		$month = $this->View->get('_calendar')['month'];
 
 		$currentYear = (int)date('Y');
 		$currentMonth = (int)date('n');
@@ -395,7 +398,7 @@ class CalendarHelper extends Helper {
 			$nextYear = $year + 1;
 		}
 
-		$span = $this->_View->get('_calendar')['span'];
+		$span = $this->View->get('_calendar')['span'];
 		if ($nextYear > $currentYear + $span) {
 			return '';
 		}
@@ -409,7 +412,7 @@ class CalendarHelper extends Helper {
 			$this->formatMonth($nextMonth),
 		];
 
-		$viewVars = $this->_View->get('_calendar');
+		$viewVars = $this->View->get('_calendar');
 		if (!empty($viewVars['url'])) {
 			$url = array_merge($url, $viewVars['url']);
 		}
@@ -421,8 +424,8 @@ class CalendarHelper extends Helper {
 	 * @return bool
 	 */
 	public function isCurrentMonth(): bool {
-		$year = $this->_View->get('_calendar')['year'];
-		$month = $this->_View->get('_calendar')['month'];
+		$year = $this->View->get('_calendar')['year'];
+		$month = $this->View->get('_calendar')['month'];
 
 		return $year === (int)date('Y') && $month === (int)date('n');
 	}
@@ -452,7 +455,23 @@ class CalendarHelper extends Helper {
 			return null;
 		}
 
-		return __d('calendar', ucfirst($this->monthList[$month - 1]));
+		$name = ucfirst($this->monthList[$month - 1]);
+
+		return match ($name) {
+			'January' => __d('calendar', 'January'),
+			'February' => __d('calendar', 'February'),
+			'March' => __d('calendar', 'March'),
+			'April' => __d('calendar', 'April'),
+			'May' => __d('calendar', 'May'),
+			'June' => __d('calendar', 'June'),
+			'July' => __d('calendar', 'July'),
+			'August' => __d('calendar', 'August'),
+			'September' => __d('calendar', 'September'),
+			'October' => __d('calendar', 'October'),
+			'November' => __d('calendar', 'November'),
+			'December' => __d('calendar', 'December'),
+			default => I18n::getTranslator('calendar')->translate($name),
+		};
 	}
 
 }
