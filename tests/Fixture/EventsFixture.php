@@ -19,8 +19,8 @@ class EventsFixture extends TestFixture {
 		'id' => ['type' => 'integer', 'length' => 10, 'unsigned' => true, 'null' => false, 'default' => null, 'comment' => '', 'autoIncrement' => true, 'precision' => null],
 		'title' => ['type' => 'string', 'length' => 255, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null, 'fixed' => null],
 		'description' => ['type' => 'text', 'length' => null, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null],
-		'beginning' => ['type' => 'datetime', 'length' => null, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null],
-		'end' => ['type' => 'datetime', 'length' => null, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null],
+		'beginning' => ['type' => 'datetimefractional', 'length' => null, 'null' => true, 'default' => null, 'comment' => '', 'precision' => 6],
+		'end' => ['type' => 'datetimefractional', 'length' => null, 'null' => true, 'default' => null, 'comment' => '', 'precision' => 6],
 		'_constraints' => [
 			'primary' => ['type' => 'primary', 'columns' => ['id'], 'length' => []],
 		],

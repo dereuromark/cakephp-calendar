@@ -97,7 +97,7 @@ class CalendarBehaviorTest extends TestCase {
 		]);
 		$connection->insert('events', [
 			'title' => 'Next month',
-			'beginning' => ($year + 1) . '-01-01 00:00:00',
+			'beginning' => ($year + 1) . '-01-01 00:00:00.000000',
 		]);
 
 		$titles = $this->Events->find('calendar', year: $year, month: 12)
