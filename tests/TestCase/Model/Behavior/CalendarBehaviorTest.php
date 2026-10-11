@@ -7,7 +7,7 @@ use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 use InvalidArgumentException;
-use TestApp\Model\Behavior\LegacyCalendarBehavior;
+use TestApp\Model\Behavior\TypedCalendarBehavior;
 
 class CalendarBehaviorTest extends TestCase {
 
@@ -176,18 +176,18 @@ class CalendarBehaviorTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function testReleasedDirectFinderOptionsRemainSupported(): void {
+	public function testTypedDirectFinderArguments(): void {
 		$behavior = $this->Events->getBehavior('Calendar');
-		$query = $behavior->findCalendar($this->Events->find(), ['year' => (string)date('Y'), 'month' => '12']);
+		$query = $behavior->findCalendar($this->Events->find(), (int)date('Y'), 12);
 		$this->assertEqualsCanonicalizing(['One', '4 days', 'Over new years eve'], array_values($query->find('list')->toArray()));
 	}
 
 	/**
 	 * @return void
 	 */
-	public function testReleasedOverrideStillHandlesNamedFinderArguments(): void {
+	public function testTypedOverrideHandlesNamedFinderArguments(): void {
 		$this->Events->removeBehavior('Calendar');
-		$this->Events->addBehavior('Calendar', ['className' => LegacyCalendarBehavior::class] + $this->config);
+		$this->Events->addBehavior('Calendar', ['className' => TypedCalendarBehavior::class] + $this->config);
 		$this->assertCount(3, $this->Events->find('calendar', year: (int)date('Y'), month: 12)->all());
 		$this->assertSame(1, $this->Events->getBehavior('Calendar')->calls);
 	}

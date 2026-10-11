@@ -5,19 +5,20 @@ namespace TestApp\Model\Behavior;
 use Cake\ORM\Query\SelectQuery;
 use Calendar\Model\Behavior\CalendarBehavior;
 
-class LegacyCalendarBehavior extends CalendarBehavior {
+class TypedCalendarBehavior extends CalendarBehavior {
 
 	public int $calls = 0;
 
 	/**
 	 * @param \Cake\ORM\Query\SelectQuery $query Query
-	 * @param array<string, mixed> $options Options
+	 * @param int $year Calendar year
+	 * @param int $month Calendar month
 	 * @return \Cake\ORM\Query\SelectQuery
 	 */
-	public function findCalendar(SelectQuery $query, array $options): SelectQuery {
+	public function findCalendar(SelectQuery $query, int $year, int $month): SelectQuery {
 		$this->calls++;
 
-		return parent::findCalendar($query, $options);
+		return parent::findCalendar($query, $year, $month);
 	}
 
 }
