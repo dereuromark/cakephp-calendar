@@ -6,6 +6,7 @@ use Cake\ORM\Entity;
 use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
+use InvalidArgumentException;
 
 class CalendarBehaviorTest extends TestCase {
 
@@ -86,6 +87,28 @@ class CalendarBehaviorTest extends TestCase {
 	}
 
 	/**
+	 * @return void
+	 */
+	public function testFindIncludesFinalFractionalSecond(): void {
+		$year = (int)date('Y');
+		$connection = $this->Events->getConnection();
+		$connection->insert('events', [
+			'title' => 'Final fraction',
+			'beginning' => $year . '-12-31 23:59:59.500000',
+		]);
+		$connection->insert('events', [
+			'title' => 'Next month',
+			'beginning' => ($year + 1) . '-01-01 00:00:00.000000',
+		]);
+
+		$titles = $this->Events->find('calendar', year: $year, month: 12)
+			->find('list')->toArray();
+
+		$this->assertContains('Final fraction', $titles);
+		$this->assertNotContains('Next month', $titles);
+	}
+
+	/**
 	 * Gets a new Entity
 	 *
 	 * @param array $data
@@ -125,6 +148,28 @@ class CalendarBehaviorTest extends TestCase {
 			$entity = $this->_getEntity($row);
 			$this->Events->saveOrFail($entity);
 		}
+	}
+
+	public function testFindRejectsInvalidMonth(): void {
+		$this->expectException(InvalidArgumentException::class);
+		$this->Events->find('calendar', year: 2026, month: 13);
+	}
+
+	public function testFindRejectsUnsupportedYear(): void {
+		$this->expectException(InvalidArgumentException::class);
+		$this->Events->find('calendar', year: 10000, month: 1);
+	}
+
+	public function testFinderKeepsLeadingZeroYear(): void {
+		$query = $this->Events->find('calendar', year: 5, month: 2);
+		$query->sql();
+		$bindings = array_values($query->getValueBinder()->bindings());
+		$this->assertSame('0005-02-01', $bindings[0]['value']->format('Y-m-d'));
+	}
+
+	public function testFindRejectsMonthBeyondSupportedBoundary(): void {
+		$this->expectException(InvalidArgumentException::class);
+		$this->Events->find('calendar', year: 9999, month: 12);
 	}
 
 }

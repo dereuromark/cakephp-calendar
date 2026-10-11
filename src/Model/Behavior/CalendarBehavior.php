@@ -7,6 +7,7 @@ use Cake\I18n\DateTime;
 use Cake\ORM\Behavior;
 use Cake\ORM\Query\SelectQuery;
 use Cake\ORM\Table;
+use InvalidArgumentException;
 
 /**
  * A convenience wrapper for calendar querying.
@@ -28,8 +29,6 @@ class CalendarBehavior extends Behavior {
 	 */
 	public const MONTH = 'month';
 
-	protected Table $_table;
-
 	/**
 	 * @var array<string, mixed>
 	 */
@@ -47,8 +46,7 @@ class CalendarBehavior extends Behavior {
 	 *
 	 * Merges config with the default and store in the config property
 	 *
-	 * Does not retain a reference to the Table object. If you need this
-	 * you should override the constructor.
+	 * The parent behavior retains the Table reference.
 	 *
 	 * @param \Cake\ORM\Table $table The table this behavior is attached to.
 	 * @param array<string, mixed> $config The config for this behavior.
@@ -56,35 +54,32 @@ class CalendarBehavior extends Behavior {
 	public function __construct(Table $table, array $config = []) {
 		$defaults = (array)Configure::read('Calendar');
 		parent::__construct($table, $config + $defaults);
-
-		$this->_table = $table;
 	}
 
 	/**
 	 * Custom finder for Calendars field.
 	 *
-	 * Options:
-	 * - year (required), best to use CalendarBehavior::YEAR constant
-	 * - month (required), best to use CalendarBehavior::MONTH constant
-	 *
 	 * @param \Cake\ORM\Query\SelectQuery $query Query.
-	 * @param array<string, mixed> $options Array of options as described above
+	 * @param int $year Calendar year
+	 * @param int $month Calendar month (1..12)
 	 * @return \Cake\ORM\Query\SelectQuery
 	 */
-	public function findCalendar(SelectQuery $query, array $options): SelectQuery {
+	public function findCalendar(SelectQuery $query, int $year, int $month): SelectQuery {
 		$field = $this->getConfig('field');
 
-		$year = $options[static::YEAR];
-		$month = $options[static::MONTH];
+		if ($year < 1 || $year > 9999 || !checkdate($month, 1, $year)) {
+			throw new InvalidArgumentException('Invalid calendar year or month');
+		}
 
-		$from = new DateTime($year . '-' . $month . '-01');
-		$lastDayOfMonth = $from->daysInMonth;
-
-		$to = new DateTime($year . '-' . $month . '-' . $lastDayOfMonth . ' 23:59:59');
+		$from = new DateTime(sprintf('%04d-%02d-01', $year, $month));
+		$to = $from->addMonths(1);
+		if ($to->year > 9999) {
+			throw new InvalidArgumentException('Calendar month exceeds the supported date range');
+		}
 
 		$conditions = [
 			$field . ' >=' => $from,
-			$field . ' <=' => $to,
+			$field . ' <' => $to,
 		];
 		if ($this->getConfig('endField')) {
 			$endField = $this->getConfig('endField');
@@ -92,7 +87,7 @@ class CalendarBehavior extends Behavior {
 			$conditions = [
 				'OR' => [
 					[
-						$field . ' <=' => $to,
+						$field . ' <' => $to,
 						$endField . ' >' => $from,
 					],
 					$conditions,

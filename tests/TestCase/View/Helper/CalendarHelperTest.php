@@ -195,4 +195,13 @@ class CalendarHelperTest extends TestCase {
 		$this->assertStringContainsString('<th class="cell-prev"><a', $result);
 	}
 
+	public function testMultiDayRowsOnlyIncludeSelectedYear(): void {
+		$this->View->set('_calendar', ['year' => 2026, 'month' => 1, 'span' => 10]);
+		$this->Calendar->addRowFromTo(new DateTime('2025-01-01'), new DateTime('2026-01-02'), 'Event');
+
+		$this->assertSame([1, 2], array_keys($this->Calendar->dataContainer));
+		$this->assertCount(1, $this->Calendar->dataContainer[1]);
+		$this->assertCount(1, $this->Calendar->dataContainer[2]);
+	}
+
 }

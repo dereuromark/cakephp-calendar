@@ -19,7 +19,7 @@ class IcalView extends View {
 	/**
 	 * Mime-type this view class renders as.
 	 *
-	 * @return string The JSON content type.
+	 * @return string The calendar content type.
 	 */
 	public static function contentType(): string {
 		return 'text/calendar';

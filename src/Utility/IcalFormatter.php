@@ -258,8 +258,10 @@ class IcalFormatter {
 	 * @return string
 	 */
 	protected static function generateUid(array $event): string {
+		$start = static::toDateTime($event['start']);
 		$stable = [
-			'start' => isset($event['start']) ? (string)$event['start'] : '',
+			'start' => !empty($event['allDay']) ? $start->format('Ymd') : static::formatDateTime($start),
+			'allDay' => !empty($event['allDay']),
 			'summary' => (string)($event['summary'] ?? ''),
 			'location' => (string)($event['location'] ?? ''),
 		];
