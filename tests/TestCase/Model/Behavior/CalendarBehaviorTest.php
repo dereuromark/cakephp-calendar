@@ -2,6 +2,7 @@
 
 namespace Calendar\Test\TestCase\Model\Behavior;
 
+use Cake\Core\Configure;
 use Cake\ORM\Entity;
 use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
@@ -196,9 +197,15 @@ class CalendarBehaviorTest extends TestCase {
 	 * @return void
 	 */
 	public function testLegacyArrayDispatchRetainsCakeDeprecation(): void {
-		$this->deprecated(function (): void {
-			$this->assertCount(3, $this->Events->find('calendar', ['year' => (string)date('Y'), 'month' => '12'])->all());
-		});
+		$duplicates = Configure::read('Error.allowDuplicateDeprecations');
+		Configure::write('Error.allowDuplicateDeprecations', true);
+		try {
+			$this->deprecated(function (): void {
+				$this->assertCount(3, $this->Events->find('calendar', ['year' => (string)date('Y'), 'month' => '12'])->all());
+			});
+		} finally {
+			Configure::write('Error.allowDuplicateDeprecations', $duplicates);
+		}
 	}
 
 	/**
