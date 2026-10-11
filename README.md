@@ -11,7 +11,7 @@
 
 A plugin to render simple calendars.
 
-This branch is for **CakePHP 5**. For details see [version map](https://github.com/dereuromark/cakephp-calendar/wiki#cakephp-version-map).
+This branch prepares breaking API changes for **CakePHP 6**. The framework dependency and CI currently use CakePHP 5. For details see [version map](https://github.com/dereuromark/cakephp-calendar/wiki#cakephp-version-map).
 
 ## Features
 - Server-rendered HTML without JavaScript

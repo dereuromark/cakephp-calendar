@@ -85,6 +85,6 @@ The finder accepts explicit year and month arguments:
 public function findCalendar(SelectQuery $query, int $year, int $month): SelectQuery
 ```
 
-Use `$table->find('calendar', year: 2026, month: 12)` or call the behavior with a query and two integers. Update custom finder overrides to match this declaration. The CakePHP 5 branch retains the released options-array declaration.
+Use `$table->find('calendar', year: 2026, month: 12)` or call the behavior with a query and two integers. Named finder calls require integer values; strings raise `TypeError`, and missing arguments raise `ArgumentCountError`. Update custom finder overrides to match this declaration. The CakePHP 5 branch retains the released options-array declaration.
 
 This branch prepares the breaking finder contract for the CakePHP 6 upgrade. The framework dependency and CI still use CakePHP 5 until the framework migration is completed.
