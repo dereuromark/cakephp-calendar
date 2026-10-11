@@ -76,3 +76,15 @@ echo $this->Html->link(
 ```
 
 The method derives the year/month from the supplied event date. It omits them for the current month. It does not remember which calendar page the visitor came from; preserve that context separately if an event spans several months.
+
+## Finder API on the cake6 branch
+
+The finder accepts explicit year and month arguments:
+
+```php
+public function findCalendar(SelectQuery $query, int $year, int $month): SelectQuery
+```
+
+Use `$table->find('calendar', year: 2026, month: 12)` or call the behavior with a query and two integers. Update custom finder overrides to match this declaration. The CakePHP 5 branch retains the released options-array declaration.
+
+This branch prepares the breaking finder contract for the CakePHP 6 upgrade. The framework dependency and CI still use CakePHP 5 until the framework migration is completed.
