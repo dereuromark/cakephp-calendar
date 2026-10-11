@@ -3,7 +3,9 @@
 This development branch targets CakePHP 6 and PHP 8.5. Install it in a CakePHP 6 application:
 
 ```sh
-composer require dereuromark/cakephp-calendar:dev-cake6
+composer config minimum-stability dev
+composer config prefer-stable true
+composer require cakephp/cakephp:^6.0@dev dereuromark/cakephp-calendar:dev-cake6
 bin/cake plugin load Calendar
 ```
 

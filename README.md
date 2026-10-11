@@ -23,4 +23,4 @@ See the demo [Calendar example](https://sandbox.dereuromark.de/sandbox/calendar)
 
 ## Documentation
 
-Read the [documentation website](https://dereuromark.github.io/cakephp-calendar/) for [installation](https://dereuromark.github.io/cakephp-calendar/guide/installation) and a [beginner tutorial](https://dereuromark.github.io/cakephp-calendar/guide/getting-started).
+Read this branch’s [installation guide](docs/guide/installation.md) and [beginner tutorial](docs/guide/getting-started.md). The [published documentation website](https://dereuromark.github.io/cakephp-calendar/) describes the CakePHP 5 branch.

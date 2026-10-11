@@ -40,7 +40,7 @@ export default defineConfig({
     search: { provider: 'local' },
     socialLinks: [{ icon: 'github', link: 'https://github.com/dereuromark/cakephp-calendar' }],
     editLink: {
-      pattern: 'https://github.com/dereuromark/cakephp-calendar/edit/master/docs/:path',
+      pattern: 'https://github.com/dereuromark/cakephp-calendar/edit/cake6/docs/:path',
       text: 'Edit this page on GitHub',
     },
     footer: { message: 'Released under the MIT License.' },
