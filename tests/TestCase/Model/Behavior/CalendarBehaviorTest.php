@@ -7,6 +7,7 @@ use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 use InvalidArgumentException;
+use TestApp\Model\Behavior\LegacyCalendarBehavior;
 
 class CalendarBehaviorTest extends TestCase {
 
@@ -170,6 +171,25 @@ class CalendarBehaviorTest extends TestCase {
 	public function testFindRejectsMonthBeyondSupportedBoundary(): void {
 		$this->expectException(InvalidArgumentException::class);
 		$this->Events->find('calendar', year: 9999, month: 12);
+	}
+
+	/**
+	 * @return void
+	 */
+	public function testReleasedDirectFinderOptionsRemainSupported(): void {
+		$behavior = $this->Events->getBehavior('Calendar');
+		$query = $behavior->findCalendar($this->Events->find(), ['year' => (string)date('Y'), 'month' => '12']);
+		$this->assertEqualsCanonicalizing(['One', '4 days', 'Over new years eve'], array_values($query->find('list')->toArray()));
+	}
+
+	/**
+	 * @return void
+	 */
+	public function testReleasedOverrideStillHandlesNamedFinderArguments(): void {
+		$this->Events->removeBehavior('Calendar');
+		$this->Events->addBehavior('Calendar', ['className' => LegacyCalendarBehavior::class] + $this->config);
+		$this->assertCount(3, $this->Events->find('calendar', year: (int)date('Y'), month: 12)->all());
+		$this->assertSame(1, $this->Events->getBehavior('Calendar')->calls);
 	}
 
 }
