@@ -32,7 +32,7 @@ $calendar = $this->components()->get('Calendar');
 $calendar->init($year, $month, 5, ['url' => ['action' => 'calendar']]);
 ```
 
-Both missing date values select the current month. Otherwise, supply an integer year and a month number from 1 to 12, or an English month name such as `february`. Zero-padded strings such as `02` work. Invalid input throws `NotFoundException`.
+Both missing date values select the current month. Zero values also retain this shortcut, including digit strings such as `0` and `00`. Otherwise, supply an integer year and a month number from 1 to 12, or an English month name such as `february`. Zero-padded strings such as `02` work. Invalid input throws `NotFoundException`.
 
 The third argument limits years around the current year, inclusively. Its default is ten. The example permits five years in each direction. The fourth argument supplies view options; `url` can override the navigation route. Avoid overriding the generated `year`, `month`, or `span` values.
 
