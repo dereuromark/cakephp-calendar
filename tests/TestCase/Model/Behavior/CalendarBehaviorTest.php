@@ -86,6 +86,28 @@ class CalendarBehaviorTest extends TestCase {
 	}
 
 	/**
+     * @return void
+     */
+	public function testFindIncludesFinalFractionalSecond(): void {
+		$year = (int)date('Y');
+		$connection = $this->Events->getConnection();
+		$connection->insert('events', [
+			'title' => 'Final fraction',
+			'beginning' => $year . '-12-31 23:59:59.500000',
+		]);
+		$connection->insert('events', [
+			'title' => 'Next month',
+			'beginning' => ($year + 1) . '-01-01 00:00:00',
+		]);
+
+		$titles = $this->Events->find('calendar', year: $year, month: 12)
+			->find('list')->toArray();
+
+		$this->assertContains('Final fraction', $titles);
+		$this->assertNotContains('Next month', $titles);
+	}
+
+	/**
 	 * Gets a new Entity
 	 *
 	 * @param array $data

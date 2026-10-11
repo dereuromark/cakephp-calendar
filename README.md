@@ -11,26 +11,16 @@
 
 A plugin to render simple calendars.
 
-This branch is for **CakePHP 5.1+**. For details see [version map](https://github.com/dereuromark/cakephp-calendar/wiki#cakephp-version-map).
+This branch is for **CakePHP 5**. For details see [version map](https://github.com/dereuromark/cakephp-calendar/wiki#cakephp-version-map).
 
 ## Features
-- Simple and robust
-- No JS needed, more responsive than solutions like fullcalendar
+- Server-rendered HTML without JavaScript
 - Persistent `year/month` URL pieces (copy-paste and link/redirect friendly)
 - IcalView class for `.ics` calendar file output.
 
 ## Demo
 See the demo [Calendar example](https://sandbox.dereuromark.de/sandbox/calendar) at the sandbox.
 
-## Setup
-```
-composer require dereuromark/cakephp-calendar
-```
+## Documentation
 
-Then make sure the plugin is loaded in bootstrap:
-```
-bin/cake plugin load Calendar
-```
-
-## Usage
-See [Documentation](/docs).
+Read the [documentation website](https://dereuromark.github.io/cakephp-calendar/) for [installation](https://dereuromark.github.io/cakephp-calendar/guide/installation) and a [beginner tutorial](https://dereuromark.github.io/cakephp-calendar/guide/getting-started).

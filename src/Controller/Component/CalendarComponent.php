@@ -39,23 +39,28 @@ class CalendarComponent extends Component {
 	public ?int $day = null;
 
 	/**
-	 * @param string|int $year Year
-	 * @param string|int $month Month
+	 * @param string|int|null $year Year
+	 * @param string|int|null $month Month
 	 * @param int $span Years in both directions
 	 * @param array<string, mixed> $options To be passed to previous and next methods
 	 * @throws \Cake\Http\Exception\NotFoundException
 	 * @return void
 	 */
 	public function init($year, $month, int $span = 10, array $options = []): void {
-		if (!is_numeric($month)) {
-			$month = $this->retrieveMonth($month);
-		}
-		$year = (int)$year;
-		$month = (int)$month;
-
-		if (!$year && !$month) {
+		if (($year === null || $year === '') && ($month === null || $month === '')) {
 			$year = (int)date('Y');
 			$month = (int)date('n');
+		} else {
+			if ((!is_int($year) && !is_string($year)) || !preg_match('/^[0-9]+$/D', (string)$year)) {
+				throw new NotFoundException('Invalid date');
+			}
+			if (is_string($month) && !ctype_digit($month)) {
+				$month = $this->retrieveMonth($month);
+			} elseif (!is_int($month) && !is_string($month)) {
+				throw new NotFoundException('Invalid date');
+			}
+			$year = (int)$year;
+			$month = (int)$month;
 		}
 
 		$current = (int)date('Y');
@@ -83,7 +88,7 @@ class CalendarComponent extends Component {
 	/**
 	 * @return int
 	 */
-	public function year() {
+	public function year(): int {
 		if (!$this->year) {
 			throw new RuntimeException('Make sure to first call init().');
 		}
@@ -94,7 +99,7 @@ class CalendarComponent extends Component {
 	/**
 	 * @return int
 	 */
-	public function month() {
+	public function month(): int {
 		if (!$this->month) {
 			throw new RuntimeException('Make sure to first call init().');
 		}
@@ -105,7 +110,7 @@ class CalendarComponent extends Component {
 	/**
 	 * @return string
 	 */
-	public function monthAsString() {
+	public function monthAsString(): string {
 		if (!$this->month) {
 			throw new RuntimeException('Make sure to first call init().');
 		}
@@ -156,14 +161,14 @@ class CalendarComponent extends Component {
 	/**
 	 * @return array
 	 */
-	public function months() {
+	public function months(): array {
 		return $this->monthList;
 	}
 
 	/**
 	 * @return array
 	 */
-	public function days() {
+	public function days(): array {
 		return $this->dayList;
 	}
 

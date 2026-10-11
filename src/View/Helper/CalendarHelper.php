@@ -141,11 +141,12 @@ class CalendarHelper extends Helper {
 			$from = $from->setTime(0, 0, 0);
 		}
 		$month = $this->_View->get('_calendar')['month'];
+		$year = $this->_View->get('_calendar')['year'];
 
 		$days = [];
 		$count = 0;
 		while ($from <= $to) {
-			if ($from->month === $month) {
+			if ($from->year === $year && $from->month === $month) {
 				$days[$count] = $this->retrieveDayFromDate($from);
 			}
 			$from = $from->addDays(1);
