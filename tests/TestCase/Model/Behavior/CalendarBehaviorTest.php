@@ -192,4 +192,37 @@ class CalendarBehaviorTest extends TestCase {
 		$this->assertSame(1, $this->Events->getBehavior('Calendar')->calls);
 	}
 
+	/**
+	 * @return void
+	 */
+	public function testLegacyArrayDispatchRetainsCakeDeprecation(): void {
+		$this->deprecated(function (): void {
+			$this->assertCount(3, $this->Events->find('calendar', ['year' => (string)date('Y'), 'month' => '12'])->all());
+		});
+	}
+
+	/**
+	 * @return void
+	 */
+	public function testDirectFinderRejectsMissingDate(): void {
+		$this->expectException(InvalidArgumentException::class);
+		$this->Events->getBehavior('Calendar')->findCalendar($this->Events->find(), ['year' => date('Y')]);
+	}
+
+	/**
+	 * @return void
+	 */
+	public function testDirectFinderRejectsNonScalarDate(): void {
+		$this->expectException(InvalidArgumentException::class);
+		$this->Events->getBehavior('Calendar')->findCalendar($this->Events->find(), ['year' => [2026], 'month' => 12]);
+	}
+
+	/**
+	 * @return void
+	 */
+	public function testDirectFinderRejectsNonDigitDate(): void {
+		$this->expectException(InvalidArgumentException::class);
+		$this->Events->getBehavior('Calendar')->findCalendar($this->Events->find(), ['year' => '2026junk', 'month' => 12]);
+	}
+
 }

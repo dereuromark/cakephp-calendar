@@ -82,4 +82,15 @@ class CalendarComponentTest extends TestCase {
 		$this->Controller->Calendar->init('invalid', 'unknown');
 	}
 
+	/**
+	 * @return void
+	 */
+	public function testZeroDateSentinelsStillUseCurrentMonth(): void {
+		foreach ([[0, 0], ['0', '0']] as [$year, $month]) {
+			$this->Controller->Calendar->init($year, $month);
+			$this->assertSame((int)date('Y'), $this->Controller->Calendar->year());
+			$this->assertSame((int)date('n'), $this->Controller->Calendar->month());
+		}
+	}
+
 }

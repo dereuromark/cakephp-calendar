@@ -47,7 +47,7 @@ class CalendarComponent extends Component {
 	 * @return void
 	 */
 	public function init($year, $month, int $span = 10, array $options = []): void {
-		if (($year === null || $year === '') && ($month === null || $month === '')) {
+		if (in_array($year, [null, '', 0, '0'], true) && in_array($month, [null, '', 0, '0'], true)) {
 			$year = (int)date('Y');
 			$month = (int)date('n');
 		} else {
