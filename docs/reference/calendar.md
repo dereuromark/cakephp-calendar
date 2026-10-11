@@ -87,4 +87,8 @@ public function findCalendar(SelectQuery $query, int $year, int $month): SelectQ
 
 Use `$table->find('calendar', year: 2026, month: 12)` or call the behavior with a query and two integers. Named finder calls require integer values; strings raise `TypeError`, and missing arguments raise `ArgumentCountError`. Update custom finder overrides to match this declaration. The CakePHP 5 branch retains the released options-array declaration.
 
-This branch prepares the breaking finder contract for the CakePHP 6 upgrade. The framework dependency and CI still use CakePHP 5 until the framework migration is completed.
+This development branch tests the native finder contract against CakePHP 6 and PHP 8.5.
+
+Custom helpers and behaviors now define `$defaultConfig` for configuration defaults. Helpers use the framework's `$View` property. These declarations apply to the CakePHP 6 branch; applications staying on CakePHP 5 should use that branch's API documentation.
+
+Default month names and the multi-day suffix are included in the plugin translation catalog. Custom month names and suffixes still use the `calendar` translation domain; add their messages to your application's catalogs.

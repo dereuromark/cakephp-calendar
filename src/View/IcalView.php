@@ -12,8 +12,6 @@ use Cake\View\View;
  */
 class IcalView extends View {
 
-	protected string $_ext = '.php';
-
 	public string $subDir = 'ics';
 
 	/**

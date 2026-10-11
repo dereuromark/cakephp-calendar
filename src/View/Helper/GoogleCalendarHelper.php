@@ -21,7 +21,7 @@ class GoogleCalendarHelper extends Helper {
 	/**
 	 * @var array<string, mixed>
 	 */
-	protected array $_defaultConfig = [
+	protected array $defaultConfig = [
 		'url' => 'https://calendar.google.com/calendar/render',
 	];
 

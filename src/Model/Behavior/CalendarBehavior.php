@@ -32,7 +32,7 @@ class CalendarBehavior extends Behavior {
 	/**
 	 * @var array<string, mixed>
 	 */
-	protected array $_defaultConfig = [
+	protected array $defaultConfig = [
 		'field' => 'date',
 		'endField' => null,
 		'implementedFinders' => [
