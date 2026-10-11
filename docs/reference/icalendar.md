@@ -38,7 +38,7 @@ echo IcalFormatter::formatCalendar([
 ]);
 ```
 
-Use your own domain in the UID. A persistent UID tied to the record lets calendar clients identify the same event after its title or date changes. The generated fallback UID hashes event values, so it can change when those values change.
+Use your own domain in the UID. A persistent UID tied to the record lets calendar clients identify the same event after its title or date changes. The generated fallback UID hashes the normalized start, all-day flag, summary, and location, so it changes when those values change. Its date normalization corrects the older locale-dependent algorithm; existing feeds using fallback UIDs will receive new identifiers after this change. Supply persistent UIDs to avoid this dependency on formatter internals.
 
 ## Formatter inputs
 

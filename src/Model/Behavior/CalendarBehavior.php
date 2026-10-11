@@ -73,6 +73,9 @@ class CalendarBehavior extends Behavior {
 
 		$from = new DateTime(sprintf('%04d-%02d-01', $year, $month));
 		$to = $from->addMonths(1);
+		if ($to->year > 9999) {
+			throw new InvalidArgumentException('Calendar month exceeds the supported date range');
+		}
 
 		$conditions = [
 			$field . ' >=' => $from,

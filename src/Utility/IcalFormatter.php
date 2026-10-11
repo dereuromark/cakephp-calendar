@@ -7,7 +7,6 @@ use DateTimeImmutable;
 use DateTimeInterface;
 use DateTimeZone;
 use InvalidArgumentException;
-use Stringable;
 
 /**
  * Formats event arrays into RFC 5545 (`text/calendar`) output suitable
@@ -259,10 +258,10 @@ class IcalFormatter {
 	 * @return string
 	 */
 	protected static function generateUid(array $event): string {
+		$start = static::toDateTime($event['start']);
 		$stable = [
-			'start' => $event['start'] instanceof DateTimeInterface && !($event['start'] instanceof Stringable)
-				? $event['start']->format('c')
-				: (string)$event['start'],
+			'start' => !empty($event['allDay']) ? $start->format('Ymd') : static::formatDateTime($start),
+			'allDay' => !empty($event['allDay']),
 			'summary' => (string)($event['summary'] ?? ''),
 			'location' => (string)($event['location'] ?? ''),
 		];

@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace Calendar\Test\TestCase\Utility;
 
+use Cake\I18n\DateTime;
+use Cake\I18n\I18n;
 use Cake\TestSuite\TestCase;
 use Calendar\Utility\IcalFormatter;
 use DateTimeImmutable;
@@ -220,6 +222,27 @@ class IcalFormatterTest extends TestCase {
 		preg_match('/UID:([^\r\n]+)/', $output, $first);
 		preg_match('/UID:([^\r\n]+)/', IcalFormatter::formatEvent($event), $second);
 		$this->assertSame($first[1], $second[1]);
+	}
+
+	public function testGeneratedUidIgnoresLocaleAndTimezoneRepresentation(): void {
+		$originalLocale = I18n::getLocale();
+		try {
+			I18n::setLocale('en_US');
+			$event = ['start' => new DateTime('2026-05-12 09:00:00+00:00')];
+			preg_match('/UID:([^\r\n]+)/', IcalFormatter::formatEvent($event), $first);
+			I18n::setLocale('de_DE');
+			preg_match('/UID:([^\r\n]+)/', IcalFormatter::formatEvent($event), $localized);
+			$event['start'] = new DateTimeImmutable('2026-05-12 11:00:00+02:00');
+			preg_match('/UID:([^\r\n]+)/', IcalFormatter::formatEvent($event), $offset);
+			$event['start'] = new DateTimeImmutable('2026-05-12 09:00:30+00:00');
+			preg_match('/UID:([^\r\n]+)/', IcalFormatter::formatEvent($event), $different);
+
+			$this->assertSame($first[1], $localized[1]);
+			$this->assertSame($first[1], $offset[1]);
+			$this->assertNotSame($first[1], $different[1]);
+		} finally {
+			I18n::setLocale($originalLocale);
+		}
 	}
 
 }

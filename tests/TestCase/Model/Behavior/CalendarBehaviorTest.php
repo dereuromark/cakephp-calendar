@@ -167,4 +167,9 @@ class CalendarBehaviorTest extends TestCase {
 		$this->assertSame('0005-02-01', $bindings[0]['value']->format('Y-m-d'));
 	}
 
+	public function testFindRejectsMonthBeyondSupportedBoundary(): void {
+		$this->expectException(InvalidArgumentException::class);
+		$this->Events->find('calendar', year: 9999, month: 12);
+	}
+
 }

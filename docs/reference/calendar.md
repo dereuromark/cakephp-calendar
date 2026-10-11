@@ -20,7 +20,7 @@ Use named finder arguments with integers. Convert request strings to integers fi
 $events = $this->fetchTable('Events')->find('calendar', year: 2026, month: 2);
 ```
 
-Without an end field, the finder selects starts at or after the first instant of the month and before the first instant of the next month. With an end field, it also selects events starting before the next month whose end is later than the selected month's start. Events that end exactly at the month's start do not overlap it. Invalid month/year combinations throw `InvalidArgumentException`.
+Without an end field, the finder selects starts at or after the first instant of the month and before the first instant of the next month. With an end field, it also selects events starting before the next month whose end is later than the selected month's start. Events that end exactly at the month's start do not overlap it. Invalid month/year combinations throw `InvalidArgumentException`. Years must fit four digits; December 9999 is rejected because its exclusive next-month boundary exceeds that range.
 
 The finder adds conditions and returns a query; it does not sort, paginate, or enforce access permissions. Chain your application's filters and ordering as needed. Date boundaries use the application's default timezone; configure database date handling consistently.
 
